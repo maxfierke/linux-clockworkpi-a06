@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-4.18
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=4.18.5
+pkgver=4.18.8
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -27,12 +27,12 @@ source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
         'linux.preset'
         '99-linux.hook')
 md5sums=('bee5fe53ee1c3142b8f0c12c0d3348f9'
-         'c49635fe383e69a7a134d633912d646a'
+         '548cb705ab3352155494411c5c6e4c7f'
          'be4199c685434f12190bb627bb714ff2'
          'b4d613a58a28445ce8363d734be3b971'
          'b9bec2a58df6dff282df758edf8f526e'
          '9915046e15f82e917bc98c7721e63ac4'
-         '0d2fb0d6ad977f104915f757d3f6af04'
+         '96969a438a2a4e39df5ed44e8ba68c03'
          '11a4f35c50f0bde59c30182aa7b797b7'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -91,7 +91,9 @@ build() {
 
   # build!
   unset LDFLAGS
-  make ${MAKEFLAGS} Image Image.gz modules dtbs
+  make ${MAKEFLAGS} Image Image.gz modules
+  # Generate device tree blobs with symbols to support applying device tree overlays in U-Boot
+  make ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
 }
 
 _package() {
