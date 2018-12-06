@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-4.19
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=4.19.4
+pkgver=4.19.6
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -28,7 +28,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
         'linux.preset'
         '99-linux.hook')
 md5sums=('740a90cf810c2105df8ee12e5d0bb900'
-         'b8be99a0716df1ddf22a6872fcf7be33'
+         '62b3734bb12b9a74b6b484f877493c41'
          '649c026be704355946a4f008754f3dc5'
          '3269181ce2a9d63a85cef0db36d80189'
          '9dee22229f3dc8ebe2f12077b4577ac6'
@@ -44,6 +44,14 @@ md5sums=('740a90cf810c2105df8ee12e5d0bb900'
 prepare() {
   sed -i s/'CONFIG_LOCALVERSION="-ARCH"'/'CONFIG_LOCALVERSION="-MANJARO-ARM"'/ config
   sed -i s/'# CONFIG_NTFS_FS is not set'/'CONFIG_NTFS_FS=y\nCONFIG_NTFS_RW=y\nCONFIG_NTFS_DEBUG=n'/ config
+  sed -i s/'CONFIG_AUDIT=y'/'CONFIG_AUDIT=n'/ config
+  sed -i s/'CONFIG_HAVE_ARCH_AUDITSYSCALL=y'/'CONFIG_HAVE_ARCH_AUDITSYSCALL=n'/ config
+  sed -i s/'CONFIG_AUDITSYSCALL=y'/'CONFIG_AUDITSYSCALL=n'/ config
+  sed -i s/'CONFIG_AUDIT_WATCH=y'/'CONFIG_AUDIT_WATCH=n'/ config
+  sed -i s/'CONFIG_AUDIT_TREE=y'/'CONFIG_AUDIT_TREE=n'/ config
+  sed -i s/'CONFIG_AUDIT_GENERIC=y'/'CONFIG_AUDIT_GENERIC=n'/ config
+  sed -i s/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=y'/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=n'/ config
+
 
   cd "${srcdir}/${_srcname}"
 
