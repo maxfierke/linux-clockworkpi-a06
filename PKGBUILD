@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-4.20
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=4.20.0
+pkgver=4.20.1
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,12 +15,12 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0005-Revert-ARM-dts-bcm2837-Fix-polarity-of-wifi-reset-GP.patch'
+        '0005-mmc-sdhci-iproc-handle-mmc_of_parse-errors-during-pr.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -28,11 +28,12 @@ source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
         'linux.preset'
         '99-linux.hook')
 md5sums=('d39dd4ba2d5861c54b90d49be19eaf31'
+         '7e40323befd2f78e5332ee19db6ec7b0'
          '6280bbce4412b246197daa4c910488c2'
          '6e806f8ea1545422539f3c8c20558a82'
          'a43dbc3cc8f52b5329accf1694bd1de9'
          'd10a52cb5878020b527cf335b74165e0'
-         'a7b1c61da189918ed7554282a3a75b21'
+         '66b2ce380f45395e5ad19274ea335e36'
          '38e8d478b72e09dbd952638dc4cf348e'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
@@ -54,14 +55,14 @@ sed -i s/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=y'/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=
   cd "${srcdir}/${_srcname}"
 
   # add upstream patch
-  #git apply --whitespace=nowarn ../patch-${pkgver}
+  git apply --whitespace=nowarn ../patch-${pkgver}
 
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
   git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
   git apply ../0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch
   git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
-  git apply ../0005-Revert-ARM-dts-bcm2837-Fix-polarity-of-wifi-reset-GP.patch
+  git apply ../0005-mmc-sdhci-iproc-handle-mmc_of_parse-errors-during-pr.patch
 
   cat "${srcdir}/config" > ./.config
 
