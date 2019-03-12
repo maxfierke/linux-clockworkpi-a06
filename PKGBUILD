@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.0
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,12 +15,12 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0005-fix-usb2-on-rock64.patch'
+        '0005-arm64-dts-rockchip-Fix-vcc_host1_5v-GPIO-polarity-on.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -29,11 +29,12 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('7381ce8aac80a01448e065ce795c19c0'
-         'ba4daec24d71b25d6db1e29bf95ba22f'
-         'dd09eca8f8c516667e995fc3db1d2236'
-         'a8f434da98e1b192f0486b6ba6458616'
-         'a36f126cb864d14294a6735124c795c5'
-         '87de16c8ab75fe4c76eb1a3fbaad05bb'
+         '488f0f1b00a0861b4c3ddf578f1bd548'
+         'bca6950ebc7146384de4d37579bf576b'
+         '4aa33b50a14edcc63a406a4de744c413'
+         'dc8ec5415f6a1af425316c310f747fa7'
+         '4477684c49622c88884efb4bb7aeb3a3'
+         'fc1413b1931091271449b9d78a05c984'
          'a6f792a3813d2ae1f69a342eaf46dfd4'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
@@ -56,14 +57,14 @@ sed -i s/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=y'/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=
   cd "${srcdir}/${_srcname}"
 
   # add upstream patch
-  #git apply --whitespace=nowarn ../patch-${pkgver}
+  git apply --whitespace=nowarn ../patch-${pkgver}
 
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
   git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
   git apply ../0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch
   git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
-  git apply ../0005-fix-usb2-on-rock64.patch
+  git apply ../0005-arm64-dts-rockchip-Fix-vcc_host1_5v-GPIO-polarity-on.patch
 
   cat "${srcdir}/config" > ./.config
 
