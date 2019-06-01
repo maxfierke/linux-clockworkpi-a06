@@ -8,7 +8,7 @@ _srcname=linux-5.1
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.1.5
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -33,7 +33,7 @@ md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
          'eee2e8059822d48f18086f4b36ed30bf'
          '910651d04b2f5fea9889df596b329035'
          'bd11e72a670134a38a75da3435bf8bcb'
-         'b87105f46091e1976147780fc4cd43e5'
+         '7867b6370a0728cdfb615ce28591be91'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -54,6 +54,7 @@ sed -i s/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=y'/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=
 sed -i s/'CONFIG_MEDIA_SUPPORT=m'/'CONFIG_MEDIA_SUPPORT=y'/ config
 sed -i s/'# CONFIG_MEDIA_CONTROLLER_REQUEST_API is not set'/'CONFIG_MEDIA_CONTROLLER_REQUEST_API=y'/ config
 sed -i s/'CONFIG_VIDEO_SUNXI=y'/'CONFIG_VIDEO_SUNXI=y\nCONFIG_VIDEO_SUNXI_CEDRUS=y'/ config
+
   cd "${srcdir}/${_srcname}"
 
   # add upstream patch
