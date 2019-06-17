@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.1
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.1.7
+pkgver=5.1.10
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -20,6 +20,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
+        '0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -28,12 +29,13 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
-         '85886aae897ffbe50810c4fc653479ee'
-         '6af957dedb319049ddc903f5730d3ae8'
-         'eee2e8059822d48f18086f4b36ed30bf'
-         '910651d04b2f5fea9889df596b329035'
-         'bd11e72a670134a38a75da3435bf8bcb'
-         'becd30f71297bd680c299dedf30639ed'
+         'ed9f434a50e10362d507ac51aaf176fd'
+         'e7c230feaf1cbfe8218c168f16e29705'
+         'cc493c5cbbb33c658fe5d3a1ac080746'
+         '9ba350b5963c213d92805976c1954c16'
+         'd6d7168c076a87cff90f25d5a2b747cd'
+         '157653a127050aadabbf14f2da378c9f'
+         'c47eb1142114596f1a75695b6273ee54'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -64,6 +66,7 @@ sed -i s/'CONFIG_VIDEO_SUNXI=y'/'CONFIG_VIDEO_SUNXI=y\nCONFIG_VIDEO_SUNXI_CEDRUS
   git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
   git apply ../0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch
   git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
+  git apply ../0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch
 
   cat "${srcdir}/config" > ./.config
 
