@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.1
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.1.15
+pkgver=5.1.16
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -29,13 +29,13 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
-         'aed4686410e23561f67f5c512d0a6245'
+         'b403e6f0d4c2deca32cf064166aae4af'
          'e7c230feaf1cbfe8218c168f16e29705'
          'cc493c5cbbb33c658fe5d3a1ac080746'
          '9ba350b5963c213d92805976c1954c16'
          'd6d7168c076a87cff90f25d5a2b747cd'
          '157653a127050aadabbf14f2da378c9f'
-         '74cff5fe73c8d64d4d7a4353e7e1ac39'
+         'bcc5a62d49dde607bb1c0e4a8611c703'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -54,10 +54,8 @@ sed -i s/'CONFIG_AUDIT_TREE=y'/'CONFIG_AUDIT_TREE=n'/ config
 sed -i s/'CONFIG_AUDIT_GENERIC=y'/'CONFIG_AUDIT_GENERIC=n'/ config
 sed -i s/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=y'/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=n'/ config
 sed -i s/'CONFIG_MEDIA_SUPPORT=m'/'CONFIG_MEDIA_SUPPORT=y'/ config
-sed -i s/'# CONFIG_MEDIA_CONTROLLER_REQUEST_API is not set'/'CONFIG_MEDIA_CONTROLLER_REQUEST_API=y'/ config
 sed -i s/'CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y'/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y'/ config
 sed -i s/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set'/'CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y'/ config
-sed -i s/'CONFIG_VIDEO_SUNXI=y'/'CONFIG_VIDEO_SUNXI=y\nCONFIG_VIDEO_SUNXI_CEDRUS=y'/ config
 
   cd ${_srcname}
 
