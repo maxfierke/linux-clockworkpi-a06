@@ -1,0 +1,37 @@
+From 268c7c085d8702571ba3d61379acfd1aa39f5815 Mon Sep 17 00:00:00 2001
+From: Strit <strit@manjaro.org>
+Date: Tue, 9 Jul 2019 12:34:28 +0200
+Subject: [PATCH 1/2] enable bluetooth on pinebook
+
+---
+ .../boot/dts/allwinner/sun50i-a64-pinebook.dts     | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinebook.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinebook.dts
+index 2b6345db7dc0..48312cdaa815 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinebook.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinebook.dts
+@@ -338,6 +338,20 @@
+ 	status = "okay";
+ };
+ 
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart1_pins>, <&uart1_rts_cts_pins>;
++	status = "okay";
++
++	bluetooth {
++		compatible = "realtek,rtl8723cs-bt";
++		reset-gpios = <&r_pio 0 4 GPIO_ACTIVE_LOW>; /* PL4 */
++		device-wake-gpios = <&r_pio 0 5 GPIO_ACTIVE_LOW>; /* PL5 */
++		host-wake-gpios = <&r_pio 0 6 GPIO_ACTIVE_HIGH>; /* PL6 */
++		firmware-postfix = "pinebook";
++	};
++};
++
+ &usb_otg {
+ 	dr_mode = "host";
+ };
+-- 
+2.22.0
+

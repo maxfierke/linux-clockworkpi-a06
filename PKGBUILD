@@ -4,20 +4,25 @@
 buildarch=8
 
 pkgbase=linux-aarch64
-_srcname=linux-5.1
+_srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.1.16
-pkgrel=1
+pkgver=5.2.0
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        '0001-enable-bluetooth-on-pinebook.patch'
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
+        '0002-add-pinmux-for-RGB666-LCD.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
+        '0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch'
+        '0002-enable-lcd-on-pinebook.patch'
+        '0002-fix-some-logitiech-usb-keyboards.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
         '0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch'
@@ -28,14 +33,18 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
-         'b403e6f0d4c2deca32cf064166aae4af'
-         'e7c230feaf1cbfe8218c168f16e29705'
-         'cc493c5cbbb33c658fe5d3a1ac080746'
-         '9ba350b5963c213d92805976c1954c16'
-         'd6d7168c076a87cff90f25d5a2b747cd'
-         '157653a127050aadabbf14f2da378c9f'
-         'bcc5a62d49dde607bb1c0e4a8611c703'
+md5sums=('ddf994de00d7b18395886dd9b30b9262'
+         '2c270e05381600bdf3bba046c8ec1a13'
+         '6ee347975dca719ecd63a846cc5983b2'
+         '343b412af76562bb0b6b2bf2dc4dfd40'
+         '7005141e542864b4e3cf6141ff642cf9'
+         '9f4e2515724f170935681abc2fa62273'
+         '313e98ee67e13360245018935a34ff3b'
+         '560f1b6178069119eeb4d7be3d5cc4de'
+         '9986e28b5c2c3c62a5c3bb53abd94640'
+         '552ea82c3a5e14ca9149da8c4b4d5a82'
+         '79a9339191904f10f5659eea9cf51a6c'
+         '3520aed457aba917d9160581ef7552c3'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -60,7 +69,7 @@ sed -i s/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set'/'CONFIG_CPU_FREQ_DE
   cd ${_srcname}
 
   # add upstream patch
-  git apply --whitespace=nowarn ../patch-${pkgver}
+  #git apply --whitespace=nowarn ../patch-${pkgver}
 
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
@@ -68,6 +77,13 @@ sed -i s/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set'/'CONFIG_CPU_FREQ_DE
   git apply ../0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch
   git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
   git apply ../0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch
+  
+  # Manjaro ARM Patches
+  git apply ../0001-enable-bluetooth-on-pinebook.patch
+  git apply ../0002-add-pinmux-for-RGB666-LCD.patch
+  git apply ../0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch
+  git apply ../0002-enable-lcd-on-pinebook.patch
+  git apply ../0002-fix-some-logitiech-usb-keyboards.patch
 
   cat "${srcdir}/config" > ./.config
 
@@ -238,34 +254,7 @@ _package-headers() {
   done < <(find "${_builddir}/scripts" -type f -perm -u+w -print0 2>/dev/null)
 }
 
-_package-chromebook() {
-  pkgdesc="The Linux Kernel - ${_desc} - Chromebooks"
-  depends=('linux-aarch64')
-  conflicts=('linux-aarch64-rc-chromebook')
-  install=${pkgname}.install
-
-  cd ${_srcname}
-
-  mkdir -p "${pkgdir}/boot"
-  cp ../kernel.its .
-
-  mkimage -D "-I dts -O dtb -p 2048" -f kernel.its vmlinux.uimg
-  dd if=/dev/zero of=bootloader.bin bs=512 count=1
-  echo "console=tty0 console=ttyS2,115200n8 earlyprintk=ttyS2,115200n8 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
-  vbutil_kernel \
-    --pack vmlinux.kpart \
-    --version 1 \
-    --vmlinuz vmlinux.uimg \
-    --arch aarch64 \
-    --keyblock ../kernel.keyblock \
-    --signprivate ../kernel_data_key.vbprivk \
-    --config cmdline \
-    --bootloader bootloader.bin
-
-  cp vmlinux.kpart "${pkgdir}/boot"
-}
-
-pkgname=("${pkgbase}" "${pkgbase}-headers" "${pkgbase}-chromebook")
+pkgname=("${pkgbase}" "${pkgbase}-headers")
 for _p in ${pkgname[@]}; do
   eval "package_${_p}() {
     _package${_p#${pkgbase}}

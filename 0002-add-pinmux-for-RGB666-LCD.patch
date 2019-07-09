@@ -1,0 +1,32 @@
+From 1c0f7db5f6653c003350b56e301f0c7daa6b068d Mon Sep 17 00:00:00 2001
+From: Dan Johansen <strit@manjaro.org>
+Date: Tue, 9 Jul 2019 15:20:22 +0200
+Subject: [PATCH 2/2] add pinmux for RGB666 LCD
+
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
+index 8c5b521e6389..44be41dad79b 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
+@@ -610,6 +610,15 @@
+ 				pins = "PH2", "PH3";
+ 				function = "i2c1";
+ 			};
++            
++			lcd_rgb666_pins: lcd-rgb666 {
++				pins = "PD0", "PD1", "PD2", "PD3", "PD4",
++				       "PD5", "PD6", "PD7", "PD8", "PD9",
++				       "PD10", "PD11", "PD12", "PD13",
++				       "PD14", "PD15", "PD16", "PD17",
++				       "PD18", "PD19", "PD20", "PD21";
++				function = "lcd0";
++			};
+ 
+ 			mmc0_pins: mmc0-pins {
+ 				pins = "PF0", "PF1", "PF2", "PF3",
+-- 
+2.22.0
+
