@@ -7,15 +7,15 @@ pkgbase=linux-aarch64
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.2.0
-pkgrel=2
+pkgver=5.2.1
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-enable-bluetooth-on-pinebook.patch'
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-add-pinmux-for-RGB666-LCD.patch'
@@ -34,6 +34,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
+         'a45be902d46625f7b554f17bab3686f0'
          '2c270e05381600bdf3bba046c8ec1a13'
          '6ee347975dca719ecd63a846cc5983b2'
          '343b412af76562bb0b6b2bf2dc4dfd40'
@@ -69,7 +70,7 @@ sed -i s/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set'/'CONFIG_CPU_FREQ_DE
   cd ${_srcname}
 
   # add upstream patch
-  #git apply --whitespace=nowarn ../patch-${pkgver}
+  git apply --whitespace=nowarn ../patch-${pkgver}
 
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
