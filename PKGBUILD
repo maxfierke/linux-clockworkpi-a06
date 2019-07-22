@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.2.1
+pkgver=5.2.2
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -16,12 +16,9 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' '
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
-        '0001-enable-bluetooth-on-pinebook.patch'
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
-        '0002-add-pinmux-for-RGB666-LCD.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch'
-        '0002-enable-lcd-on-pinebook.patch'
         '0002-fix-some-logitiech-usb-keyboards.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
@@ -34,13 +31,10 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         'a45be902d46625f7b554f17bab3686f0'
-         '2c270e05381600bdf3bba046c8ec1a13'
+         '04570df0f994992d4148cb9bde65006a'
          '6ee347975dca719ecd63a846cc5983b2'
-         '343b412af76562bb0b6b2bf2dc4dfd40'
          '7005141e542864b4e3cf6141ff642cf9'
          '9f4e2515724f170935681abc2fa62273'
-         '313e98ee67e13360245018935a34ff3b'
          '560f1b6178069119eeb4d7be3d5cc4de'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -80,10 +74,7 @@ sed -i s/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set'/'CONFIG_CPU_FREQ_DE
   git apply ../0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch
   
   # Manjaro ARM Patches
-  git apply ../0001-enable-bluetooth-on-pinebook.patch
-  git apply ../0002-add-pinmux-for-RGB666-LCD.patch
   git apply ../0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch
-  git apply ../0002-enable-lcd-on-pinebook.patch
   git apply ../0002-fix-some-logitiech-usb-keyboards.patch
 
   cat "${srcdir}/config" > ./.config
