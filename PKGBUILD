@@ -8,7 +8,7 @@ _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.2.7
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -79,7 +79,7 @@ sed -i s/'# CONFIG_SND_SUN4I_I2S is not set'/'CONFIG_SND_SUN4I_I2S=m'/ config
   # Manjaro ARM Patches
   git apply ../0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch
   git apply ../0002-fix-some-logitiech-usb-keyboards.patch
-  git apply ../0002-revert-Add-capacity-dmips-mhz-attributes-to-rk3399.patch
+  #git apply ../0002-revert-Add-capacity-dmips-mhz-attributes-to-rk3399.patch
 
   cat "${srcdir}/config" > ./.config
 
