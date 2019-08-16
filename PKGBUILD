@@ -7,7 +7,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.2.8
+pkgver=5.2.9
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -23,7 +23,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
         '0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch'
-        '0002-revert-Add-capacity-dmips-mhz-attributes-to-rk3399.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -32,7 +31,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         '86638e3bb71b4b0494d4c7f0851a54b1'
+         '8e44c6541cfd15b87906eaf2ce91a3b9'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9f4e2515724f170935681abc2fa62273'
@@ -40,7 +39,6 @@ md5sums=('ddf994de00d7b18395886dd9b30b9262'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
          '79a9339191904f10f5659eea9cf51a6c'
-         '83e9337154271bdbe63f3bbf52cc46fe'
          'eb3efd75ce7d4a9b9912df1b8ead1d90'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
@@ -79,7 +77,6 @@ sed -i s/'# CONFIG_SND_SUN4I_I2S is not set'/'CONFIG_SND_SUN4I_I2S=m'/ config
   # Manjaro ARM Patches
   git apply ../0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch
   git apply ../0002-fix-some-logitiech-usb-keyboards.patch
-  #git apply ../0002-revert-Add-capacity-dmips-mhz-attributes-to-rk3399.patch
 
   cat "${srcdir}/config" > ./.config
 
