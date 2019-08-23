@@ -1,5 +1,6 @@
 # AArch64 multi-platform
-# Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
+# Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
+# Maintainer: Dan Johansen <strit@manjaro.org>
 
 buildarch=8
 
