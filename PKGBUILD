@@ -8,7 +8,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.2
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.2.11
+pkgver=5.2.13
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -23,7 +23,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-fix-some-logitiech-usb-keyboards.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -32,15 +31,14 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         '44dfa2755410b72ee660fa29bfb15af1'
+         '3310549071f185161b8b605ac43d3dd0'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9f4e2515724f170935681abc2fa62273'
          '560f1b6178069119eeb4d7be3d5cc4de'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         '79a9339191904f10f5659eea9cf51a6c'
-         'eb3efd75ce7d4a9b9912df1b8ead1d90'
+         'e4944df94345ea7949b4b5e8457db06c'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -49,20 +47,6 @@ md5sums=('ddf994de00d7b18395886dd9b30b9262'
          '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
-sed -i s/'CONFIG_LOCALVERSION="-ARCH"'/'CONFIG_LOCALVERSION="-MANJARO-ARM"'/ config
-sed -i s/'# CONFIG_NTFS_FS is not set'/'CONFIG_NTFS_FS=y\nCONFIG_NTFS_RW=y\nCONFIG_NTFS_DEBUG=n'/ config
-sed -i s/'CONFIG_AUDIT=y'/'CONFIG_AUDIT=n'/ config
-sed -i s/'CONFIG_HAVE_ARCH_AUDITSYSCALL=y'/'CONFIG_HAVE_ARCH_AUDITSYSCALL=n'/ config
-sed -i s/'CONFIG_AUDITSYSCALL=y'/'CONFIG_AUDITSYSCALL=n'/ config
-sed -i s/'CONFIG_AUDIT_WATCH=y'/'CONFIG_AUDIT_WATCH=n'/ config
-sed -i s/'CONFIG_AUDIT_TREE=y'/'CONFIG_AUDIT_TREE=n'/ config
-sed -i s/'CONFIG_AUDIT_GENERIC=y'/'CONFIG_AUDIT_GENERIC=n'/ config
-sed -i s/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=y'/'CONFIG_AUDIT_ARCH_COMPAT_GENERIC=n'/ config
-sed -i s/'CONFIG_MEDIA_SUPPORT=m'/'CONFIG_MEDIA_SUPPORT=y'/ config
-sed -i s/'CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y'/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y'/ config
-sed -i s/'# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set'/'CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y'/ config
-sed -i s/'# CONFIG_SND_SUN4I_I2S is not set'/'CONFIG_SND_SUN4I_I2S=m'/ config
-
   cd ${_srcname}
 
   # add upstream patch
@@ -73,7 +57,6 @@ sed -i s/'# CONFIG_SND_SUN4I_I2S is not set'/'CONFIG_SND_SUN4I_I2S=m'/ config
   git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
   git apply ../0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch
   git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
-  git apply ../0005-watchdog-bcm2835_wdt-Fix-module-autoload.patch
   
   # Manjaro ARM Patches
   git apply ../0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch
@@ -103,7 +86,7 @@ build() {
   # ... or manually edit .config
 
   # Copy back our configuration (use with new kernel version)
-  #cp ./.config ../${pkgbase}.config
+  #cp ./.config /var/tmp/${pkgbase}.config
 
   ####################
   # stop here
