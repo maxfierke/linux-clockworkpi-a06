@@ -5,10 +5,10 @@
 buildarch=8
 
 pkgbase=linux-aarch64
-_srcname=linux-5.2
+_srcname=linux-5.3
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.2.13
+pkgver=5.3
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -16,13 +16,14 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
-        '0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch'
-        '0002-fix-some-logitiech-usb-keyboards.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
+        '0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch'
+        '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
+        '0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -30,15 +31,15 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('ddf994de00d7b18395886dd9b30b9262'
-         '3310549071f185161b8b605ac43d3dd0'
+md5sums=('c99feaade8047339528fb066ec5f8a49'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
-         '9f4e2515724f170935681abc2fa62273'
-         '560f1b6178069119eeb4d7be3d5cc4de'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         'e4944df94345ea7949b4b5e8457db06c'
+         '481f71a08407ec05b2cc055067290015'
+         '9794b98c0c7cb4ae1fa8787c927eec6f'
+         '0d725f57e615ef36fd25be61da25531d'
+         '12305c60f580b9f1ea7b7b6262b921a0'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -50,7 +51,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  git apply --whitespace=nowarn ../patch-${pkgver}
+  #git apply --whitespace=nowarn ../patch-${pkgver}
 
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
@@ -59,9 +60,10 @@ prepare() {
   git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
   
   # Manjaro ARM Patches
-  git apply ../0002-arm64-dts-rockchip-enable-wifi-bt-hdmiaudio-on-rockp.patch
-  git apply ../0002-fix-some-logitiech-usb-keyboards.patch
-
+  git apply ../0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch
+  git apply ../0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch
+  git apply ../0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch
+  
   cat "${srcdir}/config" > ./.config
 
   # add pkgrel to extraversion
