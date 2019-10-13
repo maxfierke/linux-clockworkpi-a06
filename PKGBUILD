@@ -8,7 +8,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.3
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.3.4
+pkgver=5.3.6
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -30,9 +30,22 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'kernel_data_key.vbprivk'
         'linux.preset'
         '60-linux.hook'
-        '90-linux.hook')
+        '90-linux.hook'
+        '0001-bootsplash.patch'
+        '0002-bootsplash.patch'
+        '0003-bootsplash.patch'
+        '0004-bootsplash.patch'
+        '0005-bootsplash.patch'
+        '0006-bootsplash.patch'
+        '0007-bootsplash.patch'
+        '0008-bootsplash.patch'
+        '0009-bootsplash.patch'
+        '0010-bootsplash.patch'
+        '0011-bootsplash.patch'
+        '0012-bootsplash.patch'
+        '0013-bootsplash.patch')
 md5sums=('c99feaade8047339528fb066ec5f8a49'
-         'e9110e2b4d4f48e1142ff3c8e059b8ca'
+         '2c2db421d422d0d7306fe230c65c862c'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -40,13 +53,26 @@ md5sums=('c99feaade8047339528fb066ec5f8a49'
          '481f71a08407ec05b2cc055067290015'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
          '0d725f57e615ef36fd25be61da25531d'
-         '12305c60f580b9f1ea7b7b6262b921a0'
+         '40cc8e2e10ef66612228a34f3944cd9b'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
          '41cb5fef62715ead2dd109dbea8413d6'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
-         '3dc88030a8f2f5a5f97266d99b149f77')
+         '3dc88030a8f2f5a5f97266d99b149f77'
+         'f13cfcd8a4667ecca68bccefee4b8283'
+         'b4acd66a564af83b5409738c40b4a566'
+         'a6407dceae1838f5aa27450401a91be6'
+         'cb78b1c11b917a4d31c4b1567183b76f'
+         '3efea575da7f02ba94789d3b6b81e11f'
+         '2529ad13791b259d80c9d5d702187a65'
+         'efd2367798cc4eab0e15fc0ae44fb003'
+         '50255aac36e002afa477e4527a0550af'
+         '6b6def41b404422dc04b39e2f1adffc8'
+         '1922e3a7727d2bf51641b98d6d354738'
+         'd6b7e4e43e42128cf950251e0d0aee23'
+         'ecfd8a30c480149005fcf349e4d06f4b'
+         '2ead9aa2df230c83539e3ebf6b796b18')
 
 prepare() {
   cd ${_srcname}
@@ -64,6 +90,20 @@ prepare() {
   git apply ../0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch
   git apply ../0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch
   git apply ../0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch
+  # Bootsplash patches
+  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  git apply -p1 < "${srcdir}/0013-bootsplash.patch"
   
   cat "${srcdir}/config" > ./.config
 
