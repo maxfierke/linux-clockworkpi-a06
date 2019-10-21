@@ -8,7 +8,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.3
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.3.6
+pkgver=5.3.7
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -45,7 +45,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-bootsplash.patch'
         '0013-bootsplash.patch')
 md5sums=('c99feaade8047339528fb066ec5f8a49'
-         '2c2db421d422d0d7306fe230c65c862c'
+         '380185019ba22d3d2eac85b5678729bd'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -53,7 +53,7 @@ md5sums=('c99feaade8047339528fb066ec5f8a49'
          '481f71a08407ec05b2cc055067290015'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
          '0d725f57e615ef36fd25be61da25531d'
-         '40cc8e2e10ef66612228a34f3944cd9b'
+         'e5231fb6988fa442fedce500cf2ec141'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
