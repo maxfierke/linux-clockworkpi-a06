@@ -8,7 +8,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.3
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.3.7
+pkgver=5.3.8
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -24,6 +24,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch'
         '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
         '0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
+        '0004-text_offset.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -45,7 +46,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-bootsplash.patch'
         '0013-bootsplash.patch')
 md5sums=('c99feaade8047339528fb066ec5f8a49'
-         '380185019ba22d3d2eac85b5678729bd'
+         'bc4fb6eff8cc62dafc097cb561a51729'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -53,7 +54,8 @@ md5sums=('c99feaade8047339528fb066ec5f8a49'
          '481f71a08407ec05b2cc055067290015'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
          '0d725f57e615ef36fd25be61da25531d'
-         'e5231fb6988fa442fedce500cf2ec141'
+         'a6c685e8e64bbd52cc9b599e19c5f79a'
+         '0cf3ef6b6bffae0ba5a8eed6579c3e3e'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -90,6 +92,7 @@ prepare() {
   git apply ../0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch
   git apply ../0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch
   git apply ../0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch
+  patch -Np1 -i "${srcdir}/0004-text_offset.patch"
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
