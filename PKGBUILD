@@ -9,7 +9,7 @@ _srcname=linux-5.3
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.3.9
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -25,6 +25,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
         '0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
         '0004-text_offset.patch'
+        '0005-panel-simple-support-pinebook-pro.patch'
+        '0006-support-for-cw2015.patch'
+        '0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -55,7 +58,10 @@ md5sums=('c99feaade8047339528fb066ec5f8a49'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
          '0d725f57e615ef36fd25be61da25531d'
          'a6c685e8e64bbd52cc9b599e19c5f79a'
-         '0cf3ef6b6bffae0ba5a8eed6579c3e3e'
+         '509e5b0bfa516ebf3abf75220974fd45'
+         '9596edb65be2bd7c85e263fbdfa8458b'
+         'be7988a1ee96ff666ca4d8aa66cb9ed6'
+         '30d19c3fd011268bf953fd565e28ca5b'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -93,6 +99,9 @@ prepare() {
   git apply ../0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch
   git apply ../0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch
   patch -Np1 -i "${srcdir}/0004-text_offset.patch"
+  git apply ../0005-panel-simple-support-pinebook-pro.patch
+  git apply ../0006-support-for-cw2015.patch
+  git apply ../0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"

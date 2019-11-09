@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.3.8-1 Kernel Configuration
+# Linux/arm64 5.3.9-2 Kernel Configuration
 #
 
 #
@@ -4190,6 +4190,7 @@ CONFIG_POWER_SUPPLY_HWMON=y
 # CONFIG_GENERIC_ADC_BATTERY is not set
 # CONFIG_TEST_POWER is not set
 # CONFIG_CHARGER_ADP5061 is not set
+CONFIG_BATTERY_CW2015=y
 # CONFIG_BATTERY_DS2760 is not set
 # CONFIG_BATTERY_DS2780 is not set
 # CONFIG_BATTERY_DS2781 is not set
