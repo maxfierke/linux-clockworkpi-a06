@@ -8,7 +8,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.4
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.4.0
+pkgver=5.4.1
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -16,7 +16,7 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
@@ -49,6 +49,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-bootsplash.patch'
         '0013-bootsplash.patch')
 md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
+         '0f859f2223def2b6e5dbf627515f708f'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -64,7 +65,7 @@ md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
-         '41cb5fef62715ead2dd109dbea8413d6'
+         'a93cffb40dd7a8216480d03bba2cffe4'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
          'f13cfcd8a4667ecca68bccefee4b8283'
@@ -85,7 +86,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  #git apply --whitespace=nowarn ../patch-${pkgver}
+  git apply --whitespace=nowarn ../patch-${pkgver}
 
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
