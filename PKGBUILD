@@ -2,13 +2,11 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
-buildarch=8
-
 pkgbase=linux-aarch64
 _srcname=linux-5.4
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.4.3
+pkgver=5.4.4
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -21,14 +19,12 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch'
         '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
         '0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
         '0004-text_offset.patch'
         '0005-panel-simple-support-pinebook-pro.patch'
         '0006-support-for-cw2015.patch'
         '0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch'
-        '0008-drivers-clocksource-arm-arch-timer-pine64-fix.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -47,23 +43,20 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0009-bootsplash.patch'
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
-        '0012-bootsplash.patch'
-        '0013-bootsplash.patch')
+        '0012-bootsplash.patch')
 md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
-         '168c9c91c2758476cedcb469b7a0bd39'
+         '53540f1e73665f503cd437aca3e4cc35'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         '481f71a08407ec05b2cc055067290015'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
          '0d725f57e615ef36fd25be61da25531d'
-         'a6c685e8e64bbd52cc9b599e19c5f79a'
+         '30e400eecd357a4419630a58884a9442'
          '509e5b0bfa516ebf3abf75220974fd45'
          '9596edb65be2bd7c85e263fbdfa8458b'
          'be7988a1ee96ff666ca4d8aa66cb9ed6'
-         '056a6b9e84016ec59cc95f5dace18a29'
-         'b807087b8805688052602ea5ef34db86'
+         '8e4372b6515fcc766e396480c2e59c9f'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -81,30 +74,27 @@ md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          '6b6def41b404422dc04b39e2f1adffc8'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
-         'ecfd8a30c480149005fcf349e4d06f4b'
-         '2ead9aa2df230c83539e3ebf6b796b18')
+         'ecfd8a30c480149005fcf349e4d06f4b')
 
 prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  git apply --whitespace=nowarn ../patch-${pkgver}
+  patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
-  git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
-  git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
-  git apply ../0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch
-  git apply ../0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch
+  patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch"
+  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"
+  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"
   
   # Manjaro ARM Patches
-  git apply ../0001-arm64-dts-rockchip-remove-capacity-dmips-rk3399.patch
-  git apply ../0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch
-  git apply ../0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"
+  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"
   patch -Np1 -i "${srcdir}/0004-text_offset.patch"
-  git apply ../0005-panel-simple-support-pinebook-pro.patch
-  git apply ../0006-support-for-cw2015.patch
-  git apply ../0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch
-  git apply ../0008-drivers-clocksource-arm-arch-timer-pine64-fix.patch
+  patch -Np1 -i "${srcdir}/0005-panel-simple-support-pinebook-pro.patch"
+  patch -Np1 -i "${srcdir}/0006-support-for-cw2015.patch"
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch"
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
@@ -118,7 +108,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-  git apply -p1 < "${srcdir}/0013-bootsplash.patch"
   
   cat "${srcdir}/config" > ./.config
 
