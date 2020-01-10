@@ -6,7 +6,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.4
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.4.8
+pkgver=5.4.10
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -25,6 +25,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0005-panel-simple-support-pinebook-pro.patch'
         '0006-support-for-cw2015.patch'
         '0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch'
+        '0008-board-rockpi4-dts-upper-port-host.patch'
         'config'
         'kernel.its'
         'kernel.keyblock'
@@ -45,7 +46,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
-         '8a52a7d0df38cf464b85bfb1bedfcb72'
+         'd7b2437393754d4e8fc395f71a7b87d5'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -56,7 +57,8 @@ md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          '509e5b0bfa516ebf3abf75220974fd45'
          '9596edb65be2bd7c85e263fbdfa8458b'
          'be7988a1ee96ff666ca4d8aa66cb9ed6'
-         '9fb93c3fb7b007ce64bb090238a43630'
+         '247db714e0709fa5fb8ea11b8e889361'
+         '05ac7e8e71db88a3ba8dddbb9a7dc0cf'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -95,6 +97,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0005-panel-simple-support-pinebook-pro.patch"
   patch -Np1 -i "${srcdir}/0006-support-for-cw2015.patch"
   patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch"
+  patch -Np1 -i "${srcdir}/0008-board-rockpi4-dts-upper-port-host.patch"
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
