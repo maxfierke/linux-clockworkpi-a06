@@ -7,7 +7,7 @@ _srcname=linux-5.4
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.4.10
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -111,6 +111,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  # Fix MDIO in ethernet driver
+  sed -i s/"bool mdio = false;"/"bool mdio = !of_phy_is_fixed_link(np);"/ ${srcdir}/linux-5.4/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
   
   cat "${srcdir}/config" > ./.config
 
