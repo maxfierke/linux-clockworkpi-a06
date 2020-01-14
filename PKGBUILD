@@ -6,8 +6,8 @@ pkgbase=linux-aarch64
 _srcname=linux-5.4
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.4.10
-pkgrel=2
+pkgver=5.4.11
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -46,7 +46,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
-         'd7b2437393754d4e8fc395f71a7b87d5'
+         '97b423cad77ded9f72f598e09c6987e0'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -58,7 +58,7 @@ md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
          '9596edb65be2bd7c85e263fbdfa8458b'
          'be7988a1ee96ff666ca4d8aa66cb9ed6'
          '247db714e0709fa5fb8ea11b8e889361'
-         '05ac7e8e71db88a3ba8dddbb9a7dc0cf'
+         '8726067b0063437194fdf33f168f886a'
          '7f1a96e24f5150f790df94398e9525a3'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -111,8 +111,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-  # Fix MDIO in ethernet driver
-  sed -i s/"bool mdio = false;"/"bool mdio = !of_phy_is_fixed_link(np);"/ ${srcdir}/linux-5.4/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
   
   cat "${srcdir}/config" > ./.config
 
