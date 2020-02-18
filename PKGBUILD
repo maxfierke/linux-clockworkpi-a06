@@ -6,12 +6,12 @@ pkgbase=linux-aarch64
 _srcname=linux-5.5
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.5.3
+pkgver=5.5.4
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
@@ -43,7 +43,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('0a78b1dc48dc032fe505b170c1b92339'
-         'd662da88d60fdf9bacdefb1afde3f627'
+         'f4fb460bc99c5ce1d250c24915a87e42'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
