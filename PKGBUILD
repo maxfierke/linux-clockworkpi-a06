@@ -3,10 +3,10 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-aarch64
-_srcname=linux-5.5
+_srcname=linux-5.6
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.5.11
+pkgver=5.6.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -14,17 +14,13 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
         '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
-        '0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
         '0004-text_offset.patch'
-        '0005-panel-simple-support-pinebook-pro.patch'
-        '0006-support-for-cw2015.patch'
-        '0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch'
         '0008-board-rockpi4-dts-upper-port-host.patch'
         'config'
         'linux.preset'
@@ -42,20 +38,15 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
-md5sums=('0a78b1dc48dc032fe505b170c1b92339'
-         'bbff86f46032a3af00b2755e974df0d3'
+md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
-         '0d725f57e615ef36fd25be61da25531d'
          '30e400eecd357a4419630a58884a9442'
-         '509e5b0bfa516ebf3abf75220974fd45'
-         '9596edb65be2bd7c85e263fbdfa8458b'
-         'be7988a1ee96ff666ca4d8aa66cb9ed6'
-         '247db714e0709fa5fb8ea11b8e889361'
-         'a1268a83cdb108d68ccaa2678d092d49'
+         '853dce58cde2158ea9dc83d83080f0ea'
+         'bebb2cdf496680f5c328b9828b34ffc4'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -76,7 +67,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"
@@ -86,11 +77,7 @@ prepare() {
   
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"
-  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"
   patch -Np1 -i "${srcdir}/0004-text_offset.patch"
-  patch -Np1 -i "${srcdir}/0005-panel-simple-support-pinebook-pro.patch"
-  patch -Np1 -i "${srcdir}/0006-support-for-cw2015.patch"
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-pinebookpro-device-tree.patch"
   patch -Np1 -i "${srcdir}/0008-board-rockpi4-dts-upper-port-host.patch"
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"

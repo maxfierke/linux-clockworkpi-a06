@@ -1,6 +1,17 @@
---- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts	2019-12-28 20:11:18.831388678 +0200
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts	2019-12-28 20:11:33.335365912 +0200
-@@ -735,7 +735,7 @@
+From c25abd72f1e1926566a5bdc84383084c681991c8 Mon Sep 17 00:00:00 2001
+From: Dan Johansen <strit@manjaro.org>
+Date: Mon, 30 Mar 2020 08:54:37 +0200
+Subject: [PATCH] board-rockpi4-dts-upper-port-host
+
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts
+index 3923ec01ef66..1e36a72766ec 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dts
+@@ -706,7 +706,7 @@ &usbdrd3_0 {
  
  &usbdrd_dwc3_0 {
  	status = "okay";
@@ -9,3 +20,6 @@
  };
  
  &usbdrd3_1 {
+-- 
+2.26.0
+
