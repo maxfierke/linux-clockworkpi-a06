@@ -6,7 +6,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.6
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.6.13
+pkgver=5.6.14
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -22,6 +22,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
         '0004-text_offset.patch'
         '0008-board-rockpi4-dts-upper-port-host.patch'
+        '0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
+        '0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -39,7 +41,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
-         '636626ab605e9159bccd4a7fa834bc74'
+         '76664934daa68fd88ba9cfbe72729b1a'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -47,6 +49,8 @@ md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
          '9794b98c0c7cb4ae1fa8787c927eec6f'
          '09dbaf60a435539093ab20aae66c9658'
          'f7769084356056b5eec725938e49a6a5'
+         '345e1329e2b6a530554d8538415caebe'
+         'fa586447846ec5aef8ab972058c5548e'
          'bebb2cdf496680f5c328b9828b34ffc4'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -80,6 +84,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"
   patch -Np1 -i "${srcdir}/0004-text_offset.patch"
   patch -Np1 -i "${srcdir}/0008-board-rockpi4-dts-upper-port-host.patch"
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"
+  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
