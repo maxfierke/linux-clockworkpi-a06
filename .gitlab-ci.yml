@@ -1,0 +1,10 @@
+build-package:
+  tags:
+    - bigbuilds
+    - strit
+  script:
+    - makepkg -scr --noconfirm
+  artifacts:
+    paths:
+    - ./*.pkg.tar.*
+    expire_in: 1 week
