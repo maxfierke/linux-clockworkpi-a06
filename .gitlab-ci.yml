@@ -3,7 +3,7 @@ build-package:
     - bigbuilds
     - strit
   script:
-    - makepkg -scr --noconfirm
+    - sudo pacman -Syy && makepkg -scr --noconfirm
   artifacts:
     paths:
     - ./*.pkg.tar.*

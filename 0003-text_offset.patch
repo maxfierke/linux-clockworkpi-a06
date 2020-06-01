@@ -1,6 +1,6 @@
-From 3eab987570d58a22bb81217c129accce82c64c2b Mon Sep 17 00:00:00 2001
+From ada9afce450fec291bd505c9a7db9c4ac9733e3e Mon Sep 17 00:00:00 2001
 From: Dan Johansen <strit@manjaro.org>
-Date: Sun, 5 Apr 2020 16:55:40 +0200
+Date: Tue, 14 Apr 2020 13:35:05 +0200
 Subject: [PATCH] text_offset
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH] text_offset
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index f15f92ba53e6..5f19d372551b 100644
+index 85e4149cc5d5..405d17ee86fc 100644
 --- a/arch/arm64/Makefile
 +++ b/arch/arm64/Makefile
-@@ -113,7 +113,7 @@ TEXT_OFFSET := $(shell awk "BEGIN {srand(); printf \"0x%06x\n\", \
+@@ -118,7 +118,7 @@ TEXT_OFFSET := $(shell awk "BEGIN {srand(); printf \"0x%06x\n\", \
  		 int(2 * 1024 * 1024 / (2 ^ $(CONFIG_ARM64_PAGE_SHIFT)) * \
  		 rand()) * (2 ^ $(CONFIG_ARM64_PAGE_SHIFT))}")
  else
@@ -22,7 +22,7 @@ index f15f92ba53e6..5f19d372551b 100644
  
  ifeq ($(CONFIG_KASAN_SW_TAGS), y)
 diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index 57a91032b4c2..93b958e362b1 100644
+index 57a91032b4c2..ce58e28bb7c7 100644
 --- a/arch/arm64/kernel/head.S
 +++ b/arch/arm64/kernel/head.S
 @@ -41,7 +41,7 @@

@@ -3,10 +3,10 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-aarch64
-_srcname=linux-5.6
+_srcname=linux-5.7
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.6.15
+pkgver=5.7.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -14,16 +14,32 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
-        '0004-text_offset.patch'
-        '0008-board-rockpi4-dts-upper-port-host.patch'
+        '0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
+        '0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
+        '0003-text_offset.patch'
+        '0004-board-rockpi4-dts-upper-port-host.patch'
+        '0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch'
+        '0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch'
         '0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
         '0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
+        '0009-drivers-power-supply-Add-support-for-cw2015.patch'
+        '0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch'
+        '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch'
+        '0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch'
+        '0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch'
+        '0004-Bluetooth-hci_h5-Add-support-for-binding-RTL8723BS-with-device-tree.patch'
+        '0005-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
+        '0006-bluetooth-btrtl-Make-more-space-for-config-firmware-file-name.patch'
+        '0007-arm64-dts-allwinner-add-bluetooth-to-pinebook.patch'
+        '0008-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch'
+        '0009-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch'
+        '0010-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch'
+        '0011-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -40,18 +56,33 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
-md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
-         'e4e1faef579a6aa16d2c7a92a7a7b0d1'
+md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          '6ee347975dca719ecd63a846cc5983b2'
          '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         '9794b98c0c7cb4ae1fa8787c927eec6f'
-         '09dbaf60a435539093ab20aae66c9658'
+         '7b6f548fc352a4c530eae58f6a69041f'
+         '39fc489449d519b45532631825840f3d'
+         'fd5919b02b1dd17f62dd51d57986368f'
          'f7769084356056b5eec725938e49a6a5'
+         '48143f15b156bb4235b0cd2880ada128'
+         '998c32f4db54cc9460c967029612a420'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         'bebb2cdf496680f5c328b9828b34ffc4'
+         'd235bd43604bba10d878e066d80846ef'
+         '7ca26d7c90227224769e176043dd7fa9'
+         '96d621de9be2f2780e27c4fe7a5c0644'
+         '0c0d30853eb636d5744d4f1c65ee1a82'
+         'ceec4a56db3f4bc22c7b0eeb6db0b71d'
+         'd8880f7d1c73c0641b6bffe47587e2c1'
+         'e6c889dcdf6259e1d49d0fca284b83b7'
+         'b55290900f855aa9db368621378eb93a'
+         '2fad5ce2eaa1786b4217c575add0af8f'
+         '929f2d20a44be5b5d7c6a5134c660a79'
+         '22c651017f864e41916a74e63ef46a19'
+         'bf9f906cca7b7489d3123a249dcbd021'
+         'a74fcfa1e085a3a99dcf4f214c1ca65a'
+         '4233e9ca5e691164aa3812023acaa21b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -72,7 +103,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"
@@ -81,11 +112,30 @@ prepare() {
   patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"
   
   # Manjaro ARM Patches
-  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"
-  patch -Np1 -i "${srcdir}/0004-text_offset.patch"
-  patch -Np1 -i "${srcdir}/0008-board-rockpi4-dts-upper-port-host.patch"
+  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"
+  patch -Np1 -i "${srcdir}/0003-text_offset.patch"
+  patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"
+  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch"
+  patch -Np1 -i "${srcdir}/0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch"
   patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"
+  patch -Np1 -i "${srcdir}/0009-drivers-power-supply-Add-support-for-cw2015.patch"
+  patch -Np1 -i "${srcdir}/0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch"
+  
+  # Pinebook patches
+  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch"
+  patch -Np1 -i "${srcdir}/0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch"
+  patch -Np1 -i "${srcdir}/0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch"
+  patch -Np1 -i "${srcdir}/0004-Bluetooth-hci_h5-Add-support-for-binding-RTL8723BS-with-device-tree.patch"
+  patch -Np1 -i "${srcdir}/0005-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"
+  patch -Np1 -i "${srcdir}/0006-bluetooth-btrtl-Make-more-space-for-config-firmware-file-name.patch"
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-add-bluetooth-to-pinebook.patch"
+  patch -Np1 -i "${srcdir}/0008-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch"
+  patch -Np1 -i "${srcdir}/0009-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"
+  patch -Np1 -i "${srcdir}/0010-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"
+  patch -Np1 -i "${srcdir}/0011-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"
+  
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
