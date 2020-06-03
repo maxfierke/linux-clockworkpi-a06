@@ -7,7 +7,7 @@ _srcname=linux-5.7
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.7.0
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -29,6 +29,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
         '0009-drivers-power-supply-Add-support-for-cw2015.patch'
         '0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch'
+        '0011-fix-wonky-wifi-bt-on-PBP.patch'
+        '0012-add-suspend-to-rk3399-PBP.patch'
+        '0013-add-dp-alt-mode-to-PBP.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch'
         '0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch'
         '0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch'
@@ -71,6 +74,9 @@ md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          'fa586447846ec5aef8ab972058c5548e'
          'd235bd43604bba10d878e066d80846ef'
          '7ca26d7c90227224769e176043dd7fa9'
+         'ad3ba520c225abe8be59f271a4a23dc1'
+         '1ac243c06d58a2e6fe23e9934a9fcbcb'
+         'fa88f0acd760bae15f8ae71518cea8b3'
          '96d621de9be2f2780e27c4fe7a5c0644'
          '0c0d30853eb636d5744d4f1c65ee1a82'
          'ceec4a56db3f4bc22c7b0eeb6db0b71d'
@@ -82,7 +88,7 @@ md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          '22c651017f864e41916a74e63ef46a19'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         '4233e9ca5e691164aa3812023acaa21b'
+         '8f271dcc562884866e02083ce30d1c1b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -112,16 +118,19 @@ prepare() {
   patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"
   
   # Manjaro ARM Patches
-  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"
-  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"
-  patch -Np1 -i "${srcdir}/0003-text_offset.patch"
-  patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"
-  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch"
-  patch -Np1 -i "${srcdir}/0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch"
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"
-  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"
-  patch -Np1 -i "${srcdir}/0009-drivers-power-supply-Add-support-for-cw2015.patch"
-  patch -Np1 -i "${srcdir}/0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch"
+  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                 #Rock Pi 4
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"            #RockPro64
+  patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                              #Amlogic
+  patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                        #Rock Pi 4
+  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch"           #Odroid C4
+  patch -Np1 -i "${srcdir}/0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch" #Odroid C4
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
+  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
+  patch -Np1 -i "${srcdir}/0009-drivers-power-supply-Add-support-for-cw2015.patch"              #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch"                #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0011-fix-wonky-wifi-bt-on-PBP.patch"                                 #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0012-add-suspend-to-rk3399-PBP.patch"                                #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0013-add-dp-alt-mode-to-PBP.patch"                                   #Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch"
