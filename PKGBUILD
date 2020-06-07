@@ -6,17 +6,16 @@ pkgbase=linux-aarch64
 _srcname=linux-5.7
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.7.0
-pkgrel=3
+pkgver=5.7.1
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
-        '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
         '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
         '0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
@@ -31,6 +30,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch'
         '0011-fix-wonky-wifi-bt-on-PBP.patch'
         '0012-add-suspend-to-rk3399-PBP.patch'
+        '0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch'
+        '0014-arm64-dts-rockchip-fix-roc-cc-dts.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch'
         '0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch'
         '0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch'
@@ -59,8 +60,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
+         'b0966d2c054d9a748d9de0cd4c49cfb7'
          '6ee347975dca719ecd63a846cc5983b2'
-         '7005141e542864b4e3cf6141ff642cf9'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
          '7b6f548fc352a4c530eae58f6a69041f'
@@ -75,6 +76,8 @@ md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          '7ca26d7c90227224769e176043dd7fa9'
          'ad3ba520c225abe8be59f271a4a23dc1'
          '1ac243c06d58a2e6fe23e9934a9fcbcb'
+         '4993c45194869f54a187942cb04dea0e'
+         '4945a41035d9054924e207a0f40420e4'
          '96d621de9be2f2780e27c4fe7a5c0644'
          '0c0d30853eb636d5744d4f1c65ee1a82'
          'ceec4a56db3f4bc22c7b0eeb6db0b71d'
@@ -107,27 +110,28 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
-  patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"
-  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch"
-  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"
-  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"
+  patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"     #All
+  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"     #RK3328
+  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"     #RK3328
   
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                 #Rock Pi 4
   patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"            #RockPro64
   patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                              #Amlogic
   patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                        #Rock Pi 4
-  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch"           #Odroid C4
-  patch -Np1 -i "${srcdir}/0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch" #Odroid C4
+  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch"           #Odroid C4 (added in 5.8)
+  patch -Np1 -i "${srcdir}/0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch" #Odroid C4 (added in 5.8)
   patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
-  patch -Np1 -i "${srcdir}/0009-drivers-power-supply-Add-support-for-cw2015.patch"              #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0009-drivers-power-supply-Add-support-for-cw2015.patch"              #Pinebook Pro (added in 5.8)
   patch -Np1 -i "${srcdir}/0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch"                #Pinebook Pro
   patch -Np1 -i "${srcdir}/0011-fix-wonky-wifi-bt-on-PBP.patch"                                 #Pinebook Pro
   patch -Np1 -i "${srcdir}/0012-add-suspend-to-rk3399-PBP.patch"                                #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch"     #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-fix-roc-cc-dts.patch"                        #Roc-CC
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch"
