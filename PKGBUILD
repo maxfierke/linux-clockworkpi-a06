@@ -7,7 +7,7 @@ _srcname=linux-5.7
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.7.1
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -32,6 +32,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-add-suspend-to-rk3399-PBP.patch'
         '0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch'
         '0014-arm64-dts-rockchip-fix-roc-cc-dts.patch'
+        '0015-add-dp-alt-mode-to-PBP.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch'
         '0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch'
         '0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch'
@@ -78,6 +79,7 @@ md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          '1ac243c06d58a2e6fe23e9934a9fcbcb'
          '4993c45194869f54a187942cb04dea0e'
          '4945a41035d9054924e207a0f40420e4'
+         'fa88f0acd760bae15f8ae71518cea8b3'
          '96d621de9be2f2780e27c4fe7a5c0644'
          '0c0d30853eb636d5744d4f1c65ee1a82'
          'ceec4a56db3f4bc22c7b0eeb6db0b71d'
@@ -89,7 +91,7 @@ md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          '22c651017f864e41916a74e63ef46a19'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         'cdf630785eff759694c75dd65bcbcc71'
+         '50ba501efc4cdbb9d5b16b560243ac1e'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -132,6 +134,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0012-add-suspend-to-rk3399-PBP.patch"                                #Pinebook Pro
   patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch"     #Pinebook Pro
   patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-fix-roc-cc-dts.patch"                        #Roc-CC
+  patch -Np1 -i "${srcdir}/0015-add-dp-alt-mode-to-PBP.patch"                                   #Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch"
