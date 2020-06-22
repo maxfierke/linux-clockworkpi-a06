@@ -1,4 +1,4 @@
- From de61fae99dbb0e0976bd67f85317f7bfc216f728 Mon Sep 17 00:00:00 2001
+From ade1fa09555a45eee2b72d302c15d26a4701713b Mon Sep 17 00:00:00 2001
 From: Vasily Khoruzhick
 Date: Wed, 31 Oct 2018 20:07:41 -0700
 Subject: Bluetooth: hci_h5: Add support for binding RTL8723BS with device tree
@@ -8,11 +8,11 @@ using device tree.
 
 Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
 ---
- drivers/bluetooth/hci_h5.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/bluetooth/hci_h5.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/bluetooth/hci_h5.c b/drivers/bluetooth/hci_h5.c
-index 734592b9da0c..9773cb2a0357 100644
+index 82251124cd9b..be8235258457 100644
 --- a/drivers/bluetooth/hci_h5.c
 +++ b/drivers/bluetooth/hci_h5.c
 @@ -821,6 +821,9 @@ static int h5_serdev_probe(struct serdev_device *serdev)
@@ -38,12 +38,10 @@ index 734592b9da0c..9773cb2a0357 100644
  #endif
  
  #ifdef CONFIG_ACPI
-@@ -1027,6 +1036,10 @@ static const struct of_device_id rtl_bluetooth_of_match[] = {
- #ifdef CONFIG_BT_HCIUART_RTL
- 	{ .compatible = "realtek,rtl8822cs-bt",
+@@ -1029,6 +1038,8 @@ static const struct of_device_id rtl_bluetooth_of_match[] = {
  	  .data = (const void *)&rtl_vnd },
-+	{ .compatible = "realtek,rtl8723bs-bt",
-+	  .data = (const void *)&rtl_vnd_nosuspend },
+ 	{ .compatible = "realtek,rtl8723bs-bt",
+ 	  .data = (const void *)&rtl_vnd },
 +	{ .compatible = "realtek,rtl8723cs-bt",
 +	  .data = (const void *)&rtl_vnd_nosuspend },
  #endif

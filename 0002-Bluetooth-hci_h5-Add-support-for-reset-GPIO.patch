@@ -1,4 +1,4 @@
- From 8491f1ab321512775372d66178b2fa1c97920ab5 Mon Sep 17 00:00:00 2001
+From a173579aa20ff4a75991f6a4f73b3eeba7c10954 Mon Sep 17 00:00:00 2001
 From: Vasily Khoruzhick
 Date: Wed, 31 Oct 2018 19:48:25 -0700
 Subject: Bluetooth: hci_h5: Add support for reset GPIO
@@ -12,7 +12,7 @@ Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
  1 file changed, 9 insertions(+)
 
 diff --git a/drivers/bluetooth/hci_h5.c b/drivers/bluetooth/hci_h5.c
-index 106c110efe56..734592b9da0c 100644
+index e60b2e0773db..82251124cd9b 100644
 --- a/drivers/bluetooth/hci_h5.c
 +++ b/drivers/bluetooth/hci_h5.c
 @@ -93,6 +93,7 @@ struct h5 {

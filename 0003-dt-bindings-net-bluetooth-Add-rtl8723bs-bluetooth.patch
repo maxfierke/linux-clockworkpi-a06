@@ -1,4 +1,4 @@
-From 7f086351933bb29d463c903ac239c35c484c6b71 Mon Sep 17 00:00:00 2001
+From cf9186dd869a026022d21f3dca0091efb8cbe0a1 Mon Sep 17 00:00:00 2001
 From: Vasily Khoruzhick
 Date: Wed, 31 Oct 2018 20:05:14 -0700
 Subject: dt-bindings: net: bluetooth: Add rtl8723bs-bluetooth
