@@ -6,7 +6,7 @@ pkgbase=linux-aarch64
 _srcname=linux-5.7
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.7.6
+pkgver=5.7.7
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -34,6 +34,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0014-arm64-dts-rockchip-fix-roc-cc-dts.patch'
         '0015-add-dp-alt-mode-to-PBP.patch'
         '0016-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
+        '0017-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch'
         '0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch'
         '0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch'
@@ -62,7 +63,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
-         '19d1ba16b138925dac175e1986cf1302'
+         '6103451d140cfb4862b45cde2217543c'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -82,6 +83,7 @@ md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
          '4945a41035d9054924e207a0f40420e4'
          'fa88f0acd760bae15f8ae71518cea8b3'
          'e6fe272dc95a1c0a8f871924699fea16'
+         '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '762937f4765b5c22f58d3a4a3c4cfd46'
          'f70bc0e4a81a05f6de3e8ef8c31233c4'
          '5a0aea477134c1851d6ef4ed395e044a'
@@ -138,6 +140,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-fix-roc-cc-dts.patch"                        #Roc-CC
   patch -Np1 -i "${srcdir}/0015-add-dp-alt-mode-to-PBP.patch"                                   #Pinebook Pro
   patch -Np1 -i "${srcdir}/0016-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
+  patch -Np1 -i "${srcdir}/0017-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch"
