@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.7.7-2 Kernel Configuration
+# Linux/arm64 5.7.9-1 Kernel Configuration
 #
 
 #
@@ -602,6 +602,7 @@ CONFIG_EFI_BOOTLOADER_CONTROL=y
 # end of EFI (Extensible Firmware Interface) Support
 
 CONFIG_EFI_EARLYCON=y
+CONFIG_EFI_CUSTOM_SSDT_OVERLAYS=y
 # CONFIG_IMX_DSP is not set
 CONFIG_IMX_SCU=y
 CONFIG_IMX_SCU_PD=y
