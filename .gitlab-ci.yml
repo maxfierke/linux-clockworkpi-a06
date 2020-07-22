@@ -1,5 +1,6 @@
 build-package:
   tags:
+    - aarch64
     - bigbuilds
     - strit
   script:
