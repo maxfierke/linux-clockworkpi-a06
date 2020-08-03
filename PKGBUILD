@@ -7,7 +7,7 @@ _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.8
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -31,6 +31,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch'
         '0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch'
         '0013-arm64-dts-amlogic-add-odroid-n2-plus.patch'
+        '0014-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
+        '0015-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch'
+        '0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -71,6 +74,9 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '924b7726cc8b2450e6506756a8d39993'
          '7861fdc1c350f372fd9cfdddb2e7341f'
          '61b68b5c2a1657160fa56c15e14a9db4'
+         '2984df6e834927635fd99da224c32004'
+         'ea55a734c8cb8f7d3cf0aac587755c6a'
+         'bd685e6b04509bbd11cd6804dec7e9af'
          'c024bd2b39881591cf58a88f54c49452'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -116,19 +122,22 @@ prepare() {
   patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims
+  patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims (not working right yet)
   patch -Np1 -i "${srcdir}/0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch"          #Odroid C4
   patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch"       #Khadas Vim3l
-  patch -Np1 -i "${srcdir}/0013-arm64-dts-amlogic-add-odroid-n2-plus.patch"                     #Odroid N2+
+  patch -Np1 -i "${srcdir}/0013-arm64-dts-amlogic-add-odroid-n2-plus.patch"                     #Odroid N2+ (not working right yet)
+  patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"      #Rock Pi 4A
+  patch -Np1 -i "${srcdir}/0015-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"          #Rock Pi 4B
+  patch -Np1 -i "${srcdir}/0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"          #Rock Pi 4C
   
   # Pinebook patches
-  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"
-  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"
-  patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"
-  patch -Np1 -i "${srcdir}/0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch"
-  patch -Np1 -i "${srcdir}/0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"
-  patch -Np1 -i "${srcdir}/0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"
+  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"    #Bluetooth
+  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"            #Bluetooth
+  patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"         #Bluetooth
+  patch -Np1 -i "${srcdir}/0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch" #Hardware cursor
+  patch -Np1 -i "${srcdir}/0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"      #Hardware cursor
+  patch -Np1 -i "${srcdir}/0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"        #Hardware cursor
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"     #Bluetooth on PineTab and PinePhone
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
