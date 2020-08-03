@@ -2,11 +2,11 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
-pkgbase=linux-aarch64
-_srcname=linux-5.7
+pkgbase=linux
+_srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.7.12
+pkgver=5.8
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -14,39 +14,30 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
-        '0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
-        '0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
+        '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
+        '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
         '0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
         '0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
         '0003-text_offset.patch'
         '0004-board-rockpi4-dts-upper-port-host.patch'
-        '0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch'
-        '0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch'
-        '0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
-        '0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
-        '0009-drivers-power-supply-Add-support-for-cw2015.patch'
-        '0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch'
-        '0011-fix-wonky-wifi-bt-on-PBP.patch'
-        '0012-add-suspend-to-rk3399-PBP.patch'
-        '0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch'
-        '0014-arm64-dts-rockchip-fix-roc-cc-dts.patch'
-        '0015-add-dp-alt-mode-to-PBP.patch'
-        '0016-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
-        '0017-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
-        '0018-DRM-Panfrost-enable-Bifrost-GPUs.patch'
-        '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch'
-        '0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch'
-        '0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch'
-        '0004-Bluetooth-hci_h5-Add-support-for-binding-RTL8723BS-with-device-tree.patch'
-        '0005-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
-        '0006-bluetooth-btrtl-Make-more-space-for-config-firmware-file-name.patch'
-        '0007-arm64-dts-allwinner-add-bluetooth-to-pinebook.patch'
-        '0008-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch'
-        '0009-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch'
-        '0010-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch'
-        '0011-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
+        '0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
+        '0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
+        '0007-pbp-support.patch'
+        '0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
+        '0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
+        '0010-DRM-Panfrost-enable-Bifrost-GPUs.patch'
+        '0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch'
+        '0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch'
+        '0013-arm64-dts-amlogic-add-odroid-n2-plus.patch'
+        '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
+        '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
+        '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
+        '0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch'
+        '0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch'
+        '0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch'
+        '0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -63,41 +54,31 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
-md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
-         '1aa56c494365d13e5f4868f9ab074796'
+md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
          '7b6f548fc352a4c530eae58f6a69041f'
          '39fc489449d519b45532631825840f3d'
-         'fd5919b02b1dd17f62dd51d57986368f'
+         'a08fdc5f515c135be341dd71fdaee3fc'
          'f7769084356056b5eec725938e49a6a5'
-         '48143f15b156bb4235b0cd2880ada128'
-         '998c32f4db54cc9460c967029612a420'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         'd235bd43604bba10d878e066d80846ef'
-         '7ca26d7c90227224769e176043dd7fa9'
-         'ad3ba520c225abe8be59f271a4a23dc1'
-         '1ac243c06d58a2e6fe23e9934a9fcbcb'
-         '4993c45194869f54a187942cb04dea0e'
-         '4945a41035d9054924e207a0f40420e4'
-         'fa88f0acd760bae15f8ae71518cea8b3'
+         '372f59f72dbf983caaa0b74306b2d157'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '2af6a160b707c1ab6dc6e48a9a65694c'
-         '762937f4765b5c22f58d3a4a3c4cfd46'
-         'f70bc0e4a81a05f6de3e8ef8c31233c4'
-         '5a0aea477134c1851d6ef4ed395e044a'
-         'b35ee0bf7b5b0282c1f24c7bc0a690ad'
-         'aaa12633b3bcfdd223ea939690aa7c2d'
-         'e1285a487f967f0594a098fcba708cac'
-         '2fad5ce2eaa1786b4217c575add0af8f'
+         '924b7726cc8b2450e6506756a8d39993'
+         '7861fdc1c350f372fd9cfdddb2e7341f'
+         '61b68b5c2a1657160fa56c15e14a9db4'
+         'c024bd2b39881591cf58a88f54c49452'
+         '28471d9f407a38a46ff6c56ff8fa2dcc'
+         '9510821113c122f91f47b9d0f7ca7264'
          '929f2d20a44be5b5d7c6a5134c660a79'
          '22c651017f864e41916a74e63ef46a19'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         '04c252ddaf36c1c34098f42a53869fa6'
+         'ae6c860ff9162248cbdcb2f70bc19480'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -118,45 +99,36 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"     #All
-  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"     #RK3328
-  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"     #RK3328
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"     #RK3328
+  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"     #RK3328
   
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                 #Rock Pi 4
   patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"            #RockPro64
   patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                              #Amlogic
   patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                        #Rock Pi 4
-  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-amlogic-add-odroid-c4-bindings.patch"           #Odroid C4 (added in 5.8)
-  patch -Np1 -i "${srcdir}/0006-arm64-dts-meson-sm1-add-support-for-Hardkernel-ODROID-C4.patch" #Odroid C4 (added in 5.8)
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
-  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
-  patch -Np1 -i "${srcdir}/0009-drivers-power-supply-Add-support-for-cw2015.patch"              #Pinebook Pro (added in 5.8)
-  patch -Np1 -i "${srcdir}/0010-arm64-dts-rockchip-add-cw2015-node-to-PBP.patch"                #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0011-fix-wonky-wifi-bt-on-PBP.patch"                                 #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0012-add-suspend-to-rk3399-PBP.patch"                                #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch"     #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-fix-roc-cc-dts.patch"                        #Roc-CC
-  patch -Np1 -i "${srcdir}/0015-add-dp-alt-mode-to-PBP.patch"                                   #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0016-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
-  patch -Np1 -i "${srcdir}/0017-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0018-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims
+  patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
+  patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
+  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
+  patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims
+  patch -Np1 -i "${srcdir}/0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch"          #Odroid C4
+  patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch"       #Khadas Vim3l
+  patch -Np1 -i "${srcdir}/0013-arm64-dts-amlogic-add-odroid-n2-plus.patch"                     #Odroid N2+
   
   # Pinebook patches
-  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features-max_page.patch"
-  patch -Np1 -i "${srcdir}/0002-Bluetooth-hci_h5-Add-support-for-reset-GPIO.patch"
-  patch -Np1 -i "${srcdir}/0003-dt-bindings-net-bluetooth-Add-rtl8723bs-bluetooth.patch"
-  patch -Np1 -i "${srcdir}/0004-Bluetooth-hci_h5-Add-support-for-binding-RTL8723BS-with-device-tree.patch"
-  patch -Np1 -i "${srcdir}/0005-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"
-  patch -Np1 -i "${srcdir}/0006-bluetooth-btrtl-Make-more-space-for-config-firmware-file-name.patch"
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-add-bluetooth-to-pinebook.patch"
-  patch -Np1 -i "${srcdir}/0008-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch"
-  patch -Np1 -i "${srcdir}/0009-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"
-  patch -Np1 -i "${srcdir}/0010-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"
-  patch -Np1 -i "${srcdir}/0011-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"
+  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"
+  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"
+  patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"
+  patch -Np1 -i "${srcdir}/0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch"
+  patch -Np1 -i "${srcdir}/0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"
+  patch -Np1 -i "${srcdir}/0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
@@ -185,24 +157,24 @@ build() {
   cd ${_srcname}
 
   # get kernel version
-  make prepare
+  #make prepare
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
-  #make menuconfig # CLI menu for configuration
+  make menuconfig # CLI menu for configuration
   #make nconfig # new CLI menu for configuration
   #make xconfig # X-based configuration
   #make oldconfig # using old config from previous kernel version
   # ... or manually edit .config
 
   # Copy back our configuration (use with new kernel version)
-  #cp ./.config /var/tmp/${pkgbase}.config
+  cp ./.config /var/tmp/${pkgbase}.config
 
   ####################
   # stop here
   # this is useful to configure the kernel
-  #msg "Stopping build"
-  #return 1
+  msg "Stopping build"
+  return 1
   ####################
 
   #yes "" | make config
@@ -219,7 +191,7 @@ _package() {
   depends=('coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26' "linux=${pkgver}")
-  replaces=('linux-armv8')
+  replaces=('linux-armv8' 'linux-aarch64' 'linux-pinebookpro')
   conflicts=('linux')
   backup=("etc/mkinitcpio.d/${pkgbase}.preset")
   install=${pkgname}.install
@@ -276,6 +248,7 @@ _package() {
 _package-headers() {
   pkgdesc="Header files and scripts for building modules for linux kernel - ${_desc}"
   provides=("linux-headers=${pkgver}")
+  replaces=('linux-aarch64-headers' 'linux-pinebookpro-headers')
   conflicts=('linux-headers')
 
   cd ${_srcname}

@@ -1,7 +1,7 @@
-From 7d022baf3fc9bdab4873d2e81b384670e636aa73 Mon Sep 17 00:00:00 2001
-From: Ondrej Jirman
-Date: Thu, 9 Jan 2020 16:16:05 +0100
-Subject: Bluetooth: btrtl: add support for the RTL8723CS
+From a401db12bc4efb951a41901e2b5a61a4ef02f732 Mon Sep 17 00:00:00 2001
+From: Vasily Khoruzhick <anarsoul@gmail.com>
+Date: Wed, 31 Oct 2018 20:33:22 -0700
+Subject: [PATCH] Bluetooth: btrtl: add support for the RTL8723CS
 
 The Realtek RTL8723CS is SDIO WiFi chip. It also contains a Bluetooth
 module which is connected via UART to the host.
@@ -14,17 +14,14 @@ Also this chip declares support for some features it doesn't support
 so add a quirk to indicate that these features are broken.
 
 Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
-
-# Conflicts:
-#	drivers/bluetooth/btrtl.c
 ---
- drivers/bluetooth/btrtl.c  | 128 +++++++++++++++++++++++++++++++++++++++++++--
- drivers/bluetooth/btrtl.h  |  12 +++++
- drivers/bluetooth/hci_h5.c |   4 ++
- 3 files changed, 141 insertions(+), 3 deletions(-)
+ drivers/bluetooth/btrtl.c  | 128 ++++++++++++++++++++++++++++++++++++-
+ drivers/bluetooth/btrtl.h  |  12 ++++
+ drivers/bluetooth/hci_h5.c |   6 ++
+ 3 files changed, 143 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/bluetooth/btrtl.c b/drivers/bluetooth/btrtl.c
-index 3a9afc905f24..8c7b35abe492 100644
+index 3a9afc905f243..8c7b35abe4927 100644
 --- a/drivers/bluetooth/btrtl.c
 +++ b/drivers/bluetooth/btrtl.c
 @@ -17,8 +17,12 @@
@@ -124,7 +121,7 @@ index 3a9afc905f24..8c7b35abe492 100644
  		{ RTL_ROM_LMP_8822B, 8 },
  		{ RTL_ROM_LMP_8723B, 9 },	/* 8723D */
  		{ RTL_ROM_LMP_8821A, 10 },	/* 8821C */
-@@ -545,6 +589,48 @@ out:
+@@ -545,6 +589,48 @@ static int btrtl_setup_rtl8723b(struct hci_dev *hdev,
  	return ret;
  }
  
@@ -258,7 +255,7 @@ index 3a9afc905f24..8c7b35abe492 100644
  MODULE_FIRMWARE("rtl_bt/rtl8723ds_config.bin");
  MODULE_FIRMWARE("rtl_bt/rtl8761a_fw.bin");
 diff --git a/drivers/bluetooth/btrtl.h b/drivers/bluetooth/btrtl.h
-index 2a582682136d..152ed2ece4c2 100644
+index 2a582682136d6..152ed2ece4c2f 100644
 --- a/drivers/bluetooth/btrtl.h
 +++ b/drivers/bluetooth/btrtl.h
 @@ -14,6 +14,11 @@
@@ -295,10 +292,10 @@ index 2a582682136d..152ed2ece4c2 100644
  
  #endif
 diff --git a/drivers/bluetooth/hci_h5.c b/drivers/bluetooth/hci_h5.c
-index be8235258457..b756e83bbf2e 100644
+index e60b2e0773db1..c34acab9e8acf 100644
 --- a/drivers/bluetooth/hci_h5.c
 +++ b/drivers/bluetooth/hci_h5.c
-@@ -912,6 +912,10 @@ static int h5_btrtl_setup(struct h5 *h5)
+@@ -904,6 +904,10 @@ static int h5_btrtl_setup(struct h5 *h5)
  	err = btrtl_download_firmware(h5->hu->hdev, btrtl_dev);
  	/* Give the device some time before the hci-core sends it a reset */
  	usleep_range(10000, 20000);
@@ -309,6 +306,13 @@ index be8235258457..b756e83bbf2e 100644
  
  out_free:
  	btrtl_free(btrtl_dev);
--- 
-cgit v1.2.3
-
+@@ -1020,6 +1024,8 @@ static const struct of_device_id rtl_bluetooth_of_match[] = {
+ 	  .data = (const void *)&rtl_vnd },
+ 	{ .compatible = "realtek,rtl8723bs-bt",
+ 	  .data = (const void *)&rtl_vnd },
++	{ .compatible = "realtek,rtl8723cs-bt",
++	  .data = (const void *)&rtl_vnd },
+ #endif
+ 	{ },
+ };
+ 
