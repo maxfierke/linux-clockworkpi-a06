@@ -1,4 +1,4 @@
-build-package:
+package:
   tags:
     - aarch64
     - bigbuilds
