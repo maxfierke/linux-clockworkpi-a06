@@ -7,7 +7,7 @@ _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.8.1
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -34,6 +34,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0014-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
         '0015-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch'
         '0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
+        '0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch'
+        '0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -63,7 +65,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
          '7b6f548fc352a4c530eae58f6a69041f'
-         '39fc489449d519b45532631825840f3d'
+         '140460ff36607455e9f00cfe1babf782'
          'a08fdc5f515c135be341dd71fdaee3fc'
          'f7769084356056b5eec725938e49a6a5'
          '345e1329e2b6a530554d8538415caebe'
@@ -78,6 +80,8 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '2984df6e834927635fd99da224c32004'
          'ea55a734c8cb8f7d3cf0aac587755c6a'
          'bd685e6b04509bbd11cd6804dec7e9af'
+         'cf5e552f4f9c5a12db05b3040c59fc82'
+         'eab087ba002df22e2bc7935e8db6f1c4'
          'c024bd2b39881591cf58a88f54c49452'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -130,6 +134,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"      #Rock Pi 4A
   patch -Np1 -i "${srcdir}/0015-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"          #Rock Pi 4B
   patch -Np1 -i "${srcdir}/0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"          #Rock Pi 4C
+  patch -Np1 -i "${srcdir}/0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch"     #All
+  patch -Np1 -i "${srcdir}/0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch"             #RockPro64
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"    #Bluetooth

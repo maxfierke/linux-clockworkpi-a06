@@ -1,0 +1,93 @@
+From 481c78dd4e5ab379221597ee3a66b805a8bf1c37 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jari=20H=C3=A4m=C3=A4l=C3=A4inen?= <nuumiofi@gmail.com>
+Date: Sun, 23 Feb 2020 11:58:05 +0200
+Subject: [PATCH] mmc: core: Add MMC Command Queue Support kernel parameter
+
+This parameter offers a workaround for cards that report command queue
+(CMDQ) support but don't work correctly when CMDQ is enabled. At least
+some ROCKPro64 + Foresee (32GB) eMMC card combinations have trouble
+working correctly.
+
+Setting mmc_cmdqueue=off in kernel command line disables CMDQ support
+and may help with troublesome hardware.
+---
+ .../admin-guide/kernel-parameters.txt         |  8 +++++
+ drivers/mmc/core/mmc.c                        | 29 ++++++++++++-------
+ 2 files changed, 27 insertions(+), 10 deletions(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index dbc22d684627..6e6fef626c73 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -2747,6 +2747,14 @@
+ 			log everything. Information is printed at KERN_DEBUG
+ 			so loglevel=8 may also need to be specified.
+ 
++	mmc_cmdqueue= [MMC]
++			Enable or disable MMC command queue (CMDQ) support. When
++			enabled MMC driver will try to enable CMDQ for cards that
++			support it. When disabled CMDQ will not be enabled for any
++			card.
++			Format: <bool>  (1/y/on=enable, 0/n/off=disable)
++			default: enabled
++
+ 	module.sig_enforce
+ 			[KNL] When CONFIG_MODULE_SIG is set, this means that
+ 			modules without (valid) signatures will fail to load.
+diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+index f6912ded652d..aeadc38e8182 100644
+--- a/drivers/mmc/core/mmc.c
++++ b/drivers/mmc/core/mmc.c
+@@ -6,7 +6,7 @@
+  *  Copyright (C) 2005-2007 Pierre Ossman, All Rights Reserved.
+  *  MMCv4 support Copyright (C) 2006 Philip Langdale, All Rights Reserved.
+  */
+-
++#include <linux/moduleparam.h>
+ #include <linux/err.h>
+ #include <linux/of.h>
+ #include <linux/slab.h>
+@@ -62,6 +62,10 @@ static const unsigned int taac_mant[] = {
+ 		__res & __mask;						\
+ 	})
+ 
++/* Enable / disable command queue support */
++static bool mmc_cmdqueue_support = true;
++core_param(mmc_cmdqueue, mmc_cmdqueue_support, bool, S_IRUGO);
++
+ /*
+  * Given the decoded CSD structure, decode the raw CID to our CID structure.
+  */
+@@ -1833,15 +1837,20 @@ static int mmc_init_card(struct mmc_host *host, u32 ocr,
+ 	 */
+ 	card->ext_csd.cmdq_en = false;
+ 	if (card->ext_csd.cmdq_support && host->caps2 & MMC_CAP2_CQE) {
+-		err = mmc_cmdq_enable(card);
+-		if (err && err != -EBADMSG)
+-			goto free_card;
+-		if (err) {
+-			pr_warn("%s: Enabling CMDQ failed\n",
+-				mmc_hostname(card->host));
+-			card->ext_csd.cmdq_support = false;
+-			card->ext_csd.cmdq_depth = 0;
+-			err = 0;
++		if (mmc_cmdqueue_support) {
++			err = mmc_cmdq_enable(card);
++			if (err && err != -EBADMSG)
++				 goto free_card;
++			if (err) {
++				pr_warn("%s: Enabling CMDQ failed\n",
++					mmc_hostname(card->host));
++				card->ext_csd.cmdq_support = false;
++				card->ext_csd.cmdq_depth = 0;
++				err = 0;
++			}
++		} else {
++			pr_info("%s: CMDQ support disabled in kernel\n",
++				mmc_hostname(host));
+ 		}
+ 	}
+ 	/*
+-- 
+2.17.1
+
