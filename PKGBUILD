@@ -7,7 +7,7 @@ _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.8.1
-pkgrel=3
+pkgrel=4
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -70,7 +70,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          'f7769084356056b5eec725938e49a6a5'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         '372f59f72dbf983caaa0b74306b2d157'
+         '5d816beb4620323faa9b47401f49b55c'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '2af6a160b707c1ab6dc6e48a9a65694c'
