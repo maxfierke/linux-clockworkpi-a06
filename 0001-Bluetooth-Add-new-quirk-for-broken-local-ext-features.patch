@@ -1,41 +1,33 @@
-From cc05826d251ff07c1d1a06adb537db051a3f4c62 Mon Sep 17 00:00:00 2001
-From: Vasily Khoruzhick <anarsoul@gmail.com>
-Date: Wed, 31 Oct 2018 19:40:18 -0700
-Subject: [PATCH] Bluetooth: Add new quirk for broken local ext features
- max_page
+From 942e794211fc05943db36212d41c4e8a68b3c922 Mon Sep 17 00:00:00 2001
+From: Dan Johansen <strit@manjaro.org>
+Date: Mon, 17 Aug 2020 21:32:16 +0200
+Subject: [PATCH] Bluetooth-Add-new-quirk-for-broken-local-ext-features
 
-Some adapters (e.g. RTL8723CS) advertise that they have more than
-2 pages for local ext features, but they don't support any features
-declared in these pages. RTL8723CS reports max_page = 2 and declares
-support for sync train and secure connection, but it responds with
-either garbage or with error in status on corresponding commands.
-
-Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
 ---
  include/net/bluetooth/hci.h | 7 +++++++
  net/bluetooth/hci_event.c   | 4 +++-
  2 files changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 16ab6ce878834..8e4c16210d18a 100644
+index c8e67042a3b1..53f7a8518372 100644
 --- a/include/net/bluetooth/hci.h
 +++ b/include/net/bluetooth/hci.h
-@@ -227,6 +227,13 @@ enum {
- 	 * supported.
+@@ -228,6 +228,13 @@ enum {
  	 */
  	HCI_QUIRK_VALID_LE_STATES,
-+
+ 
 +	/* When this quirk is set, max_page for local extended features
 +	 * is set to 1, even if controller reports higher number. Some
 +	 * controllers (e.g. RTL8723CS) report more pages, but they
 +	 * don't actually support features declared there.
 +	 */
 +	HCI_QUIRK_BROKEN_LOCAL_EXT_FTR_MAX_PAGE,
- };
- 
- /* HCI device flags */
++
+ 	/* When this quirk is set, then erroneous data reporting
+ 	 * is ignored. This is mainly due to the fact that the HCI
+ 	 * Read Default Erroneous Data Reporting command is advertised,
 diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index cfeaee347db32..df32328289784 100644
+index 4b7fc430793c..9b165c8f16de 100644
 --- a/net/bluetooth/hci_event.c
 +++ b/net/bluetooth/hci_event.c
 @@ -700,7 +700,9 @@ static void hci_cc_read_local_ext_features(struct hci_dev *hdev,
@@ -49,4 +41,6 @@ index cfeaee347db32..df32328289784 100644
  		hdev->max_page = rp->max_page;
  
  	if (rp->page < HCI_MAX_PAGES)
- 
+-- 
+2.28.0
+
