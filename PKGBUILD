@@ -127,7 +127,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims (not working right yet)
+  #patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims (not working right yet)
   patch -Np1 -i "${srcdir}/0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch"          #Odroid C4
   patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch"       #Khadas Vim3l
   patch -Np1 -i "${srcdir}/0013-arm64-dts-amlogic-add-odroid-n2-plus.patch"                     #Odroid N2+ (not working right yet)
