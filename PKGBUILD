@@ -208,7 +208,6 @@ _package() {
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26' "linux=${pkgver}")
   replaces=('linux-armv8' 'linux-aarch64')
-  conflicts=('linux')
   backup=("etc/mkinitcpio.d/${pkgbase}.preset")
   install=${pkgname}.install
 
@@ -265,7 +264,6 @@ _package-headers() {
   pkgdesc="Header files and scripts for building modules for linux kernel - ${_desc}"
   provides=("linux-headers=${pkgver}")
   replaces=('linux-aarch64-headers')
-  conflicts=('linux-headers')
 
   cd ${_srcname}
   local _builddir="${pkgdir}/usr/lib/modules/${_kernver}/build"
