@@ -124,7 +124,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                        #Rock Pi 4
   patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
-  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
+  #patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
   #patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims (not working right yet)
