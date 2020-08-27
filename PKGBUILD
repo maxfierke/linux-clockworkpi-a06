@@ -6,8 +6,8 @@ pkgbase=linux
 _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.8.4
-pkgrel=2
+pkgver=5.8.5
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -60,7 +60,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('0e5c4c15266218ef26c50fac0016095b'
-         '4ec459ef34b5500c932c8f336e6b6bee'
+         '09240433f2a0489e64928c4c97cd097a'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -89,7 +89,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '22c651017f864e41916a74e63ef46a19'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         'b225c659ec71d571ac697ca70b19b879'
+         '1647fbd7718252710433239b1c120ccc'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -147,18 +147,18 @@ prepare() {
   patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"     #Bluetooth on PineTab and PinePhone
   
   # Bootsplash patches
-  #patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
   
   cat "${srcdir}/config" > ./.config
 
