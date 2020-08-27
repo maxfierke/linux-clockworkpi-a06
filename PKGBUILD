@@ -89,7 +89,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '22c651017f864e41916a74e63ef46a19'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         '07e59482ecd9a5e60106fd79f23d4d44'
+         'b225c659ec71d571ac697ca70b19b879'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -124,7 +124,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                        #Rock Pi 4
   patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
-  #patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
   #patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims (not working right yet)
@@ -147,18 +147,18 @@ prepare() {
   patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"     #Bluetooth on PineTab and PinePhone
   
   # Bootsplash patches
-  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
   
   cat "${srcdir}/config" > ./.config
 
