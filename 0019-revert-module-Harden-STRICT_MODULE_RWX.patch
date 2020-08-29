@@ -1,0 +1,57 @@
+From 967815bc635b33aed70cb3f7d0c2aaba2252131c Mon Sep 17 00:00:00 2001
+From: Dan Johansen <strit@manjaro.org>
+Date: Sat, 29 Aug 2020 10:28:47 +0200
+Subject: [PATCH] revert: module: Harden STRICT_MODULE_RWX
+
+---
+ kernel/module.c | 24 ------------------------
+ 1 file changed, 24 deletions(-)
+
+diff --git a/kernel/module.c b/kernel/module.c
+index 1c5cff34d9f2..a47ce4c5e4b1 100644
+--- a/kernel/module.c
++++ b/kernel/module.c
+@@ -2089,28 +2089,9 @@ static void module_enable_nx(const struct module *mod)
+ 	frob_writable_data(&mod->init_layout, set_memory_nx);
+ }
+ 
+-static int module_enforce_rwx_sections(Elf_Ehdr *hdr, Elf_Shdr *sechdrs,
+-				       char *secstrings, struct module *mod)
+-{
+-	const unsigned long shf_wx = SHF_WRITE|SHF_EXECINSTR;
+-	int i;
+-
+-	for (i = 0; i < hdr->e_shnum; i++) {
+-		if ((sechdrs[i].sh_flags & shf_wx) == shf_wx)
+-			return -ENOEXEC;
+-	}
+-
+-	return 0;
+-}
+-
+ #else /* !CONFIG_STRICT_MODULE_RWX */
+ static void module_enable_nx(const struct module *mod) { }
+ static void module_enable_ro(const struct module *mod, bool after_init) {}
+-static int module_enforce_rwx_sections(Elf_Ehdr *hdr, Elf_Shdr *sechdrs,
+-				       char *secstrings, struct module *mod)
+-{
+-	return 0;
+-}
+ #endif /*  CONFIG_STRICT_MODULE_RWX */
+ 
+ #ifdef CONFIG_LIVEPATCH
+@@ -3451,11 +3432,6 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+ 	if (err < 0)
+ 		return ERR_PTR(err);
+ 
+-	err = module_enforce_rwx_sections(info->hdr, info->sechdrs,
+-					  info->secstrings, info->mod);
+-	if (err < 0)
+-		return ERR_PTR(err);
+-
+ 	/* We will do a special allocation for per-cpu sections later. */
+ 	info->sechdrs[info->index.pcpu].sh_flags &= ~(unsigned long)SHF_ALLOC;
+ 
+-- 
+2.28.0
+
