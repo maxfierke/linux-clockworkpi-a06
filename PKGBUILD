@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.8.7
+pkgver=5.8.8
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -37,6 +37,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch'
         '0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch'
         '0019-revert-module-Harden-STRICT_MODULE_RWX.patch'
+        '0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -61,7 +62,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('0e5c4c15266218ef26c50fac0016095b'
-         '91663a89a7bbb70a35999a0a807f581f'
+         'b6f2e5e5e5ab31f646270591339fdb0a'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -84,6 +85,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          'cf5e552f4f9c5a12db05b3040c59fc82'
          'eab087ba002df22e2bc7935e8db6f1c4'
          '985d6026b4d76b88f0f9fbfd79e4a618'
+         'f8f0b124c741be61d86bea8d44e875f9'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -139,6 +141,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch"     #All
   patch -Np1 -i "${srcdir}/0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch"             #RockPro64
   patch -Np1 -i "${srcdir}/0019-revert-module-Harden-STRICT_MODULE_RWX.patch"                   #All
+  patch -Np1 -i "${srcdir}/0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"     #Panfrost
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"    #Bluetooth
