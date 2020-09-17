@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.8.9
+pkgver=5.8.10
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -36,7 +36,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
         '0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch'
         '0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch'
-        '0019-revert-module-Harden-STRICT_MODULE_RWX.patch'
+        '0019-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
+        '0020-revert-fbcon-remove-soft-scrollback-code.patch'
         '0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
@@ -62,7 +63,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('0e5c4c15266218ef26c50fac0016095b'
-         '76f0d7bc98014e70f9d3dd56dca08bd4'
+         '52ae69804bafe1df6aca5f422e2de2da'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -84,7 +85,8 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          'bd685e6b04509bbd11cd6804dec7e9af'
          'cf5e552f4f9c5a12db05b3040c59fc82'
          'eab087ba002df22e2bc7935e8db6f1c4'
-         '985d6026b4d76b88f0f9fbfd79e4a618'
+         'a31a435ab6cd8e7a47601159d665ce50'
+         '47f65423c4ffc7e6092c7ff2c7129942'
          'f8f0b124c741be61d86bea8d44e875f9'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
@@ -93,7 +95,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          '22c651017f864e41916a74e63ef46a19'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         'a48b4c1772dd243cdd35e42278246758'
+         '479f0cdc39a12f3e75b21bb015467892'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -117,40 +119,41 @@ prepare() {
   patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
-  patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"     #All
-  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"     #RK3328
-  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"     #RK3328
+  patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"             #RK3328
+  patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"             #RK3328
   
   # Manjaro ARM Patches
-  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                 #Rock Pi 4
-  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"            #RockPro64
-  patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                              #Amlogic
-  patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                        #Rock Pi 4
-  patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"     #Rock64
-  patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"       #Pine64
-  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                              #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"           #Nanopi Neo Plus 2
-  patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"              #Pinebook Pro
-  #patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                         #Odroid and Vims (not working right yet)
-  patch -Np1 -i "${srcdir}/0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch"          #Odroid C4
-  patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch"       #Khadas Vim3l
-  patch -Np1 -i "${srcdir}/0013-arm64-dts-amlogic-add-odroid-n2-plus.patch"                     #Odroid N2+ (not working right yet)
-  patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"      #Rock Pi 4A
-  patch -Np1 -i "${srcdir}/0015-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"          #Rock Pi 4B
-  patch -Np1 -i "${srcdir}/0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"          #Rock Pi 4C
-  patch -Np1 -i "${srcdir}/0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch"     #All
-  patch -Np1 -i "${srcdir}/0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch"             #RockPro64
-  patch -Np1 -i "${srcdir}/0019-revert-module-Harden-STRICT_MODULE_RWX.patch"                   #All
-  patch -Np1 -i "${srcdir}/0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"     #Panfrost
+  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                         #Rock Pi 4
+  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"                    #RockPro64
+  patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                                      #Amlogic
+  patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                                #Rock Pi 4
+  patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
+  patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
+  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                                      #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
+  patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
+  #patch -Np1 -i "${srcdir}/0010-DRM-Panfrost-enable-Bifrost-GPUs.patch"                                #Odroid and Vims (not working right yet)
+  patch -Np1 -i "${srcdir}/0011-arm64-dts-meson-add-audio-playback-to-odroid-c4.patch"                  #Odroid C4
+  patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-khadas-vim3l.patch"               #Khadas Vim3l
+  patch -Np1 -i "${srcdir}/0013-arm64-dts-amlogic-add-odroid-n2-plus.patch"                             #Odroid N2+ (not working right yet)
+  patch -Np1 -i "${srcdir}/0014-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"              #Rock Pi 4A
+  patch -Np1 -i "${srcdir}/0015-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"                  #Rock Pi 4B
+  patch -Np1 -i "${srcdir}/0016-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"                  #Rock Pi 4C
+  patch -Np1 -i "${srcdir}/0017-mmc-core-Add-MMC-Command-Queue-Support-kernel-parame.patch"             #All
+  patch -Np1 -i "${srcdir}/0018-rockpro64-dts-rk-pcie-add-configurable-delay.patch"                     #RockPro64
+  patch -Np1 -i "${srcdir}/0019-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"   #All
+  patch -Np1 -i "${srcdir}/0020-revert-fbcon-remove-soft-scrollback-code.patch"                         #All
+  patch -Np1 -i "${srcdir}/0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
   
   # Pinebook patches
-  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"    #Bluetooth
-  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"            #Bluetooth
-  patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"         #Bluetooth
-  patch -Np1 -i "${srcdir}/0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch" #Hardware cursor
-  patch -Np1 -i "${srcdir}/0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"      #Hardware cursor
-  patch -Np1 -i "${srcdir}/0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"        #Hardware cursor
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"     #Bluetooth on PineTab and PinePhone
+  patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
+  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
+  patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
+  patch -Np1 -i "${srcdir}/0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch"         #Hardware cursor
+  patch -Np1 -i "${srcdir}/0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"              #Hardware cursor
+  patch -Np1 -i "${srcdir}/0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"                #Hardware cursor
+  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
@@ -179,24 +182,24 @@ build() {
   cd ${_srcname}
 
   # get kernel version
-  make prepare
+  #make prepare
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
-  #make menuconfig # CLI menu for configuration
+  make menuconfig # CLI menu for configuration
   #make nconfig # new CLI menu for configuration
   #make xconfig # X-based configuration
   #make oldconfig # using old config from previous kernel version
   # ... or manually edit .config
 
   # Copy back our configuration (use with new kernel version)
-  #cp ./.config /var/tmp/${pkgbase}.config
+  cp ./.config /var/tmp/${pkgbase}.config
 
   ####################
   # stop here
   # this is useful to configure the kernel
-  #msg "Stopping build"
-  #return 1
+  msg "Stopping build"
+  return 1
   ####################
 
   #yes "" | make config
