@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.8.12
+pkgver=5.8.13
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -63,7 +63,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-bootsplash.patch'
         '0012-bootsplash.patch')
 md5sums=('0e5c4c15266218ef26c50fac0016095b'
-         '28be6e68f00a28c13ef70745a5424ed9'
+         '1f276bf9d1bc12215179a4681c29a573'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
