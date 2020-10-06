@@ -7,7 +7,7 @@ _srcname=linux-5.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.8.13
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -39,6 +39,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0019-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
         '0020-revert-fbcon-remove-soft-scrollback-code.patch'
         '0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
+        '0021-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -88,6 +89,7 @@ md5sums=('0e5c4c15266218ef26c50fac0016095b'
          'a31a435ab6cd8e7a47601159d665ce50'
          '47f65423c4ffc7e6092c7ff2c7129942'
          'f8f0b124c741be61d86bea8d44e875f9'
+         '4815f95bea48100ee81a476d8bfa2f6b'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -145,6 +147,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0019-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"   #All
   patch -Np1 -i "${srcdir}/0020-revert-fbcon-remove-soft-scrollback-code.patch"                         #All
   patch -Np1 -i "${srcdir}/0020-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
+  patch -Np1 -i "${srcdir}/0021-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch"				#Rockchip
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
