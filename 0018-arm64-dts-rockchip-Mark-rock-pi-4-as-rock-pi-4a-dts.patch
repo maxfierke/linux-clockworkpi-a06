@@ -212,3 +212,4 @@ index 000000000000..89f2af5e111d
 +	model = "Radxa ROCK Pi 4A";
 +	compatible = "radxa,rockpi4a", "radxa,rockpi4", "rockchip,rk3399";
 +};
+ 
