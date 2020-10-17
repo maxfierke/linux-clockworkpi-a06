@@ -38,6 +38,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
         '0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch'
         '0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
+        '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -63,8 +64,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0009-bootsplash.patch'
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
-        '0012-bootsplash.patch'
-        '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch')
+        '0012-bootsplash.patch')
 md5sums=('0959d759fd19e146367221aff504ad91'
          '1740eb78293ff559ccc63556de86d604'
          '6ee347975dca719ecd63a846cc5983b2'
@@ -90,6 +90,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '5988c9979adf6d1f909191a0b101fe47'
          'c8d4c58ff9648d077e6545adbee56425'
          'e622ea29d2d986fd7629381a20691ca3'
+         'd586d5679d329b0fdbb2c334024f79dc'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -115,8 +116,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '6b6def41b404422dc04b39e2f1adffc8'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
-         'ecfd8a30c480149005fcf349e4d06f4b'
-         'd586d5679d329b0fdbb2c334024f79dc')
+         'ecfd8a30c480149005fcf349e4d06f4b')
 
 prepare() {
   cd ${_srcname}
