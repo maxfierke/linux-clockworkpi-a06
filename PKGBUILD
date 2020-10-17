@@ -6,15 +6,15 @@ pkgbase=linux
 _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.9.0
-pkgrel=2
+pkgver=5.9.1
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
@@ -66,6 +66,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-bootsplash.patch'
         '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch')
 md5sums=('0959d759fd19e146367221aff504ad91'
+         '1740eb78293ff559ccc63556de86d604'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -121,7 +122,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
