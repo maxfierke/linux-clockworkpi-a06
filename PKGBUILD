@@ -7,7 +7,7 @@ _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.9.1
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -39,6 +39,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch'
         '0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
         '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
+        '0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
+        '0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -91,6 +93,8 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'c8d4c58ff9648d077e6545adbee56425'
          'e622ea29d2d986fd7629381a20691ca3'
          'd586d5679d329b0fdbb2c334024f79dc'
+         'a033be22c23afb1d5daeeeb21353185d'
+         '9c91c31ef6f6e37a0adee24332a3cc56'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -151,6 +155,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"                  #Rock Pi 4B
   patch -Np1 -i "${srcdir}/0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"                  #Rock Pi 4C
   patch -Np1 -i "${srcdir}/0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
+  patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
+  patch -Np1 -i "${srcdir}/0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch"                    #DP Alt mode - Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
@@ -225,6 +231,7 @@ _package() {
   depends=('coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26' "linux=${pkgver}")
+  conflicts=('kernel26' 'linux')
   replaces=('linux-armv8' 'linux-aarch64')
   backup=("etc/mkinitcpio.d/${pkgbase}.preset")
   install=${pkgname}.install
@@ -281,6 +288,7 @@ _package() {
 _package-headers() {
   pkgdesc="Header files and scripts for building modules for linux kernel - ${_desc}"
   provides=("linux-headers=${pkgver}")
+  conflicts=('linux-headers')
   replaces=('linux-aarch64-headers')
 
   cd ${_srcname}
