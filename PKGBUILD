@@ -103,7 +103,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '23c79bf646bc95bb69caaf124799a2c9'
-         'f34bc78f8f097efad549f95ecb2b8014'
+         '0c4b00e3aff143fdb64440f135563eec'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -221,7 +221,7 @@ build() {
 
   # build!
   unset LDFLAGS
-  make ${MAKEFLAGS} Image Image.gz modules
+  make ${MAKEFLAGS} Image modules
   # Generate device tree blobs with symbols to support applying device tree overlays in U-Boot
   make ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
 }
@@ -248,7 +248,7 @@ _package() {
   mkdir -p "${pkgdir}"/{boot,usr/lib/modules}
   make INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make INSTALL_DTBS_PATH="${pkgdir}/boot/dtbs" dtbs_install
-  cp arch/$KARCH/boot/Image{,.gz} "${pkgdir}/boot"
+  cp arch/$KARCH/boot/Image "${pkgdir}/boot"
 
   # make room for external modules
   local _extramodules="extramodules-${_basekernel}${_kernelname}"
