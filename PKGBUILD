@@ -164,8 +164,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
   patch -Np1 -i "${srcdir}/0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch"                    #DP Alt mode - Pinebook Pro
   patch -Np1 -i "${srcdir}/0024-mfd-backport-fusb302-from-4.4-kernel.patch"								#DP Alt mode
-  #patch -Np1 -i "${srcdir}/0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch"					#DP Alt mode - RockPro64
-  patch -Np1 -i "${srcdir}/0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch"					#Dp Alt mode - Pinebook Pro
+  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch"					#DP Alt mode - RockPro64
+  #patch -Np1 -i "${srcdir}/0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch"					#Dp Alt mode - Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
