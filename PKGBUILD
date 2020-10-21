@@ -7,7 +7,7 @@ _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.9.1
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -41,6 +41,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
         '0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
         '0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch'
+        '0024-mfd-backport-fusb302-from-4.4-kernel.patch'
+        '0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch'
+        '0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -95,6 +98,9 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'd586d5679d329b0fdbb2c334024f79dc'
          'a033be22c23afb1d5daeeeb21353185d'
          '9c91c31ef6f6e37a0adee24332a3cc56'
+         '791ab6aaee36ef27aa12a9e7dadb46f8'
+         '4b77fcb0b0ff6406e5cd6c49b9569832'
+         'c7a192686cc348cdbbcf47c491d17a02'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -103,7 +109,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '23c79bf646bc95bb69caaf124799a2c9'
-         '0c4b00e3aff143fdb64440f135563eec'
+         '8db79fc4c2445f521ad06311fa5acbc7'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -157,6 +163,9 @@ prepare() {
   patch -Np1 -i "${srcdir}/0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
   patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
   patch -Np1 -i "${srcdir}/0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch"                    #DP Alt mode - Pinebook Pro
+  patch -Np1 -i "${srcdir}/0024-mfd-backport-fusb302-from-4.4-kernel.patch"								#DP Alt mode
+  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch"					#DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch"					#Dp Alt mode - Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
