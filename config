@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.9.0-1 Kernel Configuration
+# Linux/arm64 5.9.1-3 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 10.2.0"
 CONFIG_CC_IS_GCC=y
@@ -4844,6 +4844,7 @@ CONFIG_MFD_VEXPRESS_SYSREG=y
 # CONFIG_RAVE_SP_CORE is not set
 # end of Multifunction device drivers
 
+CONFIG_FUSB_30X=y
 CONFIG_REGULATOR=y
 # CONFIG_REGULATOR_DEBUG is not set
 CONFIG_REGULATOR_FIXED_VOLTAGE=y

@@ -100,7 +100,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '9c91c31ef6f6e37a0adee24332a3cc56'
          '791ab6aaee36ef27aa12a9e7dadb46f8'
          'ccb67e82592f82a610e2db253f1c07e3'
-         'a2658518bbe78c31a5353734b5332b86'
+         '8dd308af50ab9d45a24dec3f130639d0'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -109,7 +109,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '23c79bf646bc95bb69caaf124799a2c9'
-         'e4aafe04ed73aa2eae1a08249a746ef8'
+         '43c0bdd74b488c9beabc0b1a3db09d6a'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -165,7 +165,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch"                    #DP Alt mode - Pinebook Pro
   patch -Np1 -i "${srcdir}/0024-mfd-backport-fusb302-from-4.4-kernel.patch"								#DP Alt mode
   patch -Np1 -i "${srcdir}/0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch"					#DP Alt mode - RockPro64
-  #patch -Np1 -i "${srcdir}/0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch"					#Dp Alt mode - Pinebook Pro
+  patch -Np1 -i "${srcdir}/0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch"					#Dp Alt mode - Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth

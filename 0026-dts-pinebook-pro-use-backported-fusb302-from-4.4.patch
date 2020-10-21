@@ -37,7 +37,7 @@ index d77dca5524ff..69a81966b7d4 100644
 -			try-power-role = "sink";
 -
 -			extcon-cables = <1 2 5 6 9 10 12 44>;
--			typec-altmodes = <0xff01 1 0x001c0000 1>;
+-			typec-altmodes = <0xff01 1 0x001c0c00 1>;
 -
 -			ports {
 -				#address-cells = <1>;
