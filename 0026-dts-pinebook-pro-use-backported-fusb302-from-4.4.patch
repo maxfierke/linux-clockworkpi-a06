@@ -1,53 +1,28 @@
-From eb8959819400e452f3ffb8b23c5a23a69e7c8968 Mon Sep 17 00:00:00 2001
+From 98f3a9b8700ee962a2e2195c894e50cd8db7c815 Mon Sep 17 00:00:00 2001
 From: Dan Johansen <strit@manjaro.org>
-Date: Wed, 21 Oct 2020 11:38:00 +0200
-Subject: [PATCH] dts: pinebook-pro: use backported fusb302 from 4.4
+Date: Wed, 21 Oct 2020 12:16:02 +0200
+Subject: [PATCH 2/2] dts: pinebook-pro: use backported fusb302 from 4.4
 
 ---
- .../boot/dts/rockchip/rk3399-pinebook-pro.dts | 92 +------------------
- 1 file changed, 3 insertions(+), 89 deletions(-)
+ .../boot/dts/rockchip/rk3399-pinebook-pro.dts | 54 ++-----------------
+ 1 file changed, 3 insertions(+), 51 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts
-index d77dca5524ff..d603fee26418 100644
+index d77dca5524ff..69a81966b7d4 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts
-@@ -349,24 +349,6 @@ regulator-state-mem {
- 		};
- 	};
- 
--	/* Regulators supplied by vcc5v0_usb */
--	/* Type C port power supply regulator */
--	vbus_5vout: vbus_typec: vbus-5vout {
--		compatible = "regulator-fixed";
--		enable-active-high;
--		gpio = <&gpio1 RK_PA3 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&vcc5v0_typec0_en_pin>;
--		regulator-name = "vbus_5vout";
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--		vin-supply = <&vcc5v0_usb>;
--
--		regulator-state-mem {
--			regulator-off-in-suspend;
--		};
--	};
--
- 	/* Regulators supplied by vcc_1v8 */
- 	/* Primary 0.9 V LDO */
- 	vcca0v9_s3: vcca0v9-s3 {
-@@ -716,60 +698,14 @@ &i2c4 {
+@@ -716,61 +716,13 @@ &i2c4 {
  	status = "okay";
  
  	fusb0: fusb30x@22 {
 -		compatible = "fcs,fusb302";
 +		compatible = "fairchild,fusb302";
  		reg = <0x22>;
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <RK_PA2 IRQ_TYPE_LEVEL_LOW>;
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <RK_PA2 IRQ_TYPE_LEVEL_LOW>;
  		pinctrl-names = "default";
  		pinctrl-0 = <&fusb0_int_pin>;
--		vbus-supply = <&vbus_typec>;
+ 		vbus-supply = <&vbus_typec>;
 -
 -		connector {
 -			compatible = "usb-c-connector";
@@ -95,57 +70,12 @@ index d77dca5524ff..d603fee26418 100644
 -					};
 -				};
 -			};
+-		};
 +		vbus-5v-gpios = <&gpio1 RK_PA3 GPIO_ACTIVE_HIGH>;
 +		int-n-gpios = <&gpio1 RK_PA2 GPIO_ACTIVE_HIGH>;
- 		};
  	};
  
-@@ -910,12 +846,6 @@ wifi_enable_h_pin: wifi-enable-h-pin {
- 		};
- 	};
- 
--	usb-typec {
--		vcc5v0_typec0_en_pin: vcc5v0-typec0-en-pin {
--			rockchip,pins = <1 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
--		};
--	};
--
- 	usb2 {
- 		pwr_5v_pin: pwr-5v-pin {
- 			rockchip,pins = <1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -1034,19 +964,9 @@ &tcphy0 {
- };
- 
- &tcphy0_dp {
--	port {
--		tcphy0_typec_dp: endpoint {
--			remote-endpoint = <&usbc_dp>;
--		};
--	};
- };
- 
- &tcphy0_usb3 {
--	port {
--		tcphy0_typec_ss: endpoint {
--			remote-endpoint = <&usbc_ss>;
--		};
--	};
- };
- 
- &tcphy1 {
-@@ -1072,12 +992,6 @@ u2phy0_host: host-port {
- 		phy-supply = <&vcc5v0_otg>;
- 		status = "okay";
- 	};
--
--	port {
--		u2phy0_typec_hs: endpoint {
--			remote-endpoint = <&usbc_hs>;
--		};
--	};
- };
- 
- &u2phy1 {
+ 	cw2015@62 {
 -- 
 2.28.0
 
