@@ -163,7 +163,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
   patch -Np1 -i "${srcdir}/0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
   patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
-  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patc"							#DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch"							#DP Alt mode - RockPro64
   patch -Np1 -i "${srcdir}/0026-dts-rockpro64-fix-i2s-8ch-mclk-failure.patch"							#RockPro64
   patch -Np1 -i "${srcdir}/0027-dts-pinebook-pro-Add-DP-Altmode-and-small-tweaks.patch"					#DP Alt mode - Pinebook Pro
   
