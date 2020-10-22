@@ -34,16 +34,16 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0014-drm-panfrost-add-Amlogic-integration-quirks.patch'
         '0015-drm-panfrost-Coherency-support.patch'
         '0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch'
-        '0017-dts-rockchip-remove-pcie-max-speed-from-pinebook-pro.patch'
         '0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
         '0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch'
         '0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
         '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
         '0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
-        '0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch'
-        '0024-mfd-backport-fusb302-from-4.4-kernel.patch'
-        '0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch'
-        '0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch'
+        '0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
+        '0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
+        '0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch'
+        '0026-dts-rockpro64-fix-i2s-8ch-mclk-failure.patch'
+        '0027-dts-pinebook-pro-Add-DP-Altmode-and-small-tweaks.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -81,7 +81,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'f7769084356056b5eec725938e49a6a5'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         '42adaddb1ac7214663d585ab8d755bcc'
+         '833b65787cdea41e414b34ebd2296c22'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '5cdc63bd46342600e3e55ce665818655'
@@ -91,16 +91,16 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '8e0cc7b9a249ab9e6a595a48ea6a3938'
          'dc8b4945fa5e997b19d1f370b91cc6c0'
          '20049953fa7ce65e71f07b5bed81703d'
-         'be7550f189ba1652dcf62bf17051ae52'
          '5988c9979adf6d1f909191a0b101fe47'
          'c8d4c58ff9648d077e6545adbee56425'
          'e622ea29d2d986fd7629381a20691ca3'
          'd586d5679d329b0fdbb2c334024f79dc'
          'a033be22c23afb1d5daeeeb21353185d'
-         '9c91c31ef6f6e37a0adee24332a3cc56'
-         '791ab6aaee36ef27aa12a9e7dadb46f8'
-         'ccb67e82592f82a610e2db253f1c07e3'
-         'd1403cfdbec50b29f9059df8d09ff6f3'
+         '05a333eadd0d5add93d69607378fbdbe'
+         'e78fd8f59f5d073069aec121e033590b'
+         '1d727ba4a659b72c8ee9ec82af02e887'
+         'a26d95346e0c6a384775e0cc53a85568'
+         'd54aec85e99711b116415cb3c28ff2f0'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -109,7 +109,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '23c79bf646bc95bb69caaf124799a2c9'
-         '43c0bdd74b488c9beabc0b1a3db09d6a'
+         '4a8c93f89307d3c6ea256cf396764595'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -156,16 +156,16 @@ prepare() {
   patch -Np1 -i "${srcdir}/0014-drm-panfrost-add-Amlogic-integration-quirks.patch"                      #Panfrost
   patch -Np1 -i "${srcdir}/0015-drm-panfrost-Coherency-support.patch"                                   #Panfrost
   patch -Np1 -i "${srcdir}/0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
-  patch -Np1 -i "${srcdir}/0017-dts-rockchip-remove-pcie-max-speed-from-pinebook-pro.patch"             #Pinebook Pro
   patch -Np1 -i "${srcdir}/0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"              #Rock Pi 4A
   patch -Np1 -i "${srcdir}/0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"                  #Rock Pi 4B
   patch -Np1 -i "${srcdir}/0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"                  #Rock Pi 4C
   patch -Np1 -i "${srcdir}/0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
   patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
-  patch -Np1 -i "${srcdir}/0023-dts-pinebook-pro-support-more-DP-type-c-docks.patch"                    #DP Alt mode - Pinebook Pro
-  patch -Np1 -i "${srcdir}/0024-mfd-backport-fusb302-from-4.4-kernel.patch"								#DP Alt mode
-  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-use-backported-fusb302-from-4.4.patch"					#DP Alt mode - RockPro64
-  patch -Np1 -i "${srcdir}/0026-dts-pinebook-pro-use-backported-fusb302-from-4.4.patch"					#Dp Alt mode - Pinebook Pro
+  patch -Np1 -i "${srcdir}/0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
+  patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
+  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patc"							#DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0026-dts-rockpro64-fix-i2s-8ch-mclk-failure.patch"							#RockPro64
+  patch -Np1 -i "${srcdir}/0027-dts-pinebook-pro-Add-DP-Altmode-and-small-tweaks.patch"					#DP Alt mode - Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth

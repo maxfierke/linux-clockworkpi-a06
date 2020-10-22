@@ -1,0 +1,24 @@
+From 022348412f113941a11c8ff7ca7c071f6af1d123 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Kamil=20Trzci=C5=84ski?= <ayufan@ayufan.eu>
+Date: Tue, 20 Oct 2020 22:00:46 +0200
+Subject: [PATCH] ayufan: dts: rockpro64: fix i2s-8ch-mclk failure
+
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+index e1212a790c3a5..4b42717800f77 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+@@ -27,10 +27,4 @@
+ 			};
+ 		};
+ 	};
+-
+-	i2s0 {
+-		i2s_8ch_mclk: i2s-8ch-mclk {
+-			rockchip,pins = <4 0 RK_FUNC_1 &pcfg_pull_none>;
+-		};
+-	};
+ };
