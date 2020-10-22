@@ -42,8 +42,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
         '0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
         '0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch'
-        '0026-dts-rockpro64-fix-i2s-8ch-mclk-failure.patch'
-        '0027-dts-pinebook-pro-Add-DP-Altmode-and-small-tweaks.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -81,7 +79,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'f7769084356056b5eec725938e49a6a5'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         '49b3e9106290d9b9021e0f6827811bb2'
+         '802c7980435cc3a2a8086a6e951a076e'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '5cdc63bd46342600e3e55ce665818655'
@@ -99,8 +97,6 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '05a333eadd0d5add93d69607378fbdbe'
          'e78fd8f59f5d073069aec121e033590b'
          '1d727ba4a659b72c8ee9ec82af02e887'
-         'a26d95346e0c6a384775e0cc53a85568'
-         'd54aec85e99711b116415cb3c28ff2f0'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -164,8 +160,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
   patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
   patch -Np1 -i "${srcdir}/0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch"							#DP Alt mode - RockPro64
-  #patch -Np1 -i "${srcdir}/0026-dts-rockpro64-fix-i2s-8ch-mclk-failure.patch"							#RockPro64
-  patch -Np1 -i "${srcdir}/0027-dts-pinebook-pro-Add-DP-Altmode-and-small-tweaks.patch"					#DP Alt mode - Pinebook Pro
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
