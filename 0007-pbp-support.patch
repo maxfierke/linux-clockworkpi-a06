@@ -1,9 +1,9 @@
-From b67b340bffee8d527aac36817c769e8ff7a2125f Mon Sep 17 00:00:00 2001
+From b4ded4099a0fc4106e0519e5d367a95fecbb7a57 Mon Sep 17 00:00:00 2001
 From: Dan Johansen <strit@manjaro.org>
-Date: Thu, 22 Oct 2020 08:35:10 +0200
-Subject: [PATCH 2/2] pbp support
+Date: Thu, 22 Oct 2020 10:37:15 +0200
+Subject: [PATCH] pbp support
 
-This patch includes Wifi, Bluetooth, MMC and Audio fixes for the Pinebook Pro.
+This patch adds small tweaks for Wifi, Bluetooth and Audio found in the Pinebook Pro.
 
 Signed-off-by: Dan Johansen <strit@manjaro.org>
 ---
@@ -66,26 +66,21 @@ index ef96ad06fa54..b621ace5bf36 100644
  
  void hci_uart_unregister_device(struct hci_uart *hu)
 diff --git a/drivers/mmc/core/pwrseq_simple.c b/drivers/mmc/core/pwrseq_simple.c
-index ea4d3670560e..2490fc80f98e 100644
+index ea4d3670560e..38fe7e29aba6 100644
 --- a/drivers/mmc/core/pwrseq_simple.c
 +++ b/drivers/mmc/core/pwrseq_simple.c
-@@ -72,15 +72,13 @@ static void mmc_pwrseq_simple_pre_power_on(struct mmc_host *host)
- 
- static void mmc_pwrseq_simple_post_power_on(struct mmc_host *host)
- {
--	struct mmc_pwrseq_simple *pwrseq = to_pwrseq_simple(host->pwrseq);
--
- 	mmc_pwrseq_simple_set_gpios_value(pwrseq, 0);
- 
- 	if (pwrseq->post_power_on_delay_ms)
+@@ -80,10 +80,8 @@ static void mmc_pwrseq_simple_post_power_on(struct mmc_host *host)
  		msleep(pwrseq->post_power_on_delay_ms);
  }
  
 -static void mmc_pwrseq_simple_power_off(struct mmc_host *host)
 +static void __mmc_pwrseq_simple_power_off(struct mmc_pwrseq_simple *pwrseq)
  {
- 	struct mmc_pwrseq_simple *pwrseq = to_pwrseq_simple(host->pwrseq);
+-	struct mmc_pwrseq_simple *pwrseq = to_pwrseq_simple(host->pwrseq);
+-
+ 	mmc_pwrseq_simple_set_gpios_value(pwrseq, 1);
  
+ 	if (pwrseq->power_off_delay_us)
 @@ -96,6 +94,12 @@ static void mmc_pwrseq_simple_power_off(struct mmc_host *host)
  	}
  }
