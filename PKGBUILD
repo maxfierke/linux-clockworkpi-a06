@@ -29,7 +29,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
         '0010-PCI-rockchip-Fix-PCIe-probing-in-5.9.patch'
         '0011-arm64-dts-amlogic-add-odroid-n2-plus.patch'
-        '0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch'
+        #'0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch'
         '0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
         '0014-drm-panfrost-add-Amlogic-integration-quirks.patch'
         '0015-drm-panfrost-Coherency-support.patch'
@@ -84,7 +84,6 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '5cdc63bd46342600e3e55ce665818655'
          '62994c755294232049fa5c24c7eb3123'
-         '4815f95bea48100ee81a476d8bfa2f6b'
          'f8f0b124c741be61d86bea8d44e875f9'
          '8e0cc7b9a249ab9e6a595a48ea6a3938'
          'dc8b4945fa5e997b19d1f370b91cc6c0'
@@ -147,7 +146,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
   patch -Np1 -i "${srcdir}/0010-PCI-rockchip-Fix-PCIe-probing-in-5.9.patch"                             #Rk3399
   patch -Np1 -i "${srcdir}/0011-arm64-dts-amlogic-add-odroid-n2-plus.patch"                             #Odroid N2+
-  patch -Np1 -i "${srcdir}/0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch"             #Rockchip
+  #patch -Np1 -i "${srcdir}/0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch"             #Rockchip (seems to be added in 5.9.2)
   patch -Np1 -i "${srcdir}/0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
   patch -Np1 -i "${srcdir}/0014-drm-panfrost-add-Amlogic-integration-quirks.patch"                      #Panfrost
   patch -Np1 -i "${srcdir}/0015-drm-panfrost-Coherency-support.patch"                                   #Panfrost
