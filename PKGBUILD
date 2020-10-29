@@ -31,7 +31,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-arm64-dts-amlogic-add-odroid-n2-plus.patch'
         #'0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch'
         '0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
-        '0014-drm-panfrost-add-Amlogic-integration-quirks.patch'
+        #'0014-drm-panfrost-add-Amlogic-integration-quirks.patch'
         '0015-drm-panfrost-Coherency-support.patch'
         '0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch'
         '0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
@@ -85,7 +85,6 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '5cdc63bd46342600e3e55ce665818655'
          '62994c755294232049fa5c24c7eb3123'
          'f8f0b124c741be61d86bea8d44e875f9'
-         '8e0cc7b9a249ab9e6a595a48ea6a3938'
          'dc8b4945fa5e997b19d1f370b91cc6c0'
          '20049953fa7ce65e71f07b5bed81703d'
          '5988c9979adf6d1f909191a0b101fe47'
@@ -148,7 +147,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0011-arm64-dts-amlogic-add-odroid-n2-plus.patch"                             #Odroid N2+
   #patch -Np1 -i "${srcdir}/0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch"             #Rockchip (seems to be added in 5.9.2)
   patch -Np1 -i "${srcdir}/0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
-  patch -Np1 -i "${srcdir}/0014-drm-panfrost-add-Amlogic-integration-quirks.patch"                      #Panfrost
+  #patch -Np1 -i "${srcdir}/0014-drm-panfrost-add-Amlogic-integration-quirks.patch"                      #Panfrost (seems to be added in 5.9.2)
   patch -Np1 -i "${srcdir}/0015-drm-panfrost-Coherency-support.patch"                                   #Panfrost
   patch -Np1 -i "${srcdir}/0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
   patch -Np1 -i "${srcdir}/0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"              #Rock Pi 4A
