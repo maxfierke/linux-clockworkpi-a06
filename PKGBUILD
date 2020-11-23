@@ -7,7 +7,7 @@ _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.9.10
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -31,7 +31,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0011-arm64-dts-amlogic-add-odroid-n2-plus.patch'
         '0012-gpu-drm-add-new-display-resolution-2560x1440.patch'
         '0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
-        '0014-sound-soc-add-audio-module-for-g12a-g12b-sm1.patch'
+        '0014-sound-soc-remove-mono-channel-as-it-currently.patch'
         '0015-drm-panfrost-Coherency-support.patch'
         '0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch'
         '0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
@@ -86,7 +86,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '62994c755294232049fa5c24c7eb3123'
          '6f592c11f6adc1de0f06e5d18f8c2862'
          'f8f0b124c741be61d86bea8d44e875f9'
-         '0e3e831298df184bb4b2d7932d138c5a'
+         'e4f23d99afd158c58bc41e44e718e448'
          'dc8b4945fa5e997b19d1f370b91cc6c0'
          '20049953fa7ce65e71f07b5bed81703d'
          '5988c9979adf6d1f909191a0b101fe47'
@@ -149,7 +149,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0011-arm64-dts-amlogic-add-odroid-n2-plus.patch"                             #Odroid N2+
   patch -Np1 -i "${srcdir}/0012-gpu-drm-add-new-display-resolution-2560x1440.patch"             		#Odroid
   patch -Np1 -i "${srcdir}/0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
-  patch -Np1 -i "${srcdir}/0014-sound-soc-add-audio-module-for-g12a-g12b-sm1.patch"                     #Odroid
+  patch -Np1 -i "${srcdir}/0014-sound-soc-remove-mono-channel-as-it-currently.patch"                     #Odroid
   patch -Np1 -i "${srcdir}/0015-drm-panfrost-Coherency-support.patch"                                   #Panfrost
   patch -Np1 -i "${srcdir}/0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
   patch -Np1 -i "${srcdir}/0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"              #Rock Pi 4A
