@@ -7,7 +7,7 @@ _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.9.11
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -68,7 +68,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0009-bootsplash.patch'
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
-        '0012-bootsplash.patch')
+        '0012-bootsplash.patch'
+        'rkvdec.patch')
 md5sums=('0959d759fd19e146367221aff504ad91'
          'f400a38fe1f390748ac9d3a2b130858c'
          '6ee347975dca719ecd63a846cc5983b2'
@@ -107,7 +108,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '23c79bf646bc95bb69caaf124799a2c9'
-         '653fa1b411007eadb00d7c97eed0463d'
+         'f5ce78e8036355a3135ecceb88aab19a'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -124,7 +125,8 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '6b6def41b404422dc04b39e2f1adffc8'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
-         'ecfd8a30c480149005fcf349e4d06f4b')
+         'ecfd8a30c480149005fcf349e4d06f4b'
+         '741ba1fabb8772b0f02b9fa7e0e4d4c2')
 
 prepare() {
   cd ${_srcname}
@@ -189,6 +191,9 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  
+  # RK Vdec Patch
+  patch -Np1 -i "${srcdir}/rkvdec.patch"
   
   cat "${srcdir}/config" > ./.config
 
