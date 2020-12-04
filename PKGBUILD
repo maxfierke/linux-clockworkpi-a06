@@ -7,7 +7,7 @@ _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.9.12
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -43,6 +43,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
         '0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch'
         '0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
+        '0027-dwmac-meson8b-picosecond-precision-RX-delay-support.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -100,6 +101,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'e78fd8f59f5d073069aec121e033590b'
          '1d727ba4a659b72c8ee9ec82af02e887'
          '245858f26512dfc48adbf509b6fc8364'
+         'a4cb27e4d41094f6f614e7ad05ad74a0'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -165,6 +167,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
   patch -Np1 -i "${srcdir}/0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch"							#DP Alt mode - RockPro64
   patch -Np1 -i "${srcdir}/0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RK3399
+  patch -Np1 -i "${srcdir}/0027-dwmac-meson8b-picosecond-precision-RX-delay-support.patch"				#AMLogic
   
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
