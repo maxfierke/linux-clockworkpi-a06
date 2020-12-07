@@ -7087,7 +7087,7 @@ CONFIG_TYPEC_FUSB302=y
 #
 # USB Type-C Alternate Mode drivers
 #
-# CONFIG_TYPEC_DP_ALTMODE is not set
+CONFIG_TYPEC_DP_ALTMODE=y
 # end of USB Type-C Alternate Mode drivers
 
 CONFIG_USB_ROLE_SWITCH=y
