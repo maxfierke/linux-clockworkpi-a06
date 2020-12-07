@@ -147,15 +147,6 @@ index 06d48338c836..d77dca5524ff 100644
  };
  
  &cpu_b0 {
-@@ -705,7 +726,7 @@ fusb0: fusb30x@22 {
- 
- 		connector {
- 			compatible = "usb-c-connector";
--			data-role = "host";
-+			data-role = "dual";
- 			label = "USB-C";
- 			op-sink-microwatt = <1000000>;
- 			power-role = "dual";
 @@ -715,6 +736,9 @@ connector {
  				<PDO_FIXED(5000, 1400, PDO_FIXED_USB_COMM)>;
  			try-power-role = "sink";

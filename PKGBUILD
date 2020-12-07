@@ -41,10 +41,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
         '0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
         '0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
-        '0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch'
+        '0025-arm64-rockchip-add-DP-ALT-rockpro64.patch'
         '0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
-        '0027-fix-displayport.patch'
-        '0028-fix-fusb302.patch'
+        '0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -100,10 +99,9 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          'a033be22c23afb1d5daeeeb21353185d'
          '05a333eadd0d5add93d69607378fbdbe'
          'e78fd8f59f5d073069aec121e033590b'
-         '1d727ba4a659b72c8ee9ec82af02e887'
+         '09fc19ac5c51e2839ca56248ccf6323a'
          '245858f26512dfc48adbf509b6fc8364'
-         '0c204d8119502023042ae6b0f7cbd015'
-         'f34b6381c2d72509392295070069965d'
+         '66fae3fc96f0a478a56ff11632f3ef70'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -167,11 +165,10 @@ prepare() {
   patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
   patch -Np1 -i "${srcdir}/0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
   patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
-  patch -Np1 -i "${srcdir}/0025-dts-rockpro64-add-type-c-DP-ALT-and-USB3.patch"							#DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0025-arm64-rockchip-add-DP-ALT-rockpro64.patch"							#DP Alt mode - RockPro64
   patch -Np1 -i "${srcdir}/0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RK3399
-  patch -Np1 -i "${srcdir}/0027-fix-displayport.patch"                                                  #DP Alt mode
-  patch -Np1 -i "${srcdir}/0028-fix-fusb302.patch"                                                      #DP Alt mode - Pinebook Pro
-  
+  patch -Np1 -i "${srcdir}/0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"                                                  #DP Alt mode
+
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
   patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
