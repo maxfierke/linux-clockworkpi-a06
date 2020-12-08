@@ -6,8 +6,8 @@ pkgbase=linux
 _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.9.12
-pkgrel=4
+pkgver=5.9.13
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -44,6 +44,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0025-arm64-rockchip-add-DP-ALT-rockpro64.patch'
         '0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
         '0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
+        '0028-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -72,7 +73,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-bootsplash.patch'
         'rkvdec.patch')
 md5sums=('0959d759fd19e146367221aff504ad91'
-         'aaf2ffea63191f35ca2a5a4a16dfb20f'
+         '013a89f04024ebf1349ad55ee7f1c486'
          '6ee347975dca719ecd63a846cc5983b2'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -102,6 +103,7 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '09fc19ac5c51e2839ca56248ccf6323a'
          '245858f26512dfc48adbf509b6fc8364'
          '66fae3fc96f0a478a56ff11632f3ef70'
+         'f250c40648d027c539242a40fcd97a15'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -165,9 +167,10 @@ prepare() {
   patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
   patch -Np1 -i "${srcdir}/0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
   patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
-  patch -Np1 -i "${srcdir}/0025-arm64-rockchip-add-DP-ALT-rockpro64.patch"							#DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0025-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
   patch -Np1 -i "${srcdir}/0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RK3399
-  patch -Np1 -i "${srcdir}/0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"                                                  #DP Alt mode
+  patch -Np1 -i "${srcdir}/0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
+  patch -Np1 -i "${srcdir}/0028-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch"   #Rock Pi 4
 
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
