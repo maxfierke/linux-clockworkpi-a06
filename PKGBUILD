@@ -21,7 +21,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
         '0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
         '0003-text_offset.patch'
-        '0004-board-rockpi4-dts-upper-port-host.patch'
+        #'0004-board-rockpi4-dts-upper-port-host.patch'
         '0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
         '0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
         '0007-pbp-support.patch'
@@ -80,7 +80,6 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '7b6f548fc352a4c530eae58f6a69041f'
          '39fc489449d519b45532631825840f3d'
          'a08fdc5f515c135be341dd71fdaee3fc'
-         'f7769084356056b5eec725938e49a6a5'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
          'b7e8c26d1bb8e950b0c44dafae2d71b7'
@@ -147,7 +146,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                         #Rock Pi 4
   patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"                    #RockPro64
   patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                                      #Amlogic
-  patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                                #Rock Pi 4
+  #patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                                #Rock Pi 4
   patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
   patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                                      #Pinebook Pro
