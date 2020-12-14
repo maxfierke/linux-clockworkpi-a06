@@ -1,15 +1,14 @@
-From f079358e801f7a639893ec0a795da87d7933de80 Mon Sep 17 00:00:00 2001
-From: Tobias Schramm <tobias@t-sys.eu>
-Date: Tue, 26 Nov 2019 19:20:34 +0100
-Subject: [PATCH] usb/typec: tcpm: Add generic extcon for tcpm-enabled devices
+From 64b53d6e9c2d8880bad156d22524c1716d1010f7 Mon Sep 17 00:00:00 2001
+From: Dan Johansen <strit@manjaro.org>
+Date: Mon, 26 Oct 2020 09:00:46 +0100
+Subject: [PATCH] usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices
 
-Incomplete and hacky
 ---
  drivers/usb/typec/tcpm/tcpm.c | 72 ++++++++++++++++++++++++++++++++++-
  1 file changed, 71 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index a48e3f90d1961..6020c03afd7ce 100644
+index 55535c4f66bf..52e06dc5df1b 100644
 --- a/drivers/usb/typec/tcpm/tcpm.c
 +++ b/drivers/usb/typec/tcpm/tcpm.c
 @@ -8,6 +8,7 @@
@@ -17,12 +16,12 @@ index a48e3f90d1961..6020c03afd7ce 100644
  #include <linux/debugfs.h>
  #include <linux/device.h>
 +#include <linux/extcon-provider.h>
+ #include <linux/hrtimer.h>
  #include <linux/jiffies.h>
  #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -330,6 +331,12 @@ struct tcpm_port {
- 	/* port belongs to a self powered device */
- 	bool self_powered;
+@@ -369,6 +370,12 @@ struct tcpm_port {
+ 	/* Sink caps have been queried */
+ 	bool sink_cap_done;
  
 +
 +#ifdef CONFIG_EXTCON
@@ -33,7 +32,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  #ifdef CONFIG_DEBUG_FS
  	struct dentry *dentry;
  	struct mutex logbuffer_lock;	/* log buffer access lock */
-@@ -615,6 +622,33 @@ static void tcpm_debugfs_exit(const struct tcpm_port *port) { }
+@@ -654,6 +661,33 @@ static void tcpm_debugfs_exit(const struct tcpm_port *port) { }
  
  #endif
  
@@ -67,7 +66,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  static int tcpm_pd_transmit(struct tcpm_port *port,
  			    enum tcpm_transmit_type type,
  			    const struct pd_message *msg)
-@@ -842,6 +876,8 @@ static int tcpm_set_roles(struct tcpm_port *port, bool attached,
+@@ -881,6 +915,8 @@ static int tcpm_set_roles(struct tcpm_port *port, bool attached,
  	typec_set_data_role(port->typec_port, data);
  	typec_set_pwr_role(port->typec_port, role);
  
@@ -76,7 +75,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  	return 0;
  }
  
-@@ -1063,7 +1099,7 @@ static void svdm_consume_modes(struct tcpm_port *port, const u32 *p, int cnt)
+@@ -1132,7 +1168,7 @@ static void svdm_consume_modes(struct tcpm_port *port, const u32 *p, int cnt)
  		paltmode->mode = i;
  		paltmode->vdo = p[i];
  
@@ -85,7 +84,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  			 pmdata->altmodes, paltmode->svid,
  			 paltmode->mode, paltmode->vdo);
  
-@@ -2801,6 +2837,8 @@ static void tcpm_detach(struct tcpm_port *port)
+@@ -2902,6 +2938,8 @@ static void tcpm_detach(struct tcpm_port *port)
  		port->hard_reset_count = 0;
  
  	tcpm_reset_port(port);
@@ -94,7 +93,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  }
  
  static void tcpm_src_detach(struct tcpm_port *port)
-@@ -4506,6 +4544,10 @@ void tcpm_tcpc_reset(struct tcpm_port *port)
+@@ -4732,6 +4770,10 @@ void tcpm_tcpc_reset(struct tcpm_port *port)
  }
  EXPORT_SYMBOL_GPL(tcpm_tcpc_reset);
  
@@ -105,7 +104,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  static int tcpm_fw_get_caps(struct tcpm_port *port,
  			    struct fwnode_handle *fwnode)
  {
-@@ -4516,6 +4558,23 @@ static int tcpm_fw_get_caps(struct tcpm_port *port,
+@@ -4742,6 +4784,23 @@ static int tcpm_fw_get_caps(struct tcpm_port *port,
  	if (!fwnode)
  		return -EINVAL;
  
@@ -129,7 +128,7 @@ index a48e3f90d1961..6020c03afd7ce 100644
  	/* USB data support is optional */
  	ret = fwnode_property_read_string(fwnode, "data-role", &cap_str);
  	if (ret == 0) {
-@@ -4848,6 +4907,17 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
+@@ -5114,6 +5173,17 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
  		goto out_destroy_wq;
  
  	port->try_role = port->typec_caps.prefer_role;
@@ -147,3 +146,6 @@ index a48e3f90d1961..6020c03afd7ce 100644
  
  	port->typec_caps.fwnode = tcpc->fwnode;
  	port->typec_caps.revision = 0x0120;	/* Type-C spec release 1.2 */
+-- 
+2.28.0
+

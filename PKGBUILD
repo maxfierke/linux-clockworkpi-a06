@@ -3,10 +3,10 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux
-_srcname=linux-5.9
+_srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.9.14
+pkgver=5.10.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -14,51 +14,34 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch'
-        '0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch'
-        '0003-text_offset.patch'
-        #'0004-board-rockpi4-dts-upper-port-host.patch'
+        '0004-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch'
         '0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
         '0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
         '0007-pbp-support.patch'
         '0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
         '0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
-        '0010-PCI-rockchip-Fix-PCIe-probing-in-5.9.patch'
-        '0011-arm64-dts-amlogic-add-odroid-n2-plus.patch'
-        '0012-gpu-drm-add-new-display-resolution-2560x1440.patch'
-        '0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
-        '0014-sound-soc-remove-mono-channel-as-it-currently.patch'
-        '0015-drm-panfrost-Coherency-support.patch'
-        '0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch'
-        '0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch'
-        '0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch'
-        '0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch'
-        '0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
-        '0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
-        '0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
-        '0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
-        '0025-arm64-rockchip-add-DP-ALT-rockpro64.patch'
-        '0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
-        '0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
-        '0028-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch'
+        '0010-gpu-drm-add-new-display-resolution-2560x1440.patch'
+        '0011-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
+        '0012-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch'
+        '0013-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
+        '0014-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
+        '0015-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
+        '0016-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
+        '0017-arm64-rockchip-add-DP-ALT-rockpro64.patch'
+        '0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
+        '0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
-        '0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch'
-        '0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch'
-        '0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch'
-        '0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
-        '0008-switch-to-new-display-on-pinetab.patch'
-        'config'
-        'linux.preset'
-        '60-linux.hook'
-        '90-linux.hook'
+        '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
+        '0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch'
         '0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
-        '0002-revert-fbcon-remove-soft-scrollback-code.patch'
+        '0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
+        '0003-revert-fbcon-remove-soft-scrollback-code.patch'
         '0001-bootsplash.patch'
         '0002-bootsplash.patch'
         '0003-bootsplash.patch'
@@ -71,51 +54,37 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
-        'rkvdec.patch')
-md5sums=('0959d759fd19e146367221aff504ad91'
-         'd7f9892b339f14f5d2afa6bfb842b1f4'
-         '6ee347975dca719ecd63a846cc5983b2'
+        'config'
+        'linux.preset'
+        '60-linux.hook'
+        '90-linux.hook')
+md5sums=('753adc474bf799d569dec4f165ed92c3'
+         '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         '7b6f548fc352a4c530eae58f6a69041f'
-         '39fc489449d519b45532631825840f3d'
-         'a08fdc5f515c135be341dd71fdaee3fc'
+         'f250c40648d027c539242a40fcd97a15'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         'b7e8c26d1bb8e950b0c44dafae2d71b7'
+         'd24c60b09927ad689f7ba8e52fbb13ae'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
-         '5cdc63bd46342600e3e55ce665818655'
-         '62994c755294232049fa5c24c7eb3123'
          '6f592c11f6adc1de0f06e5d18f8c2862'
          'f8f0b124c741be61d86bea8d44e875f9'
-         'e4f23d99afd158c58bc41e44e718e448'
-         'dc8b4945fa5e997b19d1f370b91cc6c0'
          '20049953fa7ce65e71f07b5bed81703d'
-         '5988c9979adf6d1f909191a0b101fe47'
-         'c8d4c58ff9648d077e6545adbee56425'
-         'e622ea29d2d986fd7629381a20691ca3'
-         'd586d5679d329b0fdbb2c334024f79dc'
+         '073296b5eba7daf6d707c21abbfc49ce'
          'a033be22c23afb1d5daeeeb21353185d'
-         '05a333eadd0d5add93d69607378fbdbe'
+         '6a88f7e762eb7895b3f5db38daa6bb24'
          'e78fd8f59f5d073069aec121e033590b'
          '09fc19ac5c51e2839ca56248ccf6323a'
-         '245858f26512dfc48adbf509b6fc8364'
          '66fae3fc96f0a478a56ff11632f3ef70'
-         'f250c40648d027c539242a40fcd97a15'
+         '245858f26512dfc48adbf509b6fc8364'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
-         '929f2d20a44be5b5d7c6a5134c660a79'
-         '22c651017f864e41916a74e63ef46a19'
-         'bf9f906cca7b7489d3123a249dcbd021'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         '23c79bf646bc95bb69caaf124799a2c9'
-         '6f53d9325116cec2b93de278e36467b1'
-         '86d4a35722b5410e3b29fc92dae15d4b'
-         'ce6c81ad1ad1f8b333fd6077d47abdaf'
-         '3dc88030a8f2f5a5f97266d99b149f77'
+         'd4c696ebeda3f40f3e04a45308822917'
          'a31a435ab6cd8e7a47601159d665ce50'
+         'fed6ae4ac4c3f56178fa4aca6c934d6f'
          '47f65423c4ffc7e6092c7ff2c7129942'
          'be5a873f638ff5c31947f8d28a824d3a'
          'b4acd66a564af83b5409738c40b4a566'
@@ -129,13 +98,16 @@ md5sums=('0959d759fd19e146367221aff504ad91'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         '741ba1fabb8772b0f02b9fa7e0e4d4c2')
+         'fd15cb9c8040d7ebc7bb07dd34b433a9'
+         '86d4a35722b5410e3b29fc92dae15d4b'
+         'ce6c81ad1ad1f8b333fd6077d47abdaf'
+         '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
@@ -143,47 +115,34 @@ prepare() {
   patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"             #RK3328
   
   # Manjaro ARM Patches
-  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-add-pcie-node-rockpi4.patch"                         #Rock Pi 4
-  patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-modify-pcie-node-rockpro64.patch"                    #RockPro64
-  patch -Np1 -i "${srcdir}/0003-text_offset.patch"                                                      #Amlogic
-  #patch -Np1 -i "${srcdir}/0004-board-rockpi4-dts-upper-port-host.patch"                                #Rock Pi 4
+  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch"   #Rock Pi 4
   patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
   patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                                      #Pinebook Pro
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0010-PCI-rockchip-Fix-PCIe-probing-in-5.9.patch"                             #Rk3399
-  patch -Np1 -i "${srcdir}/0011-arm64-dts-amlogic-add-odroid-n2-plus.patch"                             #Odroid N2+
-  patch -Np1 -i "${srcdir}/0012-gpu-drm-add-new-display-resolution-2560x1440.patch"             		#Odroid
-  patch -Np1 -i "${srcdir}/0013-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
-  patch -Np1 -i "${srcdir}/0014-sound-soc-remove-mono-channel-as-it-currently.patch"                    #Odroid
-  patch -Np1 -i "${srcdir}/0015-drm-panfrost-Coherency-support.patch"                                   #Panfrost
-  patch -Np1 -i "${srcdir}/0016-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
-  patch -Np1 -i "${srcdir}/0018-arm64-dts-rockchip-Mark-rock-pi-4-as-rock-pi-4a-dts.patch"              #Rock Pi 4A
-  patch -Np1 -i "${srcdir}/0019-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4B-support.patch"                  #Rock Pi 4B
-  patch -Np1 -i "${srcdir}/0020-arm64-dts-rockchip-Add-Radxa-ROCK-Pi-4C-support.patch"                  #Rock Pi 4C
-  patch -Np1 -i "${srcdir}/0021-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
-  patch -Np1 -i "${srcdir}/0022-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
-  patch -Np1 -i "${srcdir}/0023-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
-  patch -Np1 -i "${srcdir}/0024-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
-  patch -Np1 -i "${srcdir}/0025-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
-  patch -Np1 -i "${srcdir}/0026-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RK3399
-  patch -Np1 -i "${srcdir}/0027-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
-  patch -Np1 -i "${srcdir}/0028-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch"   #Rock Pi 4
+  patch -Np1 -i "${srcdir}/0010-gpu-drm-add-new-display-resolution-2560x1440.patch"             		#Odroid
+  patch -Np1 -i "${srcdir}/0011-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
+  patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
+  patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
+  patch -Np1 -i "${srcdir}/0014-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
+  patch -Np1 -i "${srcdir}/0015-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
+  patch -Np1 -i "${srcdir}/0016-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
+  patch -Np1 -i "${srcdir}/0017-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
+  patch -Np1 -i "${srcdir}/0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
 
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
   patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
-  patch -Np1 -i "${srcdir}/0004-drm-sun8i-ui-vi-Fix-layer-zpos-change-atomic-modesetting.patch"         #Hardware cursor
-  patch -Np1 -i "${srcdir}/0005-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch"              #Hardware cursor
-  patch -Np1 -i "${srcdir}/0006-drm-sun4i-drm-Recover-from-occasional-HW-failures.patch"                #Hardware cursor
-  patch -Np1 -i "${srcdir}/0007-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
-  patch -Np1 -i "${srcdir}/0008-switch-to-new-display-on-pinetab.patch"                                 #PineTab
+  patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
+  patch -Np1 -i "${srcdir}/0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch"                        #PineTab
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
-  patch -Np1 -i "${srcdir}/0002-revert-fbcon-remove-soft-scrollback-code.patch"
+  patch -Np1 -i "${srcdir}/0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch"
+  patch -Np1 -i "${srcdir}/0003-revert-fbcon-remove-soft-scrollback-code.patch"
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
@@ -196,9 +155,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-  
-  # RK Vdec Patch
-  patch -Np1 -i "${srcdir}/rkvdec.patch"
   
   cat "${srcdir}/config" > ./.config
 

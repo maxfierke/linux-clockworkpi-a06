@@ -2,7 +2,7 @@ Firefly Station P1 is similar to RockPI 4.
 So, reusing RockPi 4A dts.
 ---
 Changes:
-- add radxa,rockpi4c
+- add firefly,stationp1
 
  arch/arm64/boot/dts/rockchip/Makefile         |  1 +
  .../boot/dts/rockchip/rk3399-station-p1.dts   | 14 +++++++++++++++++++

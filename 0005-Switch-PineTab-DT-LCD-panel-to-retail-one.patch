@@ -1,0 +1,569 @@
+From patchwork Sat Nov  7 12:50:43 2020
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Icenowy Zheng <icenowy@aosc.io>
+X-Patchwork-Id: 11888907
+Return-Path: 
+ <SRS0=ZVBW=EN=lists.infradead.org=linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@kernel.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2539AC388F7
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Sat,  7 Nov 2020 12:52:19 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E0FC20719
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Sat,  7 Nov 2020 12:52:18 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=lists.infradead.org
+ header.i=@lists.infradead.org header.b="XaMlXnvh";
+	dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=mymailcheap.com header.i=@mymailcheap.com header.b="OC5hvWmW";
+	dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=aosc.io header.i=@aosc.io header.b="KCwSkF2Y"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E0FC20719
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=aosc.io
+Authentication-Results: mail.kernel.org;
+ spf=none
+ smtp.mailfrom=linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=merlin.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:Cc:List-Subscribe:List-Help:List-Post:List-Archive:
+	List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:Message-Id:Date:
+	Subject:To:From:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	 bh=mm408QAzuZm659nfHenl+BSq3KXipjfoVUwBYsDxe+k=; b=XaMlXnvhJCMsE8MALxoooVMH/
+	IF4Khf9ywRmwBAPjiQAzmMzuF8e77C28Wb/OrmhHxdCtRzCC2L2/uumgUv21gyLi/kOV96oU09qg3
+	7/VBEiq/cxsjX7OuTrNqqL0RtCEnsF0K6hfe1EeWBfgtt55p+RA7VQhcQBC+ZLJfjsmwx51W7Igl2
+	5w0F2njgpI+EB1w0QXD6TPNPCPtVPaVwiKc3a+67sEbmMGF8NV98NeEzOvMqpWrZf1Dm3qBMSI0yX
+	zW/zh8LIb3c/LsezGTBT7aLxtSVztk2ppAIKjQa/7p2YNRK629EKzn9tvhGz++eZTn68ffjBiRZhX
+	cq/dv1KYA==;
+Received: from localhost ([::1] helo=merlin.infradead.org)
+	by merlin.infradead.org with esmtp (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kbNgX-0000EJ-16; Sat, 07 Nov 2020 12:51:13 +0000
+Received: from relay4.mymailcheap.com ([137.74.80.156])
+ by merlin.infradead.org with esmtps (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kbNgT-0000Db-S1
+ for linux-arm-kernel@lists.infradead.org; Sat, 07 Nov 2020 12:51:10 +0000
+Received: from filter2.mymailcheap.com (filter2.mymailcheap.com
+ [91.134.140.82])
+ by relay4.mymailcheap.com (Postfix) with ESMTPS id D5EB93F162;
+ Sat,  7 Nov 2020 13:51:07 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by filter2.mymailcheap.com (Postfix) with ESMTP id A28CF2A7DD;
+ Sat,  7 Nov 2020 13:51:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mymailcheap.com;
+ s=default; t=1604753467;
+ bh=wEsfMq7gpjBHqLX4MHyejD8YLRSJyH+WU2cotQHLbjI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=OC5hvWmWPnC2Gx1DJs3aPuLsY7aemnkRRGSAU0EpkYBcwq6IbBIFSKWg+qPPLs83x
+ rujANJn5V2ijY+I7Qm9njwXtkEf1KBUFEPsxdcLC1Hy8LAaQWKKtGQkjPYYXJCrRVv
+ HLNtQhsYZf57jYpVnkWcsnd1V/fX4NwwcQFmh2oc=
+X-Virus-Scanned: Debian amavisd-new at filter2.mymailcheap.com
+Received: from filter2.mymailcheap.com ([127.0.0.1])
+ by localhost (filter2.mymailcheap.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id NifvfYretagL; Sat,  7 Nov 2020 13:51:03 +0100 (CET)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by filter2.mymailcheap.com (Postfix) with ESMTPS;
+ Sat,  7 Nov 2020 13:51:03 +0100 (CET)
+Received: from [213.133.102.83] (ml.mymailcheap.com [213.133.102.83])
+ by mail20.mymailcheap.com (Postfix) with ESMTP id CF1394102D;
+ Sat,  7 Nov 2020 12:51:02 +0000 (UTC)
+Authentication-Results: mail20.mymailcheap.com; dkim=pass (1024-bit key;
+ unprotected) header.d=aosc.io header.i=@aosc.io header.b="KCwSkF2Y";
+ dkim-atps=neutral
+AI-Spam-Status: Not processed
+Received: from ice-e5v2.lan (unknown [59.41.162.181])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id 7D9D44102D;
+ Sat,  7 Nov 2020 12:50:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
+ t=1604753455; bh=wEsfMq7gpjBHqLX4MHyejD8YLRSJyH+WU2cotQHLbjI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=KCwSkF2YUmXRIuMrcng2jqpkSlu7Erwp7kwzu/fP1BvdJ+gLXfVNfQyCqnUm5Ye06
+ 8ieN+llEXGcTiANU2OCh+j+sSNGOH7EAYMtDeNrbgKf2bVug82BNvttX7zfpr0w1al
+ xLBw/7ZkPTgRw92WhTsMWgfJCeWc1mvL464fzl3U=
+From: Icenowy Zheng <icenowy@aosc.io>
+To: Rob Herring <robh+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@siol.net>
+Subject: [PATCH 1/3] arm64: allwinner: dts: a64: pinetab: switch LCD panel to
+ production one
+Date: Sat,  7 Nov 2020 20:50:43 +0800
+Message-Id: <20201107125043.2222367-1-icenowy@aosc.io>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201107124958.2222253-1-icenowy@aosc.io>
+References: <20201107124958.2222253-1-icenowy@aosc.io>
+MIME-Version: 1.0
+X-Rspamd-Queue-Id: CF1394102D
+X-Spamd-Result: default: False [6.40 / 20.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ R_DKIM_ALLOW(0.00)[aosc.io:s=default];
+ RECEIVED_SPAMHAUS_PBL(0.00)[59.41.162.181:received];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TAGGED_RCPT(0.00)[dt]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; R_SPF_SOFTFAIL(0.00)[~all:c];
+ DMARC_NA(0.00)[aosc.io]; ML_SERVERS(-3.10)[213.133.102.83];
+ DKIM_TRACE(0.00)[aosc.io:+]; RCPT_COUNT_SEVEN(0.00)[9];
+ MID_CONTAINS_FROM(1.00)[]; DBL_PROHIBIT(0.00)[0.0.0.0:email];
+ RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ ASN(0.00)[asn:24940, ipnet:213.133.96.0/19, country:DE];
+ RCVD_COUNT_TWO(0.00)[2]; SUSPICIOUS_RECIPS(1.50)[];
+ HFILTER_HELO_BAREIP(3.00)[213.133.102.83,1]
+X-Rspamd-Server: mail20.mymailcheap.com
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20201107_075110_125219_FA4EC82A 
+X-CRM114-Status: GOOD (  13.62  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.29
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, linux-sunxi@googlegroups.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Icenowy Zheng <icenowy@aosc.io>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+All retail PineTabs use the new panel. Devices with the old panel are
+only available to several developers as sample.
+
+Switch the main PineTab DT to use the new panel, as it should reflect
+what the retail device uses. Another DT for developers' sample will be
+added later.
+
+Signed-off-by: Icenowy Zheng <icenowy@aosc.io>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+index 0494bfaf2ffa..d91a019301bf 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+@@ -150,12 +150,10 @@ &dsi {
+ 	status = "okay";
+ 
+ 	panel@0 {
+-		compatible = "feixin,k101-im2ba02";
++		compatible = "feixin,k101-im2byl02";
+ 		reg = <0>;
+-		avdd-supply = <&reg_dc1sw>;
+-		dvdd-supply = <&reg_dc1sw>;
+-		cvdd-supply = <&reg_ldo_io1>;
+-		reset-gpios = <&pio 3 24 GPIO_ACTIVE_HIGH>; /* PD24 */
++		power-supply = <&reg_dc1sw>;
++		reset-gpios = <&pio 3 24 GPIO_ACTIVE_LOW>; /* PD24 */
+ 		backlight = <&backlight>;
+ 	};
+ };
+
+From patchwork Sat Nov  7 12:52:33 2020
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Icenowy Zheng <icenowy@aosc.io>
+X-Patchwork-Id: 11888913
+Return-Path: 
+ <SRS0=ZVBW=EN=lists.infradead.org=linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@kernel.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42F65C388F7
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Sat,  7 Nov 2020 12:54:30 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id E751B20B1F
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Sat,  7 Nov 2020 12:54:29 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=lists.infradead.org
+ header.i=@lists.infradead.org header.b="EQnU2ztd";
+	dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=mymailcheap.com header.i=@mymailcheap.com header.b="HthxqxER";
+	dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=aosc.io header.i=@aosc.io header.b="SeBAYQZE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E751B20B1F
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=aosc.io
+Authentication-Results: mail.kernel.org;
+ spf=none
+ smtp.mailfrom=linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=merlin.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:Cc:List-Subscribe:List-Help:List-Post:List-Archive:
+	List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:Message-Id:Date:
+	Subject:To:From:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	 bh=1WeOsGr2v9yH01spzJebzLsJsfrFTArziJBc1RA6oRo=; b=EQnU2ztdNyh9iOyOnpqrcStI9
+	M5ELmDRGC2yR3GkqPqhF9K+YOg+onSx4ik7jiBfCV1vKXJGmCFx3NDQnf0TV0jka/ENSvLM5MQgfo
+	R9bwkySOd/LbIsiZ8XW9xWsdkB6AbyEiafNIE6BoeCEryx0gj1t7zeJJZ0nG4zFgd68CL9V16Tc3S
+	a2QwPriYtjH7ZgrBuXUcW2GY01xoPHmJht6/6+SwXWkesSM0/mpfIzvhA5BNAN8OWFrLsB9dfMVnK
+	KTUYu/d34nvNrgK1hG2j6uxWYFHz/L/ET9p89KQw7ZpULY/ENRTuri+g5n2hZQt6DXLF3tSbZtget
+	TI/PHcE2Q==;
+Received: from localhost ([::1] helo=merlin.infradead.org)
+	by merlin.infradead.org with esmtp (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kbNiP-0000bL-3t; Sat, 07 Nov 2020 12:53:09 +0000
+Received: from relay4.mymailcheap.com ([137.74.80.156])
+ by merlin.infradead.org with esmtps (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kbNiM-0000aP-GF
+ for linux-arm-kernel@lists.infradead.org; Sat, 07 Nov 2020 12:53:07 +0000
+Received: from filter2.mymailcheap.com (filter2.mymailcheap.com
+ [91.134.140.82])
+ by relay4.mymailcheap.com (Postfix) with ESMTPS id 661313F162;
+ Sat,  7 Nov 2020 13:53:05 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by filter2.mymailcheap.com (Postfix) with ESMTP id 338802A7DD;
+ Sat,  7 Nov 2020 13:53:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mymailcheap.com;
+ s=default; t=1604753585;
+ bh=iDwvvSxFFwz24xKlr0qu/VJeJuNEIFWADnWs7mZO4Cg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=HthxqxERh8sDS5J8sExzYslAhqIMYfzJArZr64siT6HyXdDoyf5ZIFgzsNPiWy3/l
+ nugp1z7yCS9skKtnMVX6Yty988xGW9muY4dvLr4F1rfpw7d+BNwZJMqfNx8OPF6WIV
+ nw3qcN8pwRyAXNUpUJTY5TqwNuorAnhuSgBYF8EM=
+X-Virus-Scanned: Debian amavisd-new at filter2.mymailcheap.com
+Received: from filter2.mymailcheap.com ([127.0.0.1])
+ by localhost (filter2.mymailcheap.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id en45KRedPDv9; Sat,  7 Nov 2020 13:53:04 +0100 (CET)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by filter2.mymailcheap.com (Postfix) with ESMTPS;
+ Sat,  7 Nov 2020 13:53:04 +0100 (CET)
+Received: from [148.251.23.173] (ml.mymailcheap.com [148.251.23.173])
+ by mail20.mymailcheap.com (Postfix) with ESMTP id C15204102D;
+ Sat,  7 Nov 2020 12:53:03 +0000 (UTC)
+Authentication-Results: mail20.mymailcheap.com; dkim=pass (1024-bit key;
+ unprotected) header.d=aosc.io header.i=@aosc.io header.b="SeBAYQZE";
+ dkim-atps=neutral
+AI-Spam-Status: Not processed
+Received: from ice-e5v2.lan (unknown [59.41.162.181])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id 2198D41E45;
+ Sat,  7 Nov 2020 12:52:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
+ t=1604753578; bh=iDwvvSxFFwz24xKlr0qu/VJeJuNEIFWADnWs7mZO4Cg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=SeBAYQZETfM82wJtWUuqV5vYmq71+lWwva/EUMkHNCh5P2bebTPxaO2+VgnXMR5s2
+ Xfi2ixW+5JXXXvAcTQqtroGpco2Ajcwx1Bu4bOVq4FcX76LoXY7sUKYrKZpCbdLFSG
+ 8fogXP2+CSeuUHaN7lMf5yJE/WORgCS+h/Moivr4=
+From: Icenowy Zheng <icenowy@aosc.io>
+To: Rob Herring <robh+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@siol.net>
+Subject: [PATCH 2/3] dt-bindings: arm: sunxi: add PineTab developer sample DT
+ binding
+Date: Sat,  7 Nov 2020 20:52:33 +0800
+Message-Id: <20201107125233.2222754-1-icenowy@aosc.io>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201107124958.2222253-1-icenowy@aosc.io>
+References: <20201107124958.2222253-1-icenowy@aosc.io>
+MIME-Version: 1.0
+X-Rspamd-Queue-Id: C15204102D
+X-Spamd-Result: default: False [6.40 / 20.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ R_DKIM_ALLOW(0.00)[aosc.io:s=default];
+ RECEIVED_SPAMHAUS_PBL(0.00)[59.41.162.181:received];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TAGGED_RCPT(0.00)[dt]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; R_SPF_SOFTFAIL(0.00)[~all:c];
+ DMARC_NA(0.00)[aosc.io]; ML_SERVERS(-3.10)[148.251.23.173];
+ DKIM_TRACE(0.00)[aosc.io:+]; RCPT_COUNT_SEVEN(0.00)[9];
+ MID_CONTAINS_FROM(1.00)[]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ASN(0.00)[asn:24940, ipnet:148.251.0.0/16, country:DE];
+ RCVD_COUNT_TWO(0.00)[2]; SUSPICIOUS_RECIPS(1.50)[];
+ HFILTER_HELO_BAREIP(3.00)[148.251.23.173,1]
+X-Rspamd-Server: mail20.mymailcheap.com
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20201107_075306_748383_C70D73B1 
+X-CRM114-Status: GOOD (  11.23  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.29
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, linux-sunxi@googlegroups.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Icenowy Zheng <icenowy@aosc.io>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+Some developer samples of PineTab are distributed with the old and
+incompatible LCD panel.
+
+Add a device tree binding for this version of PineTab.
+
+Signed-off-by: Icenowy Zheng <icenowy@aosc.io>
+---
+ Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+index ea07f57379d3..9cc5990dc311 100644
+--- a/Documentation/devicetree/bindings/arm/sunxi.yaml
++++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+@@ -682,6 +682,11 @@ properties:
+           - const: pine64,pinetab
+           - const: allwinner,sun50i-a64
+ 
++      - description: Pine64 PineTab (Developer sample with the old LCD panel)
++        items:
++          - const: pine64,pinetab-dev
++          - const: allwinner,sun50i-a64
++
+       - description: Pine64 SoPine Baseboard
+         items:
+           - const: pine64,sopine-baseboard
+
+From patchwork Sat Nov  7 12:53:32 2020
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Icenowy Zheng <icenowy@aosc.io>
+X-Patchwork-Id: 11888911
+Return-Path: 
+ <SRS0=ZVBW=EN=lists.infradead.org=linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@kernel.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06888C388F7
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Sat,  7 Nov 2020 12:55:16 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id A3E4320B1F
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Sat,  7 Nov 2020 12:55:15 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=lists.infradead.org
+ header.i=@lists.infradead.org header.b="noOshHTv";
+	dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=mymailcheap.com header.i=@mymailcheap.com header.b="CujcacLM";
+	dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=aosc.io header.i=@aosc.io header.b="fN8gZvPD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3E4320B1F
+Authentication-Results: mail.kernel.org;
+ dmarc=none (p=none dis=none) header.from=aosc.io
+Authentication-Results: mail.kernel.org;
+ spf=none
+ smtp.mailfrom=linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=merlin.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:Cc:List-Subscribe:List-Help:List-Post:List-Archive:
+	List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:Message-Id:Date:
+	Subject:To:From:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	 bh=1wFxegsOF9w/+SFntkeAoCra/XRhHuI2uZ7OQwuOj9c=; b=noOshHTvKuNCXFJGxS4u5V25b
+	9GHE9GB+oCIs+7aR5YbbAjLdgJzvDodp8C1B0G76wg5fMT9nBOZjg3NeLQTbJ6oFUheYftWn+ySVM
+	EGhWme/Vu2xiPvAIsS3mq7L62g0WZH2RIqmBTZM/cwmzgtrA8SPyh3dy4qniJsu99hZImGf0ZFz39
+	WGHktOxFx3Ti4YsG7/jPRU6QcroZA98oD+/+Cpn3K0/cAeTz5pqzwFsWxExq5JlDLa7b8hM9p4f/w
+	65RCOANgQoMRsijSlVbnMDEzapRJuXE2bC24wOH5CHoPwPbiiG+MFX+A1Ukg4WfWc0vTq9f/weX2m
+	4XgOxW/aw==;
+Received: from localhost ([::1] helo=merlin.infradead.org)
+	by merlin.infradead.org with esmtp (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kbNjL-0000nQ-MX; Sat, 07 Nov 2020 12:54:07 +0000
+Received: from relay3.mymailcheap.com ([217.182.119.157])
+ by merlin.infradead.org with esmtps (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kbNjI-0000mU-MI
+ for linux-arm-kernel@lists.infradead.org; Sat, 07 Nov 2020 12:54:05 +0000
+Received: from filter2.mymailcheap.com (filter2.mymailcheap.com
+ [91.134.140.82])
+ by relay3.mymailcheap.com (Postfix) with ESMTPS id 2E1AE3ECDF;
+ Sat,  7 Nov 2020 13:54:03 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by filter2.mymailcheap.com (Postfix) with ESMTP id 0DC472A7DD;
+ Sat,  7 Nov 2020 13:54:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mymailcheap.com;
+ s=default; t=1604753643;
+ bh=nNi1KvzAc00IXvO21wt65MRQZ7lDmDRlFXMh2RjU9Dk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=CujcacLMGt6bnTlK0IWoQIv5CLCgse7yOt7zu0FFFwz0PToKOquCit4Df1GhWBbzv
+ QHSxrlSxyd4aGHxK07hhADfPtGSpnURlM06vJTU7eHv9+QDN7iOcwdkVpUyzVY20nd
+ TZ9bED1wFFEoOhTYueL5uKtCzueUDCo1ARk5UUPE=
+X-Virus-Scanned: Debian amavisd-new at filter2.mymailcheap.com
+Received: from filter2.mymailcheap.com ([127.0.0.1])
+ by localhost (filter2.mymailcheap.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id rvsIdDPY0VRU; Sat,  7 Nov 2020 13:54:01 +0100 (CET)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by filter2.mymailcheap.com (Postfix) with ESMTPS;
+ Sat,  7 Nov 2020 13:54:01 +0100 (CET)
+Received: from [213.133.102.83] (ml.mymailcheap.com [213.133.102.83])
+ by mail20.mymailcheap.com (Postfix) with ESMTP id 6C54A40849;
+ Sat,  7 Nov 2020 12:54:01 +0000 (UTC)
+Authentication-Results: mail20.mymailcheap.com; dkim=pass (1024-bit key;
+ unprotected) header.d=aosc.io header.i=@aosc.io header.b="fN8gZvPD";
+ dkim-atps=neutral
+AI-Spam-Status: Not processed
+Received: from ice-e5v2.lan (unknown [59.41.162.181])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id 44A9340849;
+ Sat,  7 Nov 2020 12:53:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
+ t=1604753635; bh=nNi1KvzAc00IXvO21wt65MRQZ7lDmDRlFXMh2RjU9Dk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=fN8gZvPDQ8dFOYQDRQeVwPfOvb0OEn5tkmNr3FvX/+uctar1JkO6S5NUC7Vs4Uc8l
+ iOgx/BlgVR96Gg3owsH1ucyXXcbAN8aw4aVA9WTg1sXpnPszLi7N0+58Rb9f2L5YAM
+ 78q2Wwq0FWfkK8Nl1MBgCiY0Ap0oxEwKMFBGBv40=
+From: Icenowy Zheng <icenowy@aosc.io>
+To: Rob Herring <robh+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@siol.net>
+Subject: [PATCH 3/3] arm64: allwinner: dts: a64: add DT for PineTab developer
+ sample
+Date: Sat,  7 Nov 2020 20:53:32 +0800
+Message-Id: <20201107125332.2223197-1-icenowy@aosc.io>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201107124958.2222253-1-icenowy@aosc.io>
+References: <20201107124958.2222253-1-icenowy@aosc.io>
+MIME-Version: 1.0
+X-Rspamd-Queue-Id: 6C54A40849
+X-Spamd-Result: default: False [6.40 / 20.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ R_DKIM_ALLOW(0.00)[aosc.io:s=default];
+ RECEIVED_SPAMHAUS_PBL(0.00)[59.41.162.181:received];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ R_MISSING_CHARSET(2.50)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TAGGED_RCPT(0.00)[dt]; MIME_GOOD(-0.10)[text/plain];
+ BROKEN_CONTENT_TYPE(1.50)[]; R_SPF_SOFTFAIL(0.00)[~all:c];
+ DMARC_NA(0.00)[aosc.io]; ML_SERVERS(-3.10)[213.133.102.83];
+ DKIM_TRACE(0.00)[aosc.io:+]; RCPT_COUNT_SEVEN(0.00)[9];
+ MID_CONTAINS_FROM(1.00)[]; DBL_PROHIBIT(0.00)[0.0.0.0:email];
+ RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ ASN(0.00)[asn:24940, ipnet:213.133.96.0/19, country:DE];
+ RCVD_COUNT_TWO(0.00)[2]; SUSPICIOUS_RECIPS(1.50)[];
+ HFILTER_HELO_BAREIP(3.00)[213.133.102.83,1]
+X-Rspamd-Server: mail20.mymailcheap.com
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20201107_075404_909818_FACA9353 
+X-CRM114-Status: GOOD (  16.61  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.29
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, linux-sunxi@googlegroups.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Icenowy Zheng <icenowy@aosc.io>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+Some developers received PineTab samples that used an old LCD panel.
+
+Add device tree for these samples.
+
+Signed-off-by: Icenowy Zheng <icenowy@aosc.io>
+---
+ arch/arm64/boot/dts/allwinner/Makefile        |  1 +
+ .../dts/allwinner/sun50i-a64-pinetab-dev.dts  | 28 +++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab-dev.dts
+
+diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+index 211d1e9d4701..a221dcebfad4 100644
+--- a/arch/arm64/boot/dts/allwinner/Makefile
++++ b/arch/arm64/boot/dts/allwinner/Makefile
+@@ -13,6 +13,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-pinephone-1.0.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-pinephone-1.1.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-pinephone-1.2.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-pinetab.dtb
++dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-pinetab-dev.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-sopine-baseboard.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-teres-i.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a100-allwinner-perf1.dtb
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab-dev.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab-dev.dts
+new file mode 100644
+index 000000000000..3a4153890f3e
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab-dev.dts
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2020 Icenowy Zheng <icenowy@aosc.io>
++ *
++ */
++
++/dts-v1/;
++
++#include "sun50i-a64-pinetab.dts"
++
++/ {
++	model = "PineTab Developer Sample";
++	compatible = "pine64,pinetab-dev", "allwinner,sun50i-a64";
++};
++
++&dsi {
++	/delete-node/ panel@0;
++
++	panel@0 {
++		compatible = "feixin,k101-im2ba02";
++		reg = <0>;
++		avdd-supply = <&reg_dc1sw>;
++		dvdd-supply = <&reg_dc1sw>;
++		cvdd-supply = <&reg_ldo_io1>;
++		reset-gpios = <&pio 3 24 GPIO_ACTIVE_HIGH>; /* PD24 */
++		backlight = <&backlight>;
++	};
++};
