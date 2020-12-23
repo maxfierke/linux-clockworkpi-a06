@@ -7,7 +7,7 @@ _srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.10.2
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -99,7 +99,7 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'a0f22c1fb5c95b88c9fa63f915a9e900'
+         'cc5ee33aeabe6d82010c44dfd1d04c52'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -119,18 +119,18 @@ prepare() {
   patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch"   #Rock Pi 4
   patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
-  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                                      #Pinebook Pro
+  #patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                                      #Pinebook Pro
   patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
   patch -Np1 -i "${srcdir}/0010-gpu-drm-add-new-display-resolution-2560x1440.patch"             		#Odroid
   patch -Np1 -i "${srcdir}/0011-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
   patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
   patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
-  patch -Np1 -i "${srcdir}/0014-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
-  patch -Np1 -i "${srcdir}/0015-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
-  patch -Np1 -i "${srcdir}/0016-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
-  patch -Np1 -i "${srcdir}/0017-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
-  patch -Np1 -i "${srcdir}/0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
+  #patch -Np1 -i "${srcdir}/0014-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
+  #patch -Np1 -i "${srcdir}/0015-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
+  #patch -Np1 -i "${srcdir}/0016-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
+  #patch -Np1 -i "${srcdir}/0017-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
+  #patch -Np1 -i "${srcdir}/0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
 
   # Pinebook patches
