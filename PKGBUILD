@@ -7,7 +7,7 @@ _srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.10.4
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -35,6 +35,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
         '0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
         '0020-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
+        '0021-arm64-dts-meson-shorten-audio-card-names-for-alsa-compatibility.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -81,6 +82,7 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '66fae3fc96f0a478a56ff11632f3ef70'
          '245858f26512dfc48adbf509b6fc8364'
          'bb500ee93275583d5ba3d11842e09735'
+         '0c65fa059b93d957ac3e3008bef13a5e'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -135,6 +137,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
   patch -Np1 -i "${srcdir}/0020-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch"       #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0021-arm64-dts-meson-shorten-audio-card-names-for-alsa-compatibility.patch"  #AMLogic
 
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
