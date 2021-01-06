@@ -1,0 +1,27 @@
+diff -c original/sun50i-h6-pine-h64.dts latest/sun50i-h6-pine-h64.dts
+*** a/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts	2020-12-13 23:41:30.000000000 +0100
+--- b/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts	2021-01-03 19:22:58.319583946 +0100
+***************
+*** 97,102 ****
+--- 97,106 ----
+  	status = "okay";
+  };
+  
++ &dwc3 {
++ 	status = "okay";
++ };
++ 
+  &emac {
+  	pinctrl-names = "default";
+  	pinctrl-0 = <&ext_rgmii_pins>;
+***************
+*** 331,333 ****
+--- 335,342 ----
+  	usb3_vbus-supply = <&reg_usb_vbus>;
+  	status = "okay";
+  };
++ 
++ &usb3phy {
++ 	phy-supply = <&reg_usb_vbus>;
++ 	status = "okay";
++ };

@@ -1,0 +1,15 @@
+diff -c original/sun50i-h6.dtsi latest/sun50i-h6.dtsi
+*** a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi	2021-01-03 19:41:15.106356000 +0100
+--- b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi	2021-01-03 19:47:39.539726734 +0100
+***************
+*** 509,514 ****
+--- 509,517 ----
+  			interrupts = <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>;
+  			pinctrl-names = "default";
+  			pinctrl-0 = <&mmc2_pins>;
++  			mmc-hs200-1_8v;
++  			mmc-hs400-1_8v;
++  			mmc-hs400-enhanced-strobe;			
+  			status = "disabled";
+  			#address-cells = <1>;
+  			#size-cells = <0>;
