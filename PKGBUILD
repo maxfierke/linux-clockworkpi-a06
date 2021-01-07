@@ -7,7 +7,7 @@ _srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.10.5
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -41,7 +41,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0024-arm64-H6-hdmi-sound.patch'
         '0025-arm64-pineH64-usb3.patch'
         '0026-arm64-H6-ac200-nodes.patch'
-        '0027-arm64-H6-emmc-hs.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -94,7 +93,6 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          'ac82ddd0a7b345b658af43682ae74156'
          '6a06bcbbdb6c6b029cbdeffaea972cdc'
          'a4a14df1faa7902cd594526d241f000f'
-         '14a4bbe71314c3bfdd52170183f0b1b0'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -157,7 +155,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0024-arm64-H6-hdmi-sound.patch"                                              #Sound
   patch -Np1 -i "${srcdir}/0025-arm64-pineH64-usb3.patch"                                               #USB3
   patch -Np1 -i "${srcdir}/0026-arm64-H6-ac200-nodes.patch"                                             #AC200?
-  patch -Np1 -i "${srcdir}/0027-arm64-H6-emmc-hs.patch"                                                 #eMMC
 
   # Pinebook patches
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
