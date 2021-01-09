@@ -6,8 +6,8 @@ pkgbase=linux
 _srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.10.5
-pkgrel=3
+pkgver=5.10.6
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -66,7 +66,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('753adc474bf799d569dec4f165ed92c3'
-         'b777628725d554440fba32da5c95ba12'
+         '1cb0ca9659928919cfc047deb33e3a20'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -113,7 +113,7 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'a0f22c1fb5c95b88c9fa63f915a9e900'
+         'af0f575c7a301381342f7bfb5cf439e8'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
