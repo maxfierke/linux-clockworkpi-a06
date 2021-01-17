@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.10.7
+pkgver=5.10.8
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -45,7 +45,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
         '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
-        '0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch'
+        #'0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch'
+        '0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch'
         '0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
         '0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
         '0003-revert-fbcon-remove-soft-scrollback-code.patch'
@@ -66,7 +67,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('753adc474bf799d569dec4f165ed92c3'
-         '4e3f6fd4b7383c146d65d2c7e44e827d'
+         'a552b8228212ab7810294bb6ee1ed148'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -97,7 +98,7 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         'd4c696ebeda3f40f3e04a45308822917'
+         'f3ffeecc716a229f51dcbe16f5c8d04d'
          'a31a435ab6cd8e7a47601159d665ce50'
          'fed6ae4ac4c3f56178fa4aca6c934d6f'
          '47f65423c4ffc7e6092c7ff2c7129942'
@@ -161,7 +162,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
   patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
-  patch -Np1 -i "${srcdir}/0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch"                        #PineTab
+  #patch -Np1 -i "${srcdir}/0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch"                        #PineTab
+  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab display
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
