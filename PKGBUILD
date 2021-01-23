@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.10
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.10.9
+pkgver=5.10.10
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -45,7 +45,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
         '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
-        #'0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch'
         '0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch'
         '0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
         '0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
@@ -67,7 +66,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('753adc474bf799d569dec4f165ed92c3'
-         '3607288f3a5fff7f162c5ace98b72868'
+         '791c2c89ca43ceaf10ee7733eaa95f79'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -162,7 +161,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
   patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
-  #patch -Np1 -i "${srcdir}/0005-Switch-PineTab-DT-LCD-panel-to-retail-one.patch"                        #PineTab
   patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab display
   
   # Bootsplash patches
