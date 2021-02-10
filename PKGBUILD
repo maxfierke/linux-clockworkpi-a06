@@ -41,7 +41,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0024-arm64-H6-hdmi-sound.patch'
         '0025-arm64-pineH64-usb3.patch'
         '0026-arm64-H6-ac200-nodes.patch'
-        '0027-Revert-SUNRPC-Handle-TCP-socket-sends-with-kernel_se.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -94,7 +93,6 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          'ac82ddd0a7b345b658af43682ae74156'
          '6a06bcbbdb6c6b029cbdeffaea972cdc'
          'a4a14df1faa7902cd594526d241f000f'
-         'a38ffa8241b0df8d05e34014b0526685'
          'cf64831f27bb47da29e708b7243bb340'
          '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -149,7 +147,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
   patch -Np1 -i "${srcdir}/0020-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch"       #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0027-Revert-SUNRPC-Handle-TCP-socket-sends-with-kernel_se.patch"             #NFS
   
   # PineH64 patches
   patch -Np1 -i "${srcdir}/0021-arm64-sun4i-hdmi-sound.patch"                                           #Sound
