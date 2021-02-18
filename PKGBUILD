@@ -115,7 +115,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'c07bd6bb8c40b58827874e1eb07f0569'
+         '67d1abd9b92fde9c16d94148ab8ac166'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
