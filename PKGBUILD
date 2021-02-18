@@ -7,7 +7,7 @@ _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.11.0
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -66,7 +66,10 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'config'
         'linux.preset'
         '60-linux.hook'
-        '90-linux.hook')
+        '90-linux.hook'
+        'add-beelink-device-and-vim3l.patch'
+        'add-ugoos-device.patch'
+        'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
@@ -118,7 +121,10 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '67d1abd9b92fde9c16d94148ab8ac166'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
-         '3dc88030a8f2f5a5f97266d99b149f77')
+         '3dc88030a8f2f5a5f97266d99b149f77'
+         'f77a1334c2a70334c990cc6e412ee849'
+         '1b92d7617e60d3c525a4b18ab4351185'
+         '469417b64e6a2bf65bd74c6d9cad2040')
 
 prepare() {
   cd ${_srcname}
@@ -166,6 +172,11 @@ prepare() {
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
   patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
   patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab screen
+
+  # Amlogic Patches
+  patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"                                          # Beelink GT1 Ultimate
+  patch -Np1 -i "${srcdir}/add-ugoos-device.patch"                                                      # Add Ugoos AM6 Plus
+  patch -Np1 -i "${srcdir}/fix-g12-hdmi.patch"                                                          # Amglogic G12 Green Line fix    
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
