@@ -3,10 +3,10 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux
-_srcname=linux-5.10
+_srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.10.17
+pkgver=5.11.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -14,35 +14,37 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0004-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch'
-        '0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
-        '0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
-        '0007-pbp-support.patch'
-        '0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
-        '0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
-        '0010-gpu-drm-add-new-display-resolution-2560x1440.patch'
-        '0011-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
-        '0012-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch'
-        '0013-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
-        '0014-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
-        '0015-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
-        '0016-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
-        '0017-arm64-rockchip-add-DP-ALT-rockpro64.patch'
-        '0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
-        '0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
-        '0020-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
-        '0021-arm64-sun4i-hdmi-sound.patch'
-        '0022-arm64-h6-bluetooth-1.patch'
-        '0023-arm64-pineH64-B-wifi-bt.patch'
-        '0024-arm64-H6-hdmi-sound.patch'
-        '0025-arm64-pineH64-usb3.patch'
-        '0026-arm64-H6-ac200-nodes.patch'
+        '0004-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
+        '0005-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
+        '0006-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
+        '0007-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
+        '0008-gpu-drm-add-new-display-resolution-2560x1440.patch'
+        '0009-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch'
+        '0010-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch'
+        '0011-typec-displayport-some-devices-have-pin-assignments-reversed.patch'
+        '0012-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch'
+        '0013-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch'
+        '0014-arm64-rockchip-add-DP-ALT-rockpro64.patch'
+        '0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch'
+        '0016-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch'
+        '0017-tty-serdev-support-shutdown-op.patch'
+        '0018-bluetooth-hci_serdev-Clear-registered-bit-on-unregister.patch'
+        '0019-bluetooth-hci_bcm-disable-power-on-shutdown.patch'
+        '0020-mmc-core-pwrseq_simple-disable-mmc-power-on-shutdown.patch'
+        '0021-usb-typec-bus-Catch-crash-due-to-partner-NULL-value.patch'
+        '0022-phy-rockchip-typec-Set-extcon-capabilities.patch'
+        '0023-usb-typec-altmodes-displayport-Add-hacky-generic-altmode.patch'
+        '0024-sound-soc-codecs-es8316-Run-micdetect-only-if-jack-status.patch'
+        '0025-ASoC-soc-jack.c-supported-inverted-jack-detect-GPIOs.patch'
+        '0026-arm64-dts-rockchip-add-typec-extcon-hack.patch'
+        '0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
+        '0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
-        '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
+        #'0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch' #Needs to be redone
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
         '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
         '0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch'
@@ -65,20 +67,16 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('753adc474bf799d569dec4f165ed92c3'
-         '4e76f7e770d75f54db4237349cfe653f'
+md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         'f250c40648d027c539242a40fcd97a15'
          '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
-         'd24c60b09927ad689f7ba8e52fbb13ae'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
          '6f592c11f6adc1de0f06e5d18f8c2862'
          'f8f0b124c741be61d86bea8d44e875f9'
-         '20049953fa7ce65e71f07b5bed81703d'
          '073296b5eba7daf6d707c21abbfc49ce'
          'a033be22c23afb1d5daeeeb21353185d'
          '6a88f7e762eb7895b3f5db38daa6bb24'
@@ -86,19 +84,23 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          '09fc19ac5c51e2839ca56248ccf6323a'
          '66fae3fc96f0a478a56ff11632f3ef70'
          '245858f26512dfc48adbf509b6fc8364'
+         'b3875d0253b8018af15af9512ed94962'
+         '46d365b674920f85637a9d7865781f87'
+         '817f321b4bc9d075a0ec72eefaafa113'
+         '19d836fc7c463011b696640a193b842f'
+         '005e92dfe1cb92062b7abf3e7ef9a208'
+         '252b4dbd2d0f560b6d254f29dd5b0f5f'
+         'ab9c0c25e2b7272fca3caf491b7dc89c'
+         'bd0d0667d2fdac9b1566dd906775975d'
+         '0eb00bfcc68cae984bfdbbca6409e2a6'
+         'c706ccdf118f4146e7ca35808d819b8a'
          'bb500ee93275583d5ba3d11842e09735'
-         'b3f91d269371d30cef85b7690e71faea'
-         '0866abfbba3724f99892f2a7b7c15389'
-         'c8fc002a4aab8fa35740e46c76618950'
-         'ac82ddd0a7b345b658af43682ae74156'
-         '6a06bcbbdb6c6b029cbdeffaea972cdc'
-         'a4a14df1faa7902cd594526d241f000f'
+         'e89d3ca6ae8ae8f3eb8168cacaefb9e0'
          'cf64831f27bb47da29e708b7243bb340'
-         '28471d9f407a38a46ff6c56ff8fa2dcc'
          '9510821113c122f91f47b9d0f7ca7264'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '418db11ca0cf3454333db1ad9a338337'
-         'a31a435ab6cd8e7a47601159d665ce50'
+         '2496e6fc16f67b289f72ddc2ea2511cf'
          'fed6ae4ac4c3f56178fa4aca6c934d6f'
          '47f65423c4ffc7e6092c7ff2c7129942'
          'be5a873f638ff5c31947f8d28a824d3a'
@@ -107,13 +109,13 @@ md5sums=('753adc474bf799d569dec4f165ed92c3'
          'cb78b1c11b917a4d31c4b1567183b76f'
          '3efea575da7f02ba94789d3b6b81e11f'
          '2529ad13791b259d80c9d5d702187a65'
-         'efd2367798cc4eab0e15fc0ae44fb003'
+         'cb296d7788098cf478c46c0d21376719'
          '50255aac36e002afa477e4527a0550af'
          '6b6def41b404422dc04b39e2f1adffc8'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'b0a5332bebc2ea39abf80762008d0858'
+         'c07bd6bb8c40b58827874e1eb07f0569'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -122,7 +124,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
@@ -130,38 +132,40 @@ prepare() {
   patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"             #RK3328
   
   # Manjaro ARM Patches
-  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-use-USB-host-by-default-on-rk3399-rock-pi-4.patch"   #Rock Pi 4
-  patch -Np1 -i "${srcdir}/0005-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
-  patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
-  patch -Np1 -i "${srcdir}/0007-pbp-support.patch"                                                      #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0008-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
-  patch -Np1 -i "${srcdir}/0009-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
-  patch -Np1 -i "${srcdir}/0010-gpu-drm-add-new-display-resolution-2560x1440.patch"             		#Odroid
-  patch -Np1 -i "${srcdir}/0011-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
-  patch -Np1 -i "${srcdir}/0012-arm64-dts-meson-add-audio-playback-to-odroid-c2.patch"                  #Odroid C2
-  patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
-  patch -Np1 -i "${srcdir}/0014-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
-  patch -Np1 -i "${srcdir}/0015-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
-  patch -Np1 -i "${srcdir}/0016-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
-  patch -Np1 -i "${srcdir}/0017-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
-  patch -Np1 -i "${srcdir}/0018-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
-  patch -Np1 -i "${srcdir}/0019-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
-  patch -Np1 -i "${srcdir}/0020-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch"       #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
+  patch -Np1 -i "${srcdir}/0005-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
+  patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
+  patch -Np1 -i "${srcdir}/0007-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
+  patch -Np1 -i "${srcdir}/0008-gpu-drm-add-new-display-resolution-2560x1440.patch"             		#Odroid
+  patch -Np1 -i "${srcdir}/0009-nuumio-panfrost-Silence-Panfrost-gem-shrinker-loggin.patch"             #Panfrost
+  patch -Np1 -i "${srcdir}/0010-arm64-dts-rockchip-Add-Firefly-Station-p1-support.patch"                #Firelfy Station P1
+  patch -Np1 -i "${srcdir}/0011-typec-displayport-some-devices-have-pin-assignments-reversed.patch"     #DP Alt Mode
+  patch -Np1 -i "${srcdir}/0012-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch"       #DP Alt mode
+  patch -Np1 -i "${srcdir}/0013-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch"						#DP Alt mode
+  patch -Np1 -i "${srcdir}/0014-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
+  patch -Np1 -i "${srcdir}/0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
+  patch -Np1 -i "${srcdir}/0016-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
   
-  # PineH64 patches
-  patch -Np1 -i "${srcdir}/0021-arm64-sun4i-hdmi-sound.patch"                                           #Sound
-  patch -Np1 -i "${srcdir}/0022-arm64-h6-bluetooth-1.patch"                                             #Bluetooth
-  patch -Np1 -i "${srcdir}/0023-arm64-pineH64-B-wifi-bt.patch"                                          #Wifi and Bluetooth
-  patch -Np1 -i "${srcdir}/0024-arm64-H6-hdmi-sound.patch"                                              #Sound
-  patch -Np1 -i "${srcdir}/0025-arm64-pineH64-usb3.patch"                                               #USB3
-  patch -Np1 -i "${srcdir}/0026-arm64-H6-ac200-nodes.patch"                                             #AC200?
-
-  # Pinebook patches
+  # Pinebook Pro patches
+  patch -Np1 -i "${srcdir}/0017-tty-serdev-support-shutdown-op.patch"                                   #Wifi/BT
+  patch -Np1 -i "${srcdir}/0018-bluetooth-hci_serdev-Clear-registered-bit-on-unregister.patch"          #Bluetooth
+  patch -Np1 -i "${srcdir}/0019-bluetooth-hci_bcm-disable-power-on-shutdown.patch"                      #Bluetooth
+  patch -Np1 -i "${srcdir}/0020-mmc-core-pwrseq_simple-disable-mmc-power-on-shutdown.patch"             #Wifi
+  patch -Np1 -i "${srcdir}/0021-usb-typec-bus-Catch-crash-due-to-partner-NULL-value.patch"              #USB-C
+  patch -Np1 -i "${srcdir}/0022-phy-rockchip-typec-Set-extcon-capabilities.patch"                       #DP Alt mode
+  patch -Np1 -i "${srcdir}/0023-usb-typec-altmodes-displayport-Add-hacky-generic-altmode.patch"         #DP Alt mode
+  patch -Np1 -i "${srcdir}/0024-sound-soc-codecs-es8316-Run-micdetect-only-if-jack-status.patch"        #Audio
+  patch -Np1 -i "${srcdir}/0025-ASoC-soc-jack.c-supported-inverted-jack-detect-GPIOs.patch"             #Audio
+  patch -Np1 -i "${srcdir}/0026-arm64-dts-rockchip-add-typec-extcon-hack.patch"                         #DP Alt mode
+  patch -Np1 -i "${srcdir}/0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch"       #USB-C charging
+  
+  # Pinebook, PinePhone and PineTab patches
+  patch -Np1 -i "${srcdir}/0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch"                     #Allwinner
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
-  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
+  #patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
   patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
-  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab display
+  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab screen
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
