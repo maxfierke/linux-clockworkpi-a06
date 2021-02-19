@@ -7,7 +7,7 @@ _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.11.0
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -48,6 +48,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
         '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
         '0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch'
+        '0006-staging-add-rtl8723cs-driver.patch'
         '0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
         '0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
         '0003-revert-fbcon-remove-soft-scrollback-code.patch'
@@ -103,6 +104,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '9510821113c122f91f47b9d0f7ca7264'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '418db11ca0cf3454333db1ad9a338337'
+         'b0fa7d19514a8bd351ebf00564b2094e'
          '2496e6fc16f67b289f72ddc2ea2511cf'
          'fed6ae4ac4c3f56178fa4aca6c934d6f'
          '47f65423c4ffc7e6092c7ff2c7129942'
@@ -118,7 +120,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         '67d1abd9b92fde9c16d94148ab8ac166'
+         'ae73cf4f520ad0857679c8bce41f4a12'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -172,6 +174,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
   patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
   patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab screen
+  patch -Np1 -i "${srcdir}/0006-staging-add-rtl8723cs-driver.patch"                                     #Wifi
 
   # Amlogic Patches
   patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"                                          # Beelink GT1 Ultimate
