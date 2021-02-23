@@ -19,7 +19,7 @@
 #     -r          Remove previously built packages in $PKGDEST
 #     -s          Sign package(s)
 
-install_pacman:
+before_script:
     - apt install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion
     - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
     - export pacver=5.2.2
@@ -46,16 +46,13 @@ install_pacman:
     - make
     - make install
 
-install_chrootbuild:
     - cd ..
     - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
     - cd manjaro-chrootbuild
     - ./install.sh
-
     - echo "PKGDEST = </pkg/destination>" >> /etc/makepkg.conf
     - echo "PACKAGER = Manjaro Build Server <mnjobuild@manjaro.org>" >> /etc/makepkg.conf
     - echo "GPGKEY = <keyID>" >> /etc/makepkg.conf
-
     - pacman-key --init
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
