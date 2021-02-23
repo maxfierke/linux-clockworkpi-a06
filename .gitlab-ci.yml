@@ -84,6 +84,7 @@ before_script:
     - echo "PKGDEST = </pkg/destination>" >> /etc/makepkg.conf
     - echo "PACKAGER = Manjaro Build Server <mnjobuild@manjaro.org>" >> /etc/makepkg.conf
     - echo "GPGKEY = <keyID>" >> /etc/makepkg.conf
+    - sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
 
