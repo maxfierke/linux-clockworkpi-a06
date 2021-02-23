@@ -22,12 +22,12 @@
 package:
   tags:
     - aarch64
-    - bigbuilds
+    - build-server
   script:
     # build pkg via chrootbuild
     - export PKG=${PWD##*/}
     - cd ..
-    - sudo chrootbuild -cp $PKG
+    - chrootbuild -cp $PKG
     - mv -v ./*.pkg.tar.* $PKG
   artifacts:
     paths:
