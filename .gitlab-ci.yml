@@ -32,7 +32,7 @@ before_script:
     - tar -xvf pacman-$pacver.tar.gz
     - tar -xvf pacman-contrib-$contribver.tar.gz
     - cd pacman-$pacver
-    - patch -p1 -i ../pacman-sync-first-option.patch
+    - patch -p1 -i ../0002-add-sync-first-option.patch
     - cd ../pacman-$pacver
     - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc --with-scriptlet-shell=/usr/bin/bash --with-ldconfig=/usr/bin/ldconfig
     - make V=1
