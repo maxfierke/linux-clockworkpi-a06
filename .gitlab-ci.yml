@@ -61,8 +61,8 @@ before_script:
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
     - pacman-key --init
-    - pacman -Sy manjaro-keyring archlinux-keyring --noconfirm
-    - pacman-key --populate manjaro archlinux
+    - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring --noconfirm
+    - pacman-key --populate manjaro archlinux archlinuxarm
 
 package:
   tags:
