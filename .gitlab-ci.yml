@@ -64,6 +64,12 @@ before_script:
     - install -m0644 archlinux-trusted /usr/share/pacman/keyrings/
     - install -m0644 archlinux-revoked /usr/share/pacman/keyrings/
     - cd ..
+    - wget https://archlinuxarm.org/builder/src/archlinuxarm-keyring-20140119.tar.gz
+    - tar -xvf archlinuxarm-keyring-20140119.tar.gz
+    - cd archlinuxarm-keyring
+    - install -m0644 archlinuxarm.gpg /usr/share/pacman/keyrings/
+    - install -m0644 archlinuxarm-trusted /usr/share/pacman/keyrings/
+    - install -m0644 archlinuxarm-revoked /usr/share/pacman/keyrings/
     - sed -i /etc/pacman.conf -e "s|@CARCH@|aarch64|g"
     - cat /etc/pacman.conf
     - mkdir -p /etc/pacman.d/ && echo 'Server = http://repo.manjaro.org/repo/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist
