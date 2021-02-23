@@ -21,7 +21,7 @@
 
 before_script:
     # Install pacman (dependency of chrootbuild)
-    - echo "$(nproc) CPUs on $(uname -a) in Docker..."
+    - echo "$(nproc) CPUs on $(uname -a) in Docker as $(whoami)..."
     - apt update
     - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion wget sudo
     - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
@@ -87,6 +87,10 @@ before_script:
     #- sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
+    - cd ../..
+    - rm -rf pacman
+    - install -d $pkgdir/etc/sudoers.d
+    - echo 'gitlab-runner ALL=NOPASSWD: /usr/bin/chrootbuild' > /etc/sudoers.d/gitlab-runner-chrootbuild
 
 package:
   tags:
