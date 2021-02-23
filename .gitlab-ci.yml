@@ -51,10 +51,11 @@ before_script:
 
     # Install chrootbuild
     - cd ..
-    - pacman-key --init
     - mkdir -p /usr/share/pacman/keyrings/ && cd /usr/share/pacman/keyrings/ && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro.gpg && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-revoked && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-trusted
-    - pacman-key --populate manjaro
+    - rm -r /etc/pacman.d/gnupg
     - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring --noconfirm
+    - pacman-key --init
+    - pacman-key --populate manjaro
     - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
     - cd manjaro-chrootbuild
     - ./install.sh
