@@ -43,7 +43,7 @@ before_script:
     - sed -i /etc/makepkg.conf -e "s|@CARCH[@]|aarch64|g" -e "s|@CHOST[@]|aarch64-pc-linux-gnu|g" -e "s|@CARCHFLAGS[@]|-march=armv8|g"
     - install -m644 etc-pacman.d-gnupg.mount /usr/lib/systemd/system/etc-pacman.d-gnupg.mount
     - install -m644 pacman-init.service /usr/lib/systemd/system/pacman-init.service
-    - cd pacman-contrib-$contribver.tar.gz
+    - cd pacman-contrib-$contribver
     - ./autogen.sh
     - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc
     - make
