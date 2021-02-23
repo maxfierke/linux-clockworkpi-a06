@@ -20,6 +20,7 @@
 #     -s          Sign package(s)
 
 before_script:
+    # Install pacman (dependency of chrootbuild)
     - echo "$(nproc) CPUs on $(uname -a) in Docker..."
     - apt update
     - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion wget
@@ -33,10 +34,10 @@ before_script:
     - tar -xvf pacman-contrib-$contribver.tar.gz
     - cd pacman-$pacver
     - patch -p1 -i ../0002-add-sync-first-option.patch
-    - cd ../pacman-$pacver
     - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc --with-scriptlet-shell=/usr/bin/bash --with-ldconfig=/usr/bin/ldconfig
     - make V=1
     - make install
+    - cd ..
     - install -m644 pacman.conf /etc/pacman.conf
     - install -m644 makepkg.conf /etc/
     - sed -i /etc/makepkg.conf -e "s|@CARCH[@]|aarch64|g" -e "s|@CHOST[@]|aarch64-pc-linux-gnu|g" -e "s|@CARCHFLAGS[@]|-march=armv8|g"
@@ -48,6 +49,7 @@ before_script:
     - make
     - make install
 
+    # Install chrootbuild
     - cd ..
     - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
     - cd manjaro-chrootbuild
