@@ -38,7 +38,7 @@ before_script:
     - make V=1
     - make install
     - cd ..
-    - install -m644 pacman.conf /etc/pacman.conf
+    - install -m644 pacman.conf /etc/
     - install -m644 makepkg.conf /etc/
     - sed -i /etc/makepkg.conf -e "s|@CARCH[@]|aarch64|g" -e "s|@CHOST[@]|aarch64-pc-linux-gnu|g" -e "s|@CARCHFLAGS[@]|-march=armv8|g"
     - install -m644 etc-pacman.d-gnupg.mount /usr/lib/systemd/system/etc-pacman.d-gnupg.mount
@@ -61,8 +61,9 @@ before_script:
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
     - pacman-key --init
+    - cd /usr/share/pacman/keyrings/ && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro.gpg && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-revoked && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-trusted
+    - pacman-key --populate manjaro archlinux
     - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring --noconfirm
-    - pacman-key --populate manjaro archlinux archlinuxarm
 
 package:
   tags:
