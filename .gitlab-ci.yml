@@ -90,7 +90,7 @@ before_script:
     - cd ../..
     - rm -rf pacman
     - install -d $pkgdir/etc/sudoers.d
-    - echo 'gitlab-runner ALL=NOPASSWD: /usr/bin/chrootbuild' > /etc/sudoers.d/gitlab-runner-chrootbuild
+    - echo "gitlab-runner ALL=NOPASSWD\: /usr/bin/chrootbuild" > /etc/sudoers.d/gitlab-runner-chrootbuild
 
 package:
   tags:
