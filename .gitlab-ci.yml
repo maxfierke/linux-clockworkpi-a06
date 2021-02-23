@@ -51,6 +51,10 @@ before_script:
 
     # Install chrootbuild
     - cd ..
+    - pacman-key --init
+    - mkdir -p /usr/share/pacman/keyrings/ && cd /usr/share/pacman/keyrings/ && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro.gpg && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-revoked && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-trusted
+    - pacman-key --populate manjaro
+    - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring --noconfirm
     - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
     - cd manjaro-chrootbuild
     - ./install.sh
@@ -60,10 +64,6 @@ before_script:
     - pacman-key --init
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
-    - pacman-key --init
-    - mkdir -p /usr/share/pacman/keyrings/ && cd /usr/share/pacman/keyrings/ && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro.gpg && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-revoked && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-trusted
-    - pacman-key --populate manjaro archlinux
-    - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring --noconfirm
 
 package:
   tags:
