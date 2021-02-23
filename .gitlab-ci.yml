@@ -22,7 +22,7 @@
 before_script:
     - echo "$(nproc) CPUs on $(uname -a) in Docker..."
     - apt update
-    - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion
+    - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion wget
     - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
     - export pacver=5.2.2
     - export contribver=1.4.0
