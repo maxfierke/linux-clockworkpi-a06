@@ -74,7 +74,7 @@ before_script:
     - cat /etc/pacman.conf
     - mkdir -p /etc/pacman.d/ && echo 'Server = http://repo.manjaro.org/repo/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist
     - pacman-key --init
-    - pacman-key --populate manjaro archlinux
+    - pacman-key --populate manjaro archlinux archlinuxarm
     
     # Install chrootbuild
     - cd ..
