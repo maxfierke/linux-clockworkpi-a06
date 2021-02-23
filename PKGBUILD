@@ -6,15 +6,15 @@ pkgbase=linux
 _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.11.0
-pkgrel=3
+pkgver=5.11.1
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
@@ -72,6 +72,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
+         '0e4274c495b4c0cbf41dd3842c87de31'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -132,7 +133,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
