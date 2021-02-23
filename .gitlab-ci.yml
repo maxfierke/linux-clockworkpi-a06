@@ -54,8 +54,8 @@ before_script:
     - sed -i /etc/pacman.conf -e "s|@CARCH@|aarch64|g"
     - cat /etc/pacman.conf
     - mkdir -p /etc/pacman.d/ && echo 'Server = http://manjaro.moson.eu/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist
-    - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring manjaro-arm-keyring --noconfirm
     - pacman-key --init
+    - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring manjaro-arm-keyring --noconfirm
     - pacman-key --populate manjaro archlinux arclinuxarm manjaro-arm
     - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
     - cd manjaro-chrootbuild
@@ -63,7 +63,6 @@ before_script:
     - echo "PKGDEST = </pkg/destination>" >> /etc/makepkg.conf
     - echo "PACKAGER = Manjaro Build Server <mnjobuild@manjaro.org>" >> /etc/makepkg.conf
     - echo "GPGKEY = <keyID>" >> /etc/makepkg.conf
-    - pacman-key --init
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
 
