@@ -20,6 +20,7 @@
 #     -s          Sign package(s)
 
 before_script:
+    - apt update
     - apt install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion
     - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
     - export pacver=5.2.2
