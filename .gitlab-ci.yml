@@ -37,7 +37,7 @@ before_script:
     - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc --with-scriptlet-shell=/usr/bin/bash --with-ldconfig=/usr/bin/ldconfig
     - make V=1
     - make install
-    - install -m644 pacman.conf.aarch64 /etc/pacman.conf
+    - install -m644 pacman.conf /etc/pacman.conf
     - install -m644 makepkg.conf /etc/
     - sed -i /etc/makepkg.conf -e "s|@CARCH[@]|aarch64|g" -e "s|@CHOST[@]|aarch64-pc-linux-gnu|g" -e "s|@CARCHFLAGS[@]|-march=armv8|g"
     - install -m644 etc-pacman.d-gnupg.mount /usr/lib/systemd/system/etc-pacman.d-gnupg.mount
