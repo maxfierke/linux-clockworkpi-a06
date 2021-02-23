@@ -64,14 +64,14 @@ before_script:
     - install -m0644 archlinux-trusted /usr/share/pacman/keyrings/
     - install -m0644 archlinux-revoked /usr/share/pacman/keyrings/
     - cd ..
+    - sed -i /etc/pacman.conf -e "s|@CARCH@|aarch64|g"
+    - cat /etc/pacman.conf
+    - mkdir -p /etc/pacman.d/ && echo 'Server = http://repo.manjaro.org/repo/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist
     - pacman-key --init
     - pacman-key --populate manjaro archlinux
     
     # Install chrootbuild
     - cd ..
-    - sed -i /etc/pacman.conf -e "s|@CARCH@|aarch64|g"
-    - cat /etc/pacman.conf
-    - mkdir -p /etc/pacman.d/ && echo 'Server = http://repo.manjaro.org/repo/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist
     - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
     - cd manjaro-chrootbuild
     - ./install.sh
