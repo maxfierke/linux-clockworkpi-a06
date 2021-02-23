@@ -20,8 +20,9 @@
 #     -s          Sign package(s)
 
 before_script:
+    - echo "$(nproc)" CPU's on $(uname -a) in Docker..."
     - apt update
-    - apt install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion
+    - apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion
     - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
     - export pacver=5.2.2
     - export contribver=1.4.0
