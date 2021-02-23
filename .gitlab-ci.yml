@@ -51,7 +51,7 @@ before_script:
 
     # Install chrootbuild
     - cd ..
-    - mkdir -p /usr/share/pacman/keyrings/ && cd /usr/share/pacman/keyrings/ && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro.gpg && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-revoked && wget https://gitlab.manjaro.org/packages/core/manjaro-keyring/-/raw/master/manjaro-trusted
+    - cat /etc/pacman.conf
     - mkdir -p /etc/pacman.d/ && echo 'Server = http://manjaro.moson.eu/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist
     - pacman -Sy manjaro-keyring archlinux-keyring archlinuxarm-keyring manjaro-arm-keyring --noconfirm
     - pacman-key --init
