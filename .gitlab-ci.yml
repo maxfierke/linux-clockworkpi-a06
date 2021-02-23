@@ -23,7 +23,7 @@ before_script:
     # Install pacman (dependency of chrootbuild)
     - echo "$(nproc) CPUs on $(uname -a) in Docker..."
     - apt update
-    - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion wget
+    - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion wget sudo
     - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
     - export pacver=5.2.2
     - export contribver=1.4.0
@@ -84,7 +84,7 @@ before_script:
     - echo "PKGDEST = </pkg/destination>" >> /etc/makepkg.conf
     - echo "PACKAGER = Manjaro Build Server <mnjobuild@manjaro.org>" >> /etc/makepkg.conf
     - echo "GPGKEY = <keyID>" >> /etc/makepkg.conf
-    - sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
+    #- sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
 
@@ -96,7 +96,7 @@ package:
     # build pkg via chrootbuild
     - export PKG=${PWD##*/}
     - cd ..
-    - chrootbuild -cp $PKG
+    - sudo chrootbuild -cp $PKG
     - mv -v ./*.pkg.tar.* $PKG
   artifacts:
     paths:
