@@ -97,7 +97,7 @@ before_script:
     - wget https://gitlab.manjaro.org/-/snippets/594/raw/master/gitlab-runner.sh && chmod +x gitlab-runner.sh
     - ./gitlab-runner.sh
     - cat /etc/sudoers.d/gitlab-runner-chrootbuild
-    - useradd -D gitlab-runner && usermod -a -G wheel gitlab-runner
+    - useradd -m -G wheel,sys,audio,input,video,storage,lp,network,users,power -s /bin/bash gitlab-runner
 
 package:
   tags:
