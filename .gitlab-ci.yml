@@ -95,7 +95,7 @@ before_script:
     - rm -rf pacman
     - install -d $pkgdir/etc/sudoers.d
     - wget https://gitlab.manjaro.org/-/snippets/594/raw/master/gitlab-runner.sh && chmod +x gitlab-runner.sh
-    - ./gitlab-runner
+    - ./gitlab-runner.sh
     - cat /etc/sudoers.d/gitlab-runner-chrootbuild
 
 package:
