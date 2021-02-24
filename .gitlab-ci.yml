@@ -105,6 +105,7 @@ package:
     - build-server
   script:
     # build pkg via chrootbuild
+    - su gitlab-runner
     - export PKG=${PWD##*/}
     - cd ..
     - sudo chrootbuild -cp $PKG
