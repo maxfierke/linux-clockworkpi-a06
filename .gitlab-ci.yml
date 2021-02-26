@@ -92,14 +92,14 @@ before_script:
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
     - cd ../..
-    - rm -rf pacman
+    #- rm -rf pacman
     #- install -d $pkgdir/etc/sudoers.d
     #- wget https://gitlab.manjaro.org/-/snippets/594/raw/master/gitlab-runner.sh && chmod +x gitlab-runner.sh
     #- ./gitlab-runner.sh
     #- cat /etc/sudoers.d/gitlab-runner-chrootbuild
     #- useradd -m -G wheel,sys,audio,input,video,storage,lp,network,users,power -s /bin/bash gitlab-runner
-    - sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
-    - wget https://gitlab.manjaro.org/manjaro-arm/applications/manjaro-arm-tools/-/raw/master/lib/makepkg && cp makepkg /usr/bin/makepkg && chown 755 /usr/bin/makepkg
+    #- sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
+    #- wget https://gitlab.manjaro.org/manjaro-arm/applications/manjaro-arm-tools/-/raw/master/lib/makepkg && cp makepkg /usr/bin/makepkg && chown 755 /usr/bin/makepkg
 
 package:
   tags:
@@ -110,7 +110,7 @@ package:
     #- su gitlab-runner
     - export PKG=${PWD##*/}
     - cd ..
-    - chrootbuild -cp $PKG
+    - sudo chrootbuild -cp $PKG
     - mv -v ./*.pkg.tar.* $PKG
   artifacts:
     paths:
