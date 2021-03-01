@@ -101,6 +101,9 @@ before_script:
     #- sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
     #- wget https://gitlab.manjaro.org/manjaro-arm/applications/manjaro-arm-tools/-/raw/master/lib/makepkg && cp makepkg /usr/bin/makepkg && chown 755 /usr/bin/makepkg
 
+    # Create builduser, so makepkg is happy
+    useradd -d /builder -m builder && echo "builder ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
+
 package:
   tags:
     - aarch64
@@ -110,7 +113,7 @@ package:
     #- su gitlab-runner
     - export PKG=${PWD##*/}
     - cd ..
-    - sudo chrootbuild -cp $PKG
+    - sudo -u builder sudo chrootbuild -cp $PKG
     - mv -v ./*.pkg.tar.* $PKG
   artifacts:
     paths:
