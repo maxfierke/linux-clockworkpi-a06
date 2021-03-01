@@ -49,7 +49,7 @@ before_script:
     - make
     - make install
     - useradd -d /builder -m builder
-    - echo "builder ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
+    - "echo 'builder ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers"
     
     # Install keyrings
     - cd ..
