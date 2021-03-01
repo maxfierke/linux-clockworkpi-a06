@@ -48,6 +48,8 @@ before_script:
     - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc
     - make
     - make install
+    - useradd -d /builder -m builder
+    - echo "builder ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
     
     # Install keyrings
     - cd ..
@@ -100,10 +102,6 @@ before_script:
     #- useradd -m -G wheel,sys,audio,input,video,storage,lp,network,users,power -s /bin/bash gitlab-runner
     #- sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
     #- wget https://gitlab.manjaro.org/manjaro-arm/applications/manjaro-arm-tools/-/raw/master/lib/makepkg && cp makepkg /usr/bin/makepkg && chown 755 /usr/bin/makepkg
-
-    # Create builduser, so makepkg is happy
-    - useradd -d /builder -m builder
-    - echo "builder ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
 
 package:
   tags:
