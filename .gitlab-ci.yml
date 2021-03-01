@@ -93,6 +93,7 @@ before_script:
     - echo "GPGKEY = <keyID>" >> /etc/makepkg.conf
     - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
     - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
+    - mknod -m 666 /dev/null -c 2 2
     - cd ../..
     #- rm -rf pacman
     #- install -d $pkgdir/etc/sudoers.d
