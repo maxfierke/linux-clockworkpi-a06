@@ -19,104 +19,18 @@
 #     -r          Remove previously built packages in $PKGDEST
 #     -s          Sign package(s)
 
-before_script:
-    # Install pacman (dependency of chrootbuild)
-    - echo "$(nproc) CPUs on $(uname -a) in Docker as $(whoami)..."
-    - apt update
-    - DEBIAN_FRONTEND=noninteractive apt -y install git build-essential cmake libarchive-dev pkg-config libcurl4-openssl-dev libgpgme-dev libssl-dev fakeroot dh-autoreconf libarchive-tools xsltproc gawk subversion wget sudo
-    - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/pacman.git
-    - export pacver=5.2.2
-    - export contribver=1.4.0
-    - cd pacman
-    - wget https://sources.archlinux.org/other/pacman/pacman-$pacver.tar.gz
-    - wget https://git.archlinux.org/pacman-contrib.git/snapshot/pacman-contrib-$contribver.tar.gz
-    - tar -xvf pacman-$pacver.tar.gz
-    - tar -xvf pacman-contrib-$contribver.tar.gz
-    - cd pacman-$pacver
-    - patch -p1 -i ../0002-add-sync-first-option.patch
-    - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc --with-scriptlet-shell=/usr/bin/bash --with-ldconfig=/usr/bin/ldconfig
-    - make V=1
-    - make install
-    - cd ..
-    - install -m644 pacman.conf /etc/
-    - install -m644 makepkg.conf /etc/
-    - sed -i /etc/makepkg.conf -e "s|@CARCH[@]|aarch64|g" -e "s|@CHOST[@]|aarch64-pc-linux-gnu|g" -e "s|@CARCHFLAGS[@]|-march=armv8|g"
-    - install -m644 etc-pacman.d-gnupg.mount /usr/lib/systemd/system/etc-pacman.d-gnupg.mount
-    - install -m644 pacman-init.service /usr/lib/systemd/system/pacman-init.service
-    - cd pacman-contrib-$contribver
-    - ./autogen.sh
-    - ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc
-    - make
-    - make install
-    - useradd -d /builder -m builder
-    - "echo 'builder ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers"
-    
-    # Install keyrings
-    - cd ..
-    - git clone https://gitlab.manjaro.org/packages/core/manjaro-keyring.git
-    - cd manjaro-keyring
-    - install -dm755 /usr/share/pacman/keyrings/
-    - install -m0644 manjaro.gpg /usr/share/pacman/keyrings/
-    - install -m0644 manjaro-trusted /usr/share/pacman/keyrings/
-    - install -m0644 manjaro-trusted /usr/share/pacman/keyrings/
-    - cd ..
-    - git clone https://projects.archlinux.org/archlinux-keyring.git
-    - cd archlinux-keyring
-    - install -m0644 archlinux.gpg /usr/share/pacman/keyrings/
-    - install -m0644 archlinux-trusted /usr/share/pacman/keyrings/
-    - install -m0644 archlinux-revoked /usr/share/pacman/keyrings/
-    - cd ..
-    - wget https://archlinuxarm.org/builder/src/archlinuxarm-keyring-20140119.tar.gz
-    - tar -xvf archlinuxarm-keyring-20140119.tar.gz
-    - cd archlinuxarm-keyring-20140119
-    - install -m0644 archlinuxarm.gpg /usr/share/pacman/keyrings/
-    - install -m0644 archlinuxarm-trusted /usr/share/pacman/keyrings/
-    - install -m0644 archlinuxarm-revoked /usr/share/pacman/keyrings/
-    - cd ..
-    - git clone https://gitlab.manjaro.org/manjaro-arm/packages/core/manjaro-arm-keyring.git
-    - cd manjaro-arm-keyring
-    - install -m0644 manjaro-arm.gpg /usr/share/pacman/keyrings/
-    - install -m0644 manjaro-arm-trusted /usr/share/pacman/keyrings/
-    - install -m0644 manjaro-arm-revoked /usr/share/pacman/keyrings/
-    - sed -i /etc/pacman.conf -e "s|@CARCH@|aarch64|g"
-    - mkdir -p /etc/pacman.d/ && echo 'Server = http://repo.manjaro.org/repo/arm-unstable/$repo/$arch' > /etc/pacman.d/mirrorlist
-    - pacman-key --init
-    - pacman-key --populate manjaro archlinux archlinuxarm manjaro-arm
-    
-    # Install chrootbuild
-    - cd ..
-    - git clone https://gitlab.manjaro.org/tools/development-tools/manjaro-chrootbuild
-    - cd manjaro-chrootbuild
-    - ./install.sh
-    - echo "PKGDEST = </pkg/destination>" >> /etc/makepkg.conf
-    - echo "PACKAGER = Manjaro Build Server <mnjobuild@manjaro.org>" >> /etc/makepkg.conf
-    - echo "GPGKEY = <keyID>" >> /etc/makepkg.conf
-    - cp /etc/chrootbuild/pacman.conf.aarch64 /etc/pacman.conf
-    - sed -i "s/@BRANCH@/arm-unstable/g" /etc/pacman.conf
-    - rm /dev/null
-    - mknod -m 666 /dev/null c 2 2
-    - cd ../..
-    #- rm -rf pacman
-    #- install -d $pkgdir/etc/sudoers.d
-    #- wget https://gitlab.manjaro.org/-/snippets/594/raw/master/gitlab-runner.sh && chmod +x gitlab-runner.sh
-    #- ./gitlab-runner.sh
-    #- cat /etc/sudoers.d/gitlab-runner-chrootbuild
-    #- useradd -m -G wheel,sys,audio,input,video,storage,lp,network,users,power -s /bin/bash gitlab-runner
-    #- sed -i "s/sudo\ chroot/chroot/g" /usr/lib/manjaro-chrootbuild/util-chroot.sh
-    #- wget https://gitlab.manjaro.org/manjaro-arm/applications/manjaro-arm-tools/-/raw/master/lib/makepkg && cp makepkg /usr/bin/makepkg && chown 755 /usr/bin/makepkg
-
 package:
   tags:
     - aarch64
-    - build-server
+    - bigbuilds
   script:
     # build pkg via chrootbuild
-    #- su gitlab-runner
     - export PKG=${PWD##*/}
     - cd ..
-    - sudo -u builder sudo chrootbuild -cp $PKG
+    - sudo chrootbuild -cp $PKG
     - mv -v ./*.pkg.tar.* $PKG
   artifacts:
     paths:
     - ./*.pkg.tar.*
     expire_in: 1 week
+ 

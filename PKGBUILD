@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.11.1
+pkgver=5.11.2
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -44,7 +44,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
         '0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
-        #'0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch' #Needs to be redone
+        '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
         '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
         '0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch'
@@ -72,7 +72,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         '0e4274c495b4c0cbf41dd3842c87de31'
+         '4f2437097d20455c71d1b1866469d6be'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -102,6 +102,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          'bb500ee93275583d5ba3d11842e09735'
          'e89d3ca6ae8ae8f3eb8168cacaefb9e0'
          'cf64831f27bb47da29e708b7243bb340'
+         'e3f53e07612939729afaa4dd7ef7f7ce'
          '9510821113c122f91f47b9d0f7ca7264'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
          '418db11ca0cf3454333db1ad9a338337'
@@ -171,7 +172,7 @@ prepare() {
   # Pinebook, PinePhone and PineTab patches
   patch -Np1 -i "${srcdir}/0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch"                     #Allwinner
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
-  #patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
+  patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
   patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
   patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab screen
