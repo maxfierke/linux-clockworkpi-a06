@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.11.9
+pkgver=5.11.10
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -72,7 +72,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         'c773bfcffb07ad39d07d270a2495227e'
+         '6d5bcfcaab2753a3f4c0ace7aeff0243'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
