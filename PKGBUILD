@@ -14,7 +14,8 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz" #for some reason this file does not get extracted anymore...
+        "patch-${pkgver}"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
@@ -72,7 +73,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         'f42521191ed31716f10731a2cd7f1bd9'
+         'ede612f97e426ac68ca7bd31d573fb38'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -109,7 +110,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          'b0fa7d19514a8bd351ebf00564b2094e'
          '2496e6fc16f67b289f72ddc2ea2511cf'
          'fed6ae4ac4c3f56178fa4aca6c934d6f'
-         '47f65423c4ffc7e6092c7ff2c7129942'
+         '594d4f69b956eaab3336b4e01f42eda8'
          'be5a873f638ff5c31947f8d28a824d3a'
          'b4acd66a564af83b5409738c40b4a566'
          'a6407dceae1838f5aa27450401a91be6'
@@ -131,8 +132,6 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '469417b64e6a2bf65bd74c6d9cad2040')
 
 prepare() {
-  #echo "Extracting main patch..."
-  #unxz patch-$pkgver.xz
   cd ${_srcname}
 
   # add upstream patch
