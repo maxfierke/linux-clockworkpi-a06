@@ -131,8 +131,8 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '469417b64e6a2bf65bd74c6d9cad2040')
 
 prepare() {
-  echo "Extracting main patch..."
-  unxz patch-$pkgver.xz
+  #echo "Extracting main patch..."
+  #unxz patch-$pkgver.xz
   cd ${_srcname}
 
   # add upstream patch
