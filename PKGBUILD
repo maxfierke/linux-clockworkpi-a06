@@ -11,7 +11,7 @@ pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc' 'xz')
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
@@ -131,10 +131,12 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '469417b64e6a2bf65bd74c6d9cad2040')
 
 prepare() {
+  echo "Extracting main patch..."
+  unxz patch-$pkgver.xz
   cd ${_srcname}
 
   # add upstream patch
-  patch -p1 -i "${srcdir}/patch-${pkgver}"
+  patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
