@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.11.12
+pkgver=5.11.13
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -44,6 +44,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0026-arm64-dts-rockchip-add-typec-extcon-hack.patch'
         '0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
         '0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch'
+        #'0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -73,7 +74,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         'ede612f97e426ac68ca7bd31d573fb38'
+         '6632d561bf863e412b625186070c5426'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -156,6 +157,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0014-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
   patch -Np1 -i "${srcdir}/0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0016-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
+  #patch -Np1 -i "${srcdir}/0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch"					#Odroid
   
   # Pinebook Pro patches
   patch -Np1 -i "${srcdir}/0017-tty-serdev-support-shutdown-op.patch"                                   #Wifi/BT
