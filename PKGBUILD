@@ -7,15 +7,15 @@ _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.11.14
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz" #for some reason this file does not get extracted anymore...
-        "patch-${pkgver}"
+        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz" #for some reason this file does not get extracted anymore...
+        #"patch-${pkgver}"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
@@ -45,6 +45,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
         '0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch'
         #'0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch'
+        '0030-arm64-dts-allwinner-Fix-SD-card-CD-GPIO-for-SOPine-systems.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -74,7 +75,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         '176604a0da0679bf925bc890f09400d3'
+         'fa1de6efc060f5428c9784142ae4fda1'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -103,6 +104,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          'c706ccdf118f4146e7ca35808d819b8a'
          'bb500ee93275583d5ba3d11842e09735'
          'e89d3ca6ae8ae8f3eb8168cacaefb9e0'
+         '6b03a1680dfba171c62895c995240994'
          'cf64831f27bb47da29e708b7243bb340'
          'e3f53e07612939729afaa4dd7ef7f7ce'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -158,6 +160,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0016-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
   #patch -Np1 -i "${srcdir}/0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch"					#Odroid
+  patch -Np1 -i "${srcdir}/0030-arm64-dts-allwinner-Fix-SD-card-CD-GPIO-for-SOPine-systems.patch"		#Pine64-LTS and Sopine
   
   # Pinebook Pro patches
   patch -Np1 -i "${srcdir}/0017-tty-serdev-support-shutdown-op.patch"                                   #Wifi/BT
