@@ -6,7 +6,7 @@ pkgbase=linux
 _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.11.15
+pkgver=5.11.16
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -44,7 +44,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
         '0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch'
         #'0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch'
-        '0030-arm64-dts-allwinner-Fix-SD-card-CD-GPIO-for-SOPine-systems.patch'
+        '0030-arm64-dts-allwinner-Revert-SD-card-CD-GPIO-for-Pine6.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -74,7 +74,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'add-ugoos-device.patch'
         'fix-g12-hdmi.patch')
 md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         '17988eec11ae720fcb70d03746531b84'
+         'e5cce287ce3a6418c768cef207e97339'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -103,7 +103,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          'c706ccdf118f4146e7ca35808d819b8a'
          'bb500ee93275583d5ba3d11842e09735'
          'e89d3ca6ae8ae8f3eb8168cacaefb9e0'
-         '6b03a1680dfba171c62895c995240994'
+         'e9e811362009e590c56f883a57a05b62'
          'cf64831f27bb47da29e708b7243bb340'
          'e3f53e07612939729afaa4dd7ef7f7ce'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -159,7 +159,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0016-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
   #patch -Np1 -i "${srcdir}/0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch"					#Odroid
-  patch -Np1 -i "${srcdir}/0030-arm64-dts-allwinner-Fix-SD-card-CD-GPIO-for-SOPine-systems.patch"		#Pine64-LTS and Sopine
+  patch -Np1 -i "${srcdir}/0030-arm64-dts-allwinner-Revert-SD-card-CD-GPIO-for-Pine6.patch"				#Pine64-LTS
   
   # Pinebook Pro patches
   patch -Np1 -i "${srcdir}/0017-tty-serdev-support-shutdown-op.patch"                                   #Wifi/BT
