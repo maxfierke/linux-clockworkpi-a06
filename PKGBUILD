@@ -3,10 +3,10 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux
-_srcname=linux-5.11
+_srcname=linux-5.12
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.11.16
+pkgver=5.12.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -14,11 +14,10 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz" #for some reason this file does not get extracted anymore...
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
-        '0004-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch'
         '0005-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch'
         '0006-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch'
         '0007-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
@@ -43,14 +42,19 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0026-arm64-dts-rockchip-add-typec-extcon-hack.patch'
         '0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch'
         '0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch'
-        #'0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch'
-        '0030-arm64-dts-allwinner-Revert-SD-card-CD-GPIO-for-Pine6.patch'
+        '0029-fix-g12-hdmi.patch'
+        '0030-arm64-dts-meson-add-initial-Beelink-GT1-Ultimate-dev.patch'
+        '0031-add-ugoos-device.patch'
+        '0032-drm-meson-fix-green-pink-color-distortion-set-from-u.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
         '0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch'
-        '0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch'
-        '0006-staging-add-rtl8723cs-driver.patch'
+        '0005-staging-add-rtl8723cs-driver.patch'
+        '0006-pinetab-accelerometer.patch'
+        '0007-enable-jack-detection-pinetab.patch'
+        '0008-enable-hdmi-output-pinetab.patch'
+        '0009-drm-panel-fix-PineTab-display.patch'
         '0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
         '0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
         '0003-revert-fbcon-remove-soft-scrollback-code.patch'
@@ -69,16 +73,11 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'config'
         'linux.preset'
         '60-linux.hook'
-        '90-linux.hook'
-        'add-beelink-device-and-vim3l.patch'
-        'add-ugoos-device.patch'
-        'fix-g12-hdmi.patch')
-md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         'e5cce287ce3a6418c768cef207e97339'
+        '90-linux.hook')
+md5sums=('8c7420990de85f6754db287337da08b4'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
-         '345e1329e2b6a530554d8538415caebe'
          'fa586447846ec5aef8ab972058c5548e'
          'e6fe272dc95a1c0a8f871924699fea16'
          '9f27b2a05eaeb1995fc0fcf6a8b923c4'
@@ -87,7 +86,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '073296b5eba7daf6d707c21abbfc49ce'
          'a033be22c23afb1d5daeeeb21353185d'
          '6a88f7e762eb7895b3f5db38daa6bb24'
-         'e78fd8f59f5d073069aec121e033590b'
+         '772a0be8020582bd3956091a97e464b4'
          '09fc19ac5c51e2839ca56248ccf6323a'
          '66fae3fc96f0a478a56ff11632f3ef70'
          '245858f26512dfc48adbf509b6fc8364'
@@ -103,13 +102,19 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          'c706ccdf118f4146e7ca35808d819b8a'
          'bb500ee93275583d5ba3d11842e09735'
          'e89d3ca6ae8ae8f3eb8168cacaefb9e0'
-         'e9e811362009e590c56f883a57a05b62'
+         '469417b64e6a2bf65bd74c6d9cad2040'
+         'c41b101c033ac487c15298bc5a9e95cd'
+         '1b92d7617e60d3c525a4b18ab4351185'
+         '63ec4c70352a86a02e1aacf2bc8e6fc5'
          'cf64831f27bb47da29e708b7243bb340'
          'e3f53e07612939729afaa4dd7ef7f7ce'
          '9510821113c122f91f47b9d0f7ca7264'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         '418db11ca0cf3454333db1ad9a338337'
-         'b0fa7d19514a8bd351ebf00564b2094e'
+         'd624679b462fab9ec35900e761f81b79'
+         'd0fd6bd627223d4c9fc001ffff9df401'
+         'f79300740a7350d2d24ab5e120831b52'
+         '979a787cf84bef9c60da78e72ec96550'
+         '9f1eb855745543ac24b94d90cf759b37'
          '2496e6fc16f67b289f72ddc2ea2511cf'
          'fed6ae4ac4c3f56178fa4aca6c934d6f'
          '594d4f69b956eaab3336b4e01f42eda8'
@@ -125,19 +130,16 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'efa97e822bf22301de560e5f44a1fa62'
+         '4690e46936d26e7004e37fa03becb499'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
-         '3dc88030a8f2f5a5f97266d99b149f77'
-         'f77a1334c2a70334c990cc6e412ee849'
-         '1b92d7617e60d3c525a4b18ab4351185'
-         '469417b64e6a2bf65bd74c6d9cad2040')
+         '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
@@ -145,7 +147,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"             #RK3328
   
   # Manjaro ARM Patches
-  patch -Np1 -i "${srcdir}/0004-arm64-dts-rockchip-add-HDMI-sound-node-for-rk3328-ro.patch"             #Rock64
   patch -Np1 -i "${srcdir}/0005-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
   patch -Np1 -i "${srcdir}/0007-drm-bridge-analogix_dp-Add-enable_psr-param.patch"                      #Pinebook Pro
@@ -158,8 +159,10 @@ prepare() {
   patch -Np1 -i "${srcdir}/0014-arm64-rockchip-add-DP-ALT-rockpro64.patch"							    #DP Alt mode - RockPro64
   patch -Np1 -i "${srcdir}/0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch"             #DP Alt mode
   patch -Np1 -i "${srcdir}/0016-rk3399-rp64-pcie-Reimplement-rockchip-PCIe-bus-scan-delay.patch"        #RockPro64
-  #patch -Np1 -i "${srcdir}/0029-drm-meson-not-load-RGB709-to-YUV709-coefficient.patch"					#Odroid
-  patch -Np1 -i "${srcdir}/0030-arm64-dts-allwinner-Revert-SD-card-CD-GPIO-for-Pine6.patch"				#Pine64-LTS
+  patch -Np1 -i "${srcdir}/0029-fix-g12-hdmi.patch"                                                     #G12B
+  patch -Np1 -i "${srcdir}/0030-arm64-dts-meson-add-initial-Beelink-GT1-Ultimate-dev.patch"             #Beelink
+  patch -Np1 -i "${srcdir}/0031-add-ugoos-device.patch"                                                 #Ugoos
+  patch -Np1 -i "${srcdir}/0032-drm-meson-fix-green-pink-color-distortion-set-from-u.patch"				#AMLogic
   
   # Pinebook Pro patches
   patch -Np1 -i "${srcdir}/0017-tty-serdev-support-shutdown-op.patch"                                   #Wifi/BT
@@ -179,14 +182,12 @@ prepare() {
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
   patch -Np1 -i "${srcdir}/0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch"                    #Bluetooth
   patch -Np1 -i "${srcdir}/0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch"                 #Bluetooth
-  patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth on PineTab and PinePhone
-  patch -Np1 -i "${srcdir}/0005-dt-bindings-arm-sunxi-add-PineTab-Early-Adopter-edition.patch"          #PineTab screen
-  patch -Np1 -i "${srcdir}/0006-staging-add-rtl8723cs-driver.patch"                                     #Wifi
-
-  # Amlogic Patches
-  patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"                                          # Beelink GT1 Ultimate
-  patch -Np1 -i "${srcdir}/add-ugoos-device.patch"                                                      # Add Ugoos AM6 Plus
-  patch -Np1 -i "${srcdir}/fix-g12-hdmi.patch"                                                          # Amglogic G12 Green Line fix    
+  patch -Np1 -i "${srcdir}/0004-arm64-dts-allwinner-enable-bluetooth-pinetab-pinepho.patch"             #Bluetooth
+  patch -Np1 -i "${srcdir}/0005-staging-add-rtl8723cs-driver.patch"                                     #Wifi
+  patch -Np1 -i "${srcdir}/0006-pinetab-accelerometer.patch"                                            #accelerometer
+  patch -Np1 -i "${srcdir}/0007-enable-jack-detection-pinetab.patch"                                    #Audio
+  patch -Np1 -i "${srcdir}/0008-enable-hdmi-output-pinetab.patch"                                       #HDMI
+  patch -Np1 -i "${srcdir}/0009-drm-panel-fix-PineTab-display.patch"                                    #Display
   
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"

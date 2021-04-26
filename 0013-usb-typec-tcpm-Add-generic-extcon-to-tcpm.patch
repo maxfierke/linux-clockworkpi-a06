@@ -1,32 +1,27 @@
-From 53b32a53493d9663218283035df0dd18479a7454 Mon Sep 17 00:00:00 2001
-From: Tobias Schramm <tobias@t-sys.eu>
-Date: Fri, 29 Nov 2019 18:07:34 +0100
-Subject: [PATCH] usb/typec: tcpm: Add generic extcon to tcpm
+From d3821a163653c31bccdd1680b69b5d1d830888e6 Mon Sep 17 00:00:00 2001
+From: Dan Johansen <strit@manjaro.org>
+Date: Mon, 1 Mar 2021 09:27:30 +0100
+Subject: [PATCH] usb-typec-tcpm-Add-generic-extcon-to-tcpm
 
-This patch adds automatic extcon creation to the tcpm driver. This patch
-is incomplete and needs some work regarding support of all the available
-extcon states and their management.
-To make proper use of this extension this patch adds loading of supported
-port altmodes from devicetrees, too.
 ---
  drivers/usb/typec/tcpm/tcpm.c | 61 +++++++++++++++++++++++++++++++++++
  1 file changed, 61 insertions(+)
 
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 6020c03afd7ce..1da196509b44a 100644
+index be0b6469dd3d..553720f8d1c4 100644
 --- a/drivers/usb/typec/tcpm/tcpm.c
 +++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -1216,6 +1216,7 @@ static int tcpm_pd_svdm(struct tcpm_port *port, struct typec_altmode *adev,
+@@ -1588,6 +1588,7 @@ static int tcpm_pd_svdm(struct tcpm_port *port, struct typec_altmode *adev,
  			modep->svid_index++;
  			if (modep->svid_index < modep->nsvids) {
  				u16 svid = modep->svids[modep->svid_index];
-+				tcpm_log(port, "More modes available, sending discover");
- 				response[0] = VDO(svid, 1, CMD_DISCOVER_MODES);
++                tcpm_log(port, "More modes available, sending discover");
+ 				response[0] = VDO(svid, 1, svdm_version, CMD_DISCOVER_MODES);
  				rlen = 1;
  			} else {
-@@ -4548,6 +4549,60 @@ unsigned int default_supported_cables[] = {
- 	EXTCON_NONE
- };
+@@ -5640,6 +5641,60 @@ void tcpm_tcpc_reset(struct tcpm_port *port)
+ }
+ EXPORT_SYMBOL_GPL(tcpm_tcpc_reset);
  
 +static int tcpm_fw_get_caps_late(struct tcpm_port *port,
 +			    struct fwnode_handle *fwnode)
@@ -85,7 +80,7 @@ index 6020c03afd7ce..1da196509b44a 100644
  static int tcpm_fw_get_caps(struct tcpm_port *port,
  			    struct fwnode_handle *fwnode)
  {
-@@ -4945,6 +5000,12 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
+@@ -6065,6 +6120,12 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
  		goto out_role_sw_put;
  	}
  
@@ -98,3 +93,6 @@ index 6020c03afd7ce..1da196509b44a 100644
  	mutex_lock(&port->lock);
  	tcpm_init(port);
  	mutex_unlock(&port->lock);
+-- 
+2.30.1
+
