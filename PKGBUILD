@@ -7,7 +7,7 @@ _srcname=linux-5.12
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.12.2
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -111,7 +111,7 @@ md5sums=('8c7420990de85f6754db287337da08b4'
          'e3f53e07612939729afaa4dd7ef7f7ce'
          '9510821113c122f91f47b9d0f7ca7264'
          'a74fcfa1e085a3a99dcf4f214c1ca65a'
-         'd624679b462fab9ec35900e761f81b79'
+         '792f1a343276293609d6eaec8b319020'
          'd0fd6bd627223d4c9fc001ffff9df401'
          'f79300740a7350d2d24ab5e120831b52'
          '979a787cf84bef9c60da78e72ec96550'
