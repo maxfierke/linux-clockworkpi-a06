@@ -36,6 +36,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0019-arm64-dts-meson-add-initial-Beelink-GT1-Ultimate-dev.patch'
         '0020-add-ugoos-device.patch'
         '0021-drm-panfrost-Handle-failure-in-panfrost_job_hw_submit.patch'
+        '0022-arm64-dts-rockchip-Add-pcie-bus-scan-delay-to-rockpr.patch'
         '0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch'
         '0002-Bluetooth-btrtl-add-support-for-the-RTL8723CS.patch'
         '0003-arm64-allwinner-a64-enable-Bluetooth-On-Pinebook.patch'
@@ -82,6 +83,7 @@ md5sums=('a082ef5748b813abca0649dab8be5f52'
          'c41b101c033ac487c15298bc5a9e95cd'
          '1b92d7617e60d3c525a4b18ab4351185'
          'a90a366662357233db7022f8a1e7ac46'
+         '6bb2d84857359016b5e0878cf2fc50cc'
          'cf64831f27bb47da29e708b7243bb340'
          'e3f53e07612939729afaa4dd7ef7f7ce'
          '9510821113c122f91f47b9d0f7ca7264'
@@ -135,6 +137,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0019-arm64-dts-meson-add-initial-Beelink-GT1-Ultimate-dev.patch"             #Beelink
   patch -Np1 -i "${srcdir}/0020-add-ugoos-device.patch"                                                 #Ugoos
   patch -Np1 -i "${srcdir}/0021-drm-panfrost-Handle-failure-in-panfrost_job_hw_submit.patch"            #AMLogic
+  patch -Np1 -i "${srcdir}/0022-arm64-dts-rockchip-Add-pcie-bus-scan-delay-to-rockpr.patch"             #RockPro64
   
   # Pinebook Pro patches
   patch -Np1 -i "${srcdir}/0016-arm64-dts-rockchip-add-typec-extcon-hack.patch"                         #DP Alt mode
