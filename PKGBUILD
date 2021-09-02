@@ -7,7 +7,7 @@ _srcname=linux-5.14
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.14.0
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -102,7 +102,7 @@ md5sums=('a082ef5748b813abca0649dab8be5f52'
          '7659fe53cc58b9a7ed615b49719f7066'
          'ae85e433bc4fd787c20a4df0d07d528b'
          '15b2d6fd96df0a070a8f1b4fc5399b8b'
-         '4aea9a104ae8052c8378c481a733cdd9'
+         'f60bae6f01fcbe2e5ec95580bf46f8e2'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -152,17 +152,17 @@ prepare() {
   patch -Np1 -i "${srcdir}/0009-drm-panel-Adjust-sync-values-for-Feixin-K101-IM2BYL02-panel.patch"      #Display
   
   # Quartz64 development patches, will probably change alot
-  patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-Add-quartz64-a-dts-from-linux-nex.patch"             #Main DTS
-  patch -Np1 -i "${srcdir}/0002-fixes-and-enablement-for-rk356x.patch"                                  #Fixes to DTS's
-  patch -Np1 -i "${srcdir}/0003-Rockchip-I2S-TDM-controller.patch"                                      #Analog audio
-  patch -Np1 -i "${srcdir}/0004-Patches-to-update-for-rockchip-spdif.patch"                             #Digital audio
-  patch -Np1 -i "${srcdir}/0005-gpio-rockchip-driver.patch"                                             #GPIO V8
-  patch -Np1 -i "${srcdir}/0006-PCI-rockchip-Add-Rockchip-RK356X-host-controller-driver.patch"          #PCIe
-  patch -Np1 -i "${srcdir}/0007-rockchip-io-domain.patch"                                               #IO Domain
-  patch -Np1 -i "${srcdir}/0008-dt-bindings-iio-adc-rockchip-saradc-add-description-for-rk3568.patch"   #Microphone
-  patch -Np1 -i "${srcdir}/0009-power-supply-Add-Support-for-RK817-Charger.patch"                       #Charger
-  patch -Np1 -i "${srcdir}/0010-dt-bindings-pwm-rockchip-add-description-for-rk3568.patch"              #PWM
-  patch -Np1 -i "${srcdir}/0011-phy-rockchip-inno-usb2-support-rk356x-usb2phy.patch"                    #USB2PHY
+  #patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-Add-quartz64-a-dts-from-linux-nex.patch"             #Main DTS
+  #patch -Np1 -i "${srcdir}/0002-fixes-and-enablement-for-rk356x.patch"                                  #Fixes to DTS's
+  #patch -Np1 -i "${srcdir}/0003-Rockchip-I2S-TDM-controller.patch"                                      #Analog audio
+  #patch -Np1 -i "${srcdir}/0004-Patches-to-update-for-rockchip-spdif.patch"                             #Digital audio
+  #patch -Np1 -i "${srcdir}/0005-gpio-rockchip-driver.patch"                                             #GPIO V8
+  #patch -Np1 -i "${srcdir}/0006-PCI-rockchip-Add-Rockchip-RK356X-host-controller-driver.patch"          #PCIe
+  #patch -Np1 -i "${srcdir}/0007-rockchip-io-domain.patch"                                               #IO Domain
+  #patch -Np1 -i "${srcdir}/0008-dt-bindings-iio-adc-rockchip-saradc-add-description-for-rk3568.patch"   #Microphone
+  #patch -Np1 -i "${srcdir}/0009-power-supply-Add-Support-for-RK817-Charger.patch"                       #Charger
+  #patch -Np1 -i "${srcdir}/0010-dt-bindings-pwm-rockchip-add-description-for-rk3568.patch"              #PWM
+  #patch -Np1 -i "${srcdir}/0011-phy-rockchip-inno-usb2-support-rk356x-usb2phy.patch"                    #USB2PHY
   
   cat "${srcdir}/config" > ./.config
 
