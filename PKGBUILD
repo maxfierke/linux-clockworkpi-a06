@@ -7,7 +7,7 @@ _srcname=linux-5.14
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=5.14.9
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -344,8 +344,7 @@ _package-headers() {
   find ${_builddir} -name '*.orig' -delete
 
   # Fix permissions
-  find -P "${_builddir}" -type f -print | xargs chmod 0644
-  find -P "${_builddir}" -type d -print | xargs chmod 0755 
+  chmod -R u=rwX,go=rX "${_builddir}" 
 }
 
 pkgname=("${pkgbase}" "${pkgbase}-headers")
