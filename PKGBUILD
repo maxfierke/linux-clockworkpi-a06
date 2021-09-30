@@ -342,9 +342,6 @@ _package-headers() {
   
   # remove unwanted files
   find ${_builddir} -name '*.orig' -delete
-
-  # Fix permissions
-  chmod -R u=rwX,go=rX "${_builddir}" 
 }
 
 pkgname=("${pkgbase}" "${pkgbase}-headers")
