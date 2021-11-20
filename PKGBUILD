@@ -55,6 +55,11 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0004-power-supply-Add-Support-for-RK817-Charger.patch' #From list: https://patchwork.kernel.org/project/linux-rockchip/cover/20210824040955.29112-1-macroalpha82@gmail.com/
         '0005-dt-bindings-pwm-rockchip-add-description-for-rk3568.patch' #wait for new 5.16-rc1 based version
         '0006-phy-rockchip-inno-usb2-support-rk356x-usb2phy.patch' #From list: https://patchwork.kernel.org/project/linux-rockchip/cover/20210812204116.2303617-1-pgwipeout@gmail.com/
+        '0001-arm64-dts-clockworkpi-a06-dts.patch' # Probably not upstreamable
+        '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
+        '0003-snd-codecs-add-es8323-driver.patch' # Might not be needed: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20170512132227.24916-10-romain.perier@collabora.com/
+        '0004-gpu-drm-panel-add-cwd686-driver.patch'
+        '0005-video-backlight-add-ocp8178-driver.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -100,7 +105,12 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          '7659fe53cc58b9a7ed615b49719f7066'
          'ae85e433bc4fd787c20a4df0d07d528b'
          '15b2d6fd96df0a070a8f1b4fc5399b8b'
-         'c5e2c93a4f353425f3410ff522e3e282'
+         '627baf0fa6c54340903f4c58b847d759'
+         'fc826c917102f2f2d16690fe9322464f'
+         '5eebe9dd96ed55053f9fe4df69bf7a06'
+         '3b45ad17fa9a2960730d71f0d69a3265'
+         '3203d018422505068fc22b909df871aa'
+         'da9c47fd85d8b0dc238de2110f57578a'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -153,6 +163,13 @@ prepare() {
   patch -Np1 -i "${srcdir}/0007-enable-jack-detection-pinetab.patch"                                    #Audio
   patch -Np1 -i "${srcdir}/0008-enable-hdmi-output-pinetab.patch"                                       #HDMI
   
+  # ClockworkPI DevTerm A06 patches
+  patch -Np1 -i "${srcdir}/0001-arm64-dts-clockworkpi-a06-dts.patch"                    # DTS
+  patch -Np1 -i "${srcdir}/0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch"     # Battery/Charger
+  patch -Np1 -i "${srcdir}/0003-snd-codecs-add-es8323-driver.patch"                     # Audio
+  patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
+  patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
+
   # Quartz64 development patches, will probably change alot
   #patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-Add-quartz64-a-dts-from-linux-nex.patch"             #Main DTS
   #patch -Np1 -i "${srcdir}/0002-fixes-and-enablement-for-rk356x.patch"                                  #Fixes to DTS's
@@ -160,7 +177,7 @@ prepare() {
   #patch -Np1 -i "${srcdir}/0004-power-supply-Add-Support-for-RK817-Charger.patch"                       #Charger
   #patch -Np1 -i "${srcdir}/0005-dt-bindings-pwm-rockchip-add-description-for-rk3568.patch"              #PWM
   #patch -Np1 -i "${srcdir}/0006-phy-rockchip-inno-usb2-support-rk356x-usb2phy.patch"                    #USB2PHY
-  
+
   cat "${srcdir}/config" > ./.config
 
   # add pkgrel to extraversion
