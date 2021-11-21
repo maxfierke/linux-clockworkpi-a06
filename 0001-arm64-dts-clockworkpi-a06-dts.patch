@@ -37,7 +37,7 @@ index 000000000..1c8fb451a
 +	compatible = "clockwork,devterm-a06", "rockchip,rk3399";
 +
 +	chosen {
-+		stdout-path = "serial2:115200n8";
++		stdout-path = "serial2:1500000n8";
 +	};
 +
 +	aliases {
@@ -165,8 +165,10 @@ index 000000000..1c8fb451a
 +		status = "okay";
 +		compatible = "simple-audio-card";
 +		simple-audio-card,format = "i2s";
-+		simple-audio-card,name = "rockchip,es8323-codec";
++		simple-audio-card,name = "rockchip,es8328-codec";
 +		simple-audio-card,mclk-fs = <256>;
++		simple-audio-card,hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++		// simple-audio-card,spk-ctl-gpio = <&gpio3 9 GPIO_ACTIVE_HIGH>;
 +		simple-audio-card,cpu {
 +				sound-dai = <&i2s0>;
 +				system-clock-frequency = <11289600>;
@@ -573,12 +575,16 @@ index 000000000..1c8fb451a
 +	i2c-scl-falling-time-ns = <15>;
 +
 +	es8323: es8323@11 {
-+		compatible = "everest,es8323";
++		compatible = "everest,es8323", "everest,es8328";
 +		status = "okay";
 +		reg = <0x11>;
-+		audio-switch-gpio = <&gpio4 27 GPIO_ACTIVE_HIGH>;
-+		hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
-+		spk-ctl-gpio = <&gpio3 9 GPIO_ACTIVE_HIGH>;
++		// audio-switch-gpio = <&gpio4 27 GPIO_ACTIVE_HIGH>;
++		// hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++		// spk-ctl-gpio = <&gpio3 9 GPIO_ACTIVE_HIGH>;
++		DVDD-supply = <&reg_aldo1>;
++		AVDD-supply = <&vcc3v3_sys>;
++		HPVDD-supply = <&vcc3v3_sys>;
++		PVDD-supply = <&reg_aldo1>;
 +		clock-names = "mclk";
 +		clocks = <&cru SCLK_I2S_8CH_OUT>;
 +		pinctrl-names = "default";
