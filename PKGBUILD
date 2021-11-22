@@ -60,6 +60,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         #'0003-snd-codecs-add-es8323-driver.patch' # Might not be needed: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20170512132227.24916-10-romain.perier@collabora.com/
         '0004-gpu-drm-panel-add-cwd686-driver.patch'
         '0005-video-backlight-add-ocp8178-driver.patch'
+        '0006-rk3399-add-sclk-i2sout-src-clock.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -110,6 +111,7 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          #'5eebe9dd96ed55053f9fe4df69bf7a06'
          '4a86a1c6ff1f336c6eed5c1fdf470bdc'
          '3203d018422505068fc22b909df871aa'
+         'ad710092b7e0e22e1572d484768d3e7a'
          'da9c47fd85d8b0dc238de2110f57578a'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -169,6 +171,7 @@ prepare() {
   #patch -Np1 -i "${srcdir}/0003-snd-codecs-add-es8323-driver.patch"                     # Audio
   patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
   patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
+  patch -Np1 -i "${srcdir}/0006-rk3399-add-sclk-i2sout-src-clock.patch"                 # I2SOUT SRC clock
 
   # Quartz64 development patches, will probably change alot
   #patch -Np1 -i "${srcdir}/0001-arm64-dts-rockchip-Add-quartz64-a-dts-from-linux-nex.patch"             #Main DTS
