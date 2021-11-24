@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..1c8fb451a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-clockworkpi-a06.dts
-@@ -0,0 +1,934 @@
+@@ -0,0 +1,941 @@
 +/*
 + * SPDX-License-Identifier: (GPL-2.0+ or MIT)
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -950,6 +950,7 @@ index 000000000..1c8fb451a
 +		audio_switch: audio-switch {
 +			rockchip,pins = <4 27 RK_FUNC_GPIO &pcfg_output_high>;
 +		};
++
 +		hp_det: hp-det {
 +			rockchip,pins = <4 28 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
