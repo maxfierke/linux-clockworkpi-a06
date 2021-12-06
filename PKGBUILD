@@ -7,7 +7,7 @@ pkgbase=linux-clockworkpi-a06
 _srcname=linux-5.15
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
-pkgver=5.15.3
+pkgver=5.15.6
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -19,7 +19,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' #From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
         '0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch' #From list: https://patchwork.kernel.org/project/bluetooth/patch/20211020130023.196651-1-kmcopper@danwin1210.me/
-        '0025-usb-typec-fusb302-fix-masking-of-comparator.patch' #From list: https://patchwork.kernel.org/project/linux-usb/patch/20211107185435.2540185-1-megous@megous.com/
         '0001-arm64-dts-clockworkpi-a06-dts.patch' # Probably not upstreamable
         '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
         #'0003-snd-codecs-add-es8323-driver.patch' # Might not be needed: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20170512132227.24916-10-romain.perier@collabora.com/
@@ -31,11 +30,10 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
-         'a8e84cda01b70e193fa11b7e992439f2'
+         'a41ce0931f89959fb2457f8a54e5c811'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          'a897b51be2d05ddb5b7b1a7a7f5a5205'
-         '1caddbf177169f9b2af92f02de59f04d'
          '4fc7e0b194c65e1ebe99debee4cfa488'
          'fc826c917102f2f2d16690fe9322464f'
          #'5eebe9dd96ed55053f9fe4df69bf7a06'
@@ -59,7 +57,6 @@ prepare() {
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0023-drm-rockchip-support-gamma-control-on-RK3399.patch"                     #RK3399
   patch -Np1 -i "${srcdir}/0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch" #Bluetooth
-  patch -Np1 -i "${srcdir}/0025-usb-typec-fusb302-fix-masking-of-comparator.patch"                      #USB-C
   
   # ClockworkPI DevTerm A06 patches
   patch -Np1 -i "${srcdir}/0001-arm64-dts-clockworkpi-a06-dts.patch"                    # DTS
