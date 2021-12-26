@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..1c8fb451a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-clockworkpi-a06.dts	2021-12-05 20:46:08.851233995 -0600
-@@ -0,0 +1,965 @@
+@@ -0,0 +1,988 @@
 +/*
 + * SPDX-License-Identifier: (GPL-2.0+ or MIT)
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -30,7 +30,6 @@ index 000000000..1c8fb451a
 +#include <dt-bindings/input/linux-event-codes.h>
 +#include <dt-bindings/pwm/pwm.h>
 +#include <dt-bindings/usb/pd.h>
-+//#include <dt-bindings/leds/common.h>
 +#include "rk3399.dtsi"
 +#include "rk3399-opp.dtsi"
 +
@@ -171,14 +170,6 @@ index 000000000..1c8fb451a
 +		simple-audio-card,format = "i2s";
 +		simple-audio-card,name = "rockchip,es8328-codec";
 +		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,cpu {
-+				sound-dai = <&i2s0>;
-+				system-clock-frequency = <11289600>;
-+		};
-+		simple-audio-card,codec {
-+				sound-dai = <&es8388>;
-+				system-clock-frequency = <11289600>;
-+		};
 +		simple-audio-card,widgets =
 +			"Microphone", "Mic Jack",
 +			"Headphone", "Headphones",
@@ -190,17 +181,28 @@ index 000000000..1c8fb451a
 +			"Headphones", "ROUT2",
 +			"Speaker Amplifier INL", "LOUT2",
 +			"Speaker Amplifier INR", "ROUT2",
-+			"Speaker", "Speaker Amplifier INL",
-+			"Speaker", "Speaker Amplifier INR";
++			"Speaker", "Speaker Amplifier OUTL",
++			"Speaker", "Speaker Amplifier OUTR";
 +
-+		simple-audio-card,hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++		simple-audio-card,hp-det-gpio = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
 +		simple-audio-card,aux-devs = <&speaker_amp>;
 +		simple-audio-card,pin-switches = "Speaker";
++
++		simple-audio-card,cpu {
++				sound-dai = <&i2s0>;
++				system-clock-frequency = <11289600>;
++		};
++		simple-audio-card,codec {
++				sound-dai = <&es8388>;
++				system-clock-frequency = <11289600>;
++		};
 +	};
 +
 +	speaker_amp: speaker-amplifier {
 +		compatible = "simple-audio-amplifier";
-+		enable-gpios = <&gpio3 9 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pa_en>;
++		enable-gpios = <&gpio3 RK_PB1 GPIO_ACTIVE_HIGH>;
 +		sound-name-prefix = "Speaker Amplifier";
 +		VCC-supply = <&vcc5v0_sys>;
 +	};
@@ -213,7 +215,7 @@ index 000000000..1c8fb451a
 +
 +	ocp8178_backlight: backlight@0 {
 +			compatible = "ocp8178-backlight";
-+			backlight-control-gpios = <&gpio4 30 GPIO_ACTIVE_HIGH>;
++			backlight-control-gpios = <&gpio4 RK_PD6 GPIO_ACTIVE_HIGH>;
 +			default-brightness = <5>;
 +			pinctrl-names = "default";
 +			pinctrl-0 = <&backlight_control>;
@@ -321,7 +323,7 @@ index 000000000..1c8fb451a
 +		compatible = "cw,cwd686";
 +		reg = <0>;
 +		backlight = <&ocp8178_backlight>;
-+		reset-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&gpio2 RK_PD4 GPIO_ACTIVE_HIGH>;
 +		dsi,lanes = <4>;
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&panel_reset>;
@@ -740,6 +742,19 @@ index 000000000..1c8fb451a
 +	};
 +};
 +
++/* <4 RK_PA0 &pcfg_pull_none> is used as i2s_8ch_mclk_pin */
++&i2s0_8ch_bus {
++	rockchip,pins =
++		<3 RK_PD0 1 &pcfg_pull_none>,
++		<3 RK_PD1 1 &pcfg_pull_none>,
++		<3 RK_PD2 1 &pcfg_pull_none>,
++		<3 RK_PD3 1 &pcfg_pull_none>,
++		<3 RK_PD4 1 &pcfg_pull_none>,
++		<3 RK_PD5 1 &pcfg_pull_none>,
++		<3 RK_PD6 1 &pcfg_pull_none>,
++		<3 RK_PD7 1 &pcfg_pull_none>;
++};
++
 +&i2s0 {
 +	rockchip,i2s-broken-burst-len;
 +	rockchip,playback-channels = <8>;
@@ -749,10 +764,8 @@ index 000000000..1c8fb451a
 +};
 +
 +&i2s1 {
-+	assigned-clocks = <&cru SCLK_I2SOUT_SRC>;
-+	assigned-clock-parents = <&cru SCLK_I2S1_8CH>;
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s1_2ch_bus>;
++	pinctrl-0 = <&i2s_8ch_mclk_pin>, <&i2s1_2ch_bus>;
 +	rockchip,playback-channels = <2>;
 +	rockchip,capture-channels = <2>;
 +	#sound-dai-cells = <0>;
@@ -892,6 +905,12 @@ index 000000000..1c8fb451a
 +		/delete-node/ hdmi-i2c-xfer;
 +	};
 +
++	i2s1 {
++		i2s_8ch_mclk_pin: i2s-8ch-mclk-pin {
++			rockchip,pins = <4 RK_PA0 1 &pcfg_pull_none>;
++		};
++	};
++
 +	pmic {
 +		pmic_int_l: pmic-int-l {
 +			rockchip,pins = <1 RK_PC5 RK_FUNC_GPIO &pcfg_pull_up>;
@@ -960,23 +979,27 @@ index 000000000..1c8fb451a
 +
 +	panel {
 +		panel_reset: panel-reset {
-+			rockchip,pins = <2 28 RK_FUNC_GPIO &pcfg_output_low>;
++			rockchip,pins = <2 RK_PD4 RK_FUNC_GPIO &pcfg_output_low>;
 +		};
 +	};
 +
 +	backlight {
 +		backlight_control: backlight-control {
-+			rockchip,pins = <4 30 RK_FUNC_GPIO &pcfg_output_low>;
++			rockchip,pins = <4 RK_PD6 RK_FUNC_GPIO &pcfg_output_low>;
 +		};
 +	};
 +
 +	audio {
 +		audio_switch: audio-switch {
-+			rockchip,pins = <4 27 RK_FUNC_GPIO &pcfg_output_high>;
++			rockchip,pins = <4 RK_PD3 RK_FUNC_GPIO &pcfg_output_high>;
 +		};
 +
 +		hp_det: hp-det {
-+			rockchip,pins = <4 28 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		pa_en: pa-en {
++			rockchip,pins = <3 RK_PB1 RK_FUNC_GPIO &pcfg_output_high>;
 +		};
 +	};
 +};

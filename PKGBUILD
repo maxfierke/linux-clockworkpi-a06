@@ -24,7 +24,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         #'0003-snd-codecs-add-es8323-driver.patch' # Might not be needed: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20170512132227.24916-10-romain.perier@collabora.com/
         '0004-gpu-drm-panel-add-cwd686-driver.patch'
         '0005-video-backlight-add-ocp8178-driver.patch'
-        '0006-rk3399-add-sclk-i2sout-src-clock.patch'
+        #'0006-rk3399-add-sclk-i2sout-src-clock.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -34,11 +34,10 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          'a897b51be2d05ddb5b7b1a7a7f5a5205'
-         'a808a2900c4372fa835388e7aab164fc'
+         '8533cf349be924c435b86f6f68351dd5'
          'fc826c917102f2f2d16690fe9322464f'
          'f547a9ebf80ab8c76b64b523d2c66db8'
          '3203d018422505068fc22b909df871aa'
-         'ad710092b7e0e22e1572d484768d3e7a'
          '355a2ed5faf84d1ed572a08ae407a89b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -63,7 +62,7 @@ prepare() {
   #patch -Np1 -i "${srcdir}/0003-snd-codecs-add-es8323-driver.patch"                     # Audio
   patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
   patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
-  patch -Np1 -i "${srcdir}/0006-rk3399-add-sclk-i2sout-src-clock.patch"                 # I2SOUT SRC clock
+  # patch -Np1 -i "${srcdir}/0006-rk3399-add-sclk-i2sout-src-clock.patch"                 # I2SOUT SRC clock
 
   cat "${srcdir}/config" > ./.config
 
