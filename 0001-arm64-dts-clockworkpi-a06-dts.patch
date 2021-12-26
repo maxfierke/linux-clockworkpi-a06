@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..1c8fb451a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-clockworkpi-a06.dts	2021-12-05 20:46:08.851233995 -0600
-@@ -0,0 +1,943 @@
+@@ -0,0 +1,965 @@
 +/*
 + * SPDX-License-Identifier: (GPL-2.0+ or MIT)
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -163,22 +163,46 @@ index 000000000..1c8fb451a
 +		reset-gpios = <&gpio0 10 GPIO_ACTIVE_LOW>; /* GPIO0_B2 */
 +	};
 +
-+	es8323-sound {
++	es8388-sound {
 +		status = "okay";
 +		compatible = "simple-audio-card";
++		pinctrl-names = "default";
++		pinctrl-0 = <&audio_switch &hp_det>;
 +		simple-audio-card,format = "i2s";
 +		simple-audio-card,name = "rockchip,es8328-codec";
 +		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
-+		// simple-audio-card,spk-ctl-gpio = <&gpio3 9 GPIO_ACTIVE_HIGH>;
 +		simple-audio-card,cpu {
 +				sound-dai = <&i2s0>;
 +				system-clock-frequency = <11289600>;
 +		};
 +		simple-audio-card,codec {
-+				sound-dai = <&es8323>;
++				sound-dai = <&es8388>;
 +				system-clock-frequency = <11289600>;
 +		};
++		simple-audio-card,widgets =
++			"Microphone", "Mic Jack",
++			"Headphone", "Headphones",
++			"Speaker", "Speaker";
++		simple-audio-card,routing =
++			"LINPUT2", "Mic Jack",
++			"RINPUT2", "Mic Jack",
++			"Headphones", "LOUT2",
++			"Headphones", "ROUT2",
++			"Speaker Amplifier INL", "LOUT2",
++			"Speaker Amplifier INR", "ROUT2",
++			"Speaker", "Speaker Amplifier INL",
++			"Speaker", "Speaker Amplifier INR";
++
++		simple-audio-card,hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++		simple-audio-card,aux-devs = <&speaker_amp>;
++		simple-audio-card,pin-switches = "Speaker";
++	};
++
++	speaker_amp: speaker-amplifier {
++		compatible = "simple-audio-amplifier";
++		enable-gpios = <&gpio3 9 GPIO_ACTIVE_HIGH>;
++		sound-name-prefix = "Speaker Amplifier";
++		VCC-supply = <&vcc5v0_sys>;
 +	};
 +
 +	battery: battery@0 {
@@ -576,21 +600,19 @@ index 000000000..1c8fb451a
 +	i2c-scl-rising-time-ns = <300>;
 +	i2c-scl-falling-time-ns = <15>;
 +
-+	es8323: es8323@11 {
-+		compatible = "everest,es8323", "everest,es8328";
++	es8388: es8388@11 {
++		compatible = "everest,es8388", "everest,es8328";
 +		status = "okay";
 +		reg = <0x11>;
 +		// audio-switch-gpio = <&gpio4 27 GPIO_ACTIVE_HIGH>;
 +		// hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
 +		// spk-ctl-gpio = <&gpio3 9 GPIO_ACTIVE_HIGH>;
 +		DVDD-supply = <&vcca1v8_codec>;
-+		AVDD-supply = <&vcc3v3_sys>;
-+		HPVDD-supply = <&vcc3v3_sys>;
++		AVDD-supply = <&vcca3v0_codec>;
++		HPVDD-supply = <&vcca3v0_codec>;
 +		PVDD-supply = <&vcca1v8_codec>;
 +		clock-names = "mclk";
 +		clocks = <&cru SCLK_I2S_8CH_OUT>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&audio_switch &hp_det>;
 +		#sound-dai-cells = <0>;
 +	};
 +};
