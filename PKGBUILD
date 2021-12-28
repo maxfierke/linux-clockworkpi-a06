@@ -8,7 +8,7 @@ _srcname=linux-5.15
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
 pkgver=5.15.6
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -24,7 +24,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         #'0003-snd-codecs-add-es8323-driver.patch' # Might not be needed: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20170512132227.24916-10-romain.perier@collabora.com/
         '0004-gpu-drm-panel-add-cwd686-driver.patch'
         '0005-video-backlight-add-ocp8178-driver.patch'
-        #'0006-rk3399-add-sclk-i2sout-src-clock.patch'
+        '0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -34,11 +34,12 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          'a897b51be2d05ddb5b7b1a7a7f5a5205'
-         '8533cf349be924c435b86f6f68351dd5'
+         'db6122284cd1ae423bf7fe7c42b20fb9'
          'fc826c917102f2f2d16690fe9322464f'
          'f547a9ebf80ab8c76b64b523d2c66db8'
          '3203d018422505068fc22b909df871aa'
-         '355a2ed5faf84d1ed572a08ae407a89b'
+         '873658be357da087e5bc4f8d3a1e9c8c'
+         '58d3b1314c94965b4d69c02c414a5c67'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -62,7 +63,7 @@ prepare() {
   #patch -Np1 -i "${srcdir}/0003-snd-codecs-add-es8323-driver.patch"                     # Audio
   patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
   patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
-  # patch -Np1 -i "${srcdir}/0006-rk3399-add-sclk-i2sout-src-clock.patch"                 # I2SOUT SRC clock
+  patch -Np1 -i "${srcdir}/0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch"      # Fix display suspend/resume
 
   cat "${srcdir}/config" > ./.config
 
@@ -222,16 +223,16 @@ _package-headers() {
   while read -rd '' file; do
     case "$(file -bi "$file")" in
       application/x-sharedlib\;*)      # Libraries (.so)
-        strip $STRIP_SHARED "$file" ;;
+        $CHOST-strip $STRIP_SHARED "$file" ;;
       application/x-archive\;*)        # Libraries (.a)
-        strip $STRIP_STATIC "$file" ;;
+        $CHOST-strip $STRIP_STATIC "$file" ;;
       application/x-executable\;*)     # Binaries
-        strip $STRIP_BINARIES "$file" ;;
+        $CHOST-strip $STRIP_BINARIES "$file" ;;
       application/x-pie-executable\;*) # Relocatable binaries
-        strip $STRIP_SHARED "$file" ;;
+        $CHOST-strip $STRIP_SHARED "$file" ;;
     esac
   done < <(find "${_builddir}" -type f -perm -u+x ! -name vmlinux -print0 2>/dev/null)
-  strip $STRIP_STATIC "${_builddir}/vmlinux"
+  $CHOST-strip $STRIP_STATIC "${_builddir}/vmlinux"
   
   # remove unwanted files
   find ${_builddir} -name '*.orig' -delete
