@@ -1,14 +1,14 @@
 # ClockworkPI A06 (based on linux-aarch64 from Manjaro ARM)
 # Maintainer (upstream): Dan Johansen <strit@manjaro.org>
 # Maintainer (this port): Max Fierke <max@maxfierke.com>
-# Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
+# Contributor (upstream): Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux-clockworkpi-a06
 _srcname=linux-5.15
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
-pkgver=5.15.6
-pkgrel=3
+pkgver=5.15.11
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -17,19 +17,19 @@ options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
-        '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' #From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
-        '0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch' #From list: https://patchwork.kernel.org/project/bluetooth/patch/20211020130023.196651-1-kmcopper@danwin1210.me/
-        '0001-arm64-dts-clockworkpi-a06-dts.patch' # Probably not upstreamable
+        '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
+        '0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch' # From list: https://patchwork.kernel.org/project/bluetooth/patch/20211020130023.196651-1-kmcopper@danwin1210.me/
+        '0001-arm64-dts-clockworkpi-a06-dts.patch' # Potentially upstreamable, needs cleanup
         '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
-        '0004-gpu-drm-panel-add-cwd686-driver.patch'
-        '0005-video-backlight-add-ocp8178-driver.patch'
-        '0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch' #From list: https://patchwork.kernel.org/project/linux-rockchip/list/?series=554547
+        '0004-gpu-drm-panel-add-cwd686-driver.patch' # Potentially upstreamable, needs cleanup
+        '0005-video-backlight-add-ocp8178-driver.patch' # Potentially upstreamable, needs cleanup
+        '0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch' # From list: https://patchwork.kernel.org/project/linux-rockchip/list/?series=554547
         'config'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
-         'a41ce0931f89959fb2457f8a54e5c811'
+         '00c7ed091b7fdee8a3116bf0d21c969a'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          'a897b51be2d05ddb5b7b1a7a7f5a5205'
@@ -38,7 +38,7 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          'f547a9ebf80ab8c76b64b523d2c66db8'
          '3203d018422505068fc22b909df871aa'
          '873658be357da087e5bc4f8d3a1e9c8c'
-         '58d3b1314c94965b4d69c02c414a5c67'
+         'ecfafed2184ce310f9c0f219d501fec9'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
