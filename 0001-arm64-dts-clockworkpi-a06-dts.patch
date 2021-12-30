@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..1c8fb451a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-clockworkpi-a06.dts	2021-12-05 20:46:08.851233995 -0600
-@@ -0,0 +1,988 @@
+@@ -0,0 +1,984 @@
 +/*
 + * SPDX-License-Identifier: (GPL-2.0+ or MIT)
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -159,16 +159,16 @@ index 000000000..1c8fb451a
 +		 * - SDIO_RESET_L_WL_REG_ON
 +		 * - PDN (power down when low)
 +		 */
-+		reset-gpios = <&gpio0 10 GPIO_ACTIVE_LOW>; /* GPIO0_B2 */
++		reset-gpios = <&gpio0 RK_PB2 GPIO_ACTIVE_LOW>;
 +	};
 +
 +	es8388-sound {
 +		status = "okay";
 +		compatible = "simple-audio-card";
 +		pinctrl-names = "default";
-+		pinctrl-0 = <&audio_switch &hp_det>;
++		pinctrl-0 = <&hp_det>;
 +		simple-audio-card,format = "i2s";
-+		simple-audio-card,name = "rockchip,es8328-codec";
++		simple-audio-card,name = "rockchip,es8388-codec";
 +		simple-audio-card,mclk-fs = <256>;
 +		simple-audio-card,widgets =
 +			"Microphone", "Mic Jack",
@@ -200,8 +200,6 @@ index 000000000..1c8fb451a
 +
 +	speaker_amp: speaker-amplifier {
 +		compatible = "simple-audio-amplifier";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pa_en>;
 +		enable-gpios = <&gpio3 RK_PB1 GPIO_ACTIVE_HIGH>;
 +		sound-name-prefix = "Speaker Amplifier";
 +		VCC-supply = <&vcc5v0_sys>;
@@ -609,6 +607,8 @@ index 000000000..1c8fb451a
 +		// audio-switch-gpio = <&gpio4 27 GPIO_ACTIVE_HIGH>;
 +		// hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
 +		// spk-ctl-gpio = <&gpio3 9 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&audio_switch>;
 +		DVDD-supply = <&vcca1v8_codec>;
 +		AVDD-supply = <&vcca3v0_codec>;
 +		HPVDD-supply = <&vcca3v0_codec>;
@@ -996,10 +996,6 @@ index 000000000..1c8fb451a
 +
 +		hp_det: hp-det {
 +			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		pa_en: pa-en {
-+			rockchip,pins = <3 RK_PB1 RK_FUNC_GPIO &pcfg_output_high>;
 +		};
 +	};
 +};
