@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..1c8fb451a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-clockworkpi-a06.dts	2021-12-05 20:46:08.851233995 -0600
-@@ -0,0 +1,984 @@
+@@ -0,0 +1,985 @@
 +/*
 + * SPDX-License-Identifier: (GPL-2.0+ or MIT)
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -322,6 +322,7 @@ index 000000000..1c8fb451a
 +		reg = <0>;
 +		backlight = <&ocp8178_backlight>;
 +		reset-gpios = <&gpio2 RK_PD4 GPIO_ACTIVE_HIGH>;
++		rotation = <90>;
 +		dsi,lanes = <4>;
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&panel_reset>;
