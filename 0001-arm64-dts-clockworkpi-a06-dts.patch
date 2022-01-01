@@ -171,12 +171,13 @@ index 000000000..1c8fb451a
 +		simple-audio-card,name = "rockchip,es8388-codec";
 +		simple-audio-card,mclk-fs = <256>;
 +		simple-audio-card,widgets =
-+			"Microphone", "Mic Jack",
++			"Headphone Mic", "Mic Jack",
 +			"Headphone", "Headphones",
 +			"Speaker", "Speaker";
 +		simple-audio-card,routing =
 +			"LINPUT2", "Mic Jack",
 +			"RINPUT2", "Mic Jack",
++			"Mic Jack", "Mic Bias",
 +			"Headphones", "LOUT2",
 +			"Headphones", "ROUT2",
 +			"Speaker Amplifier INL", "LOUT2",
