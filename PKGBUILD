@@ -1,14 +1,14 @@
-# ClockworkPI A06 (based on linux-aarch64 from Manjaro ARM)
-# Maintainer (upstream): Dan Johansen <strit@manjaro.org>
-# Maintainer (this port): Max Fierke <max@maxfierke.com>
-# Contributor (upstream): Kevin Mihelich <kevin@archlinuxarm.org>
+# ClockworkPI A06 (based on linux)
+# Maintainer: Dan Johansen <strit@manjaro.org>
+# Contributor: Max Fierke <max@maxfierke.com>
+# Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux-clockworkpi-a06
 _srcname=linux-5.15
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
-pkgver=5.15.12
-pkgrel=5
+pkgver=5.15.13
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -18,18 +18,18 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
-        '0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch' # From list: https://patchwork.kernel.org/project/bluetooth/patch/20211020130023.196651-1-kmcopper@danwin1210.me/
+        '0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch' # Applied in linux-next
         '0001-arm64-dts-clockworkpi-a06-dts.patch' # Potentially upstreamable, needs cleanup
         '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
         '0004-gpu-drm-panel-add-cwd686-driver.patch' # Potentially upstreamable, needs cleanup
         '0005-video-backlight-add-ocp8178-driver.patch' # Potentially upstreamable, needs cleanup
-        '0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch' # From list: https://patchwork.kernel.org/project/linux-rockchip/list/?series=554547
+        '0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch' # Applied in linux-next
         'config'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
-         '3d03f763d15593dc2cc47222a0a2da13'
+         '930441d97e2edcd67e5fe2f05dec645d'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          'a897b51be2d05ddb5b7b1a7a7f5a5205'
@@ -38,7 +38,7 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
          '873658be357da087e5bc4f8d3a1e9c8c'
-         'ecfafed2184ce310f9c0f219d501fec9'
+         'f549df55e52677befc5b1303f91a6039'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -59,7 +59,6 @@ prepare() {
   # ClockworkPI DevTerm A06 patches
   patch -Np1 -i "${srcdir}/0001-arm64-dts-clockworkpi-a06-dts.patch"                    # DTS
   patch -Np1 -i "${srcdir}/0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch"     # Battery/Charger
-  #patch -Np1 -i "${srcdir}/0003-snd-codecs-add-es8323-driver.patch"                     # Audio
   patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
   patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
   patch -Np1 -i "${srcdir}/0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch"      # Fix display suspend/resume
@@ -222,16 +221,16 @@ _package-headers() {
   while read -rd '' file; do
     case "$(file -bi "$file")" in
       application/x-sharedlib\;*)      # Libraries (.so)
-        $CHOST-strip $STRIP_SHARED "$file" ;;
+        strip $STRIP_SHARED "$file" ;;
       application/x-archive\;*)        # Libraries (.a)
-        $CHOST-strip $STRIP_STATIC "$file" ;;
+        strip $STRIP_STATIC "$file" ;;
       application/x-executable\;*)     # Binaries
-        $CHOST-strip $STRIP_BINARIES "$file" ;;
+        strip $STRIP_BINARIES "$file" ;;
       application/x-pie-executable\;*) # Relocatable binaries
-        $CHOST-strip $STRIP_SHARED "$file" ;;
+        strip $STRIP_SHARED "$file" ;;
     esac
   done < <(find "${_builddir}" -type f -perm -u+x ! -name vmlinux -print0 2>/dev/null)
-  $CHOST-strip $STRIP_STATIC "${_builddir}/vmlinux"
+  strip $STRIP_STATIC "${_builddir}/vmlinux"
   
   # remove unwanted files
   find ${_builddir} -name '*.orig' -delete
