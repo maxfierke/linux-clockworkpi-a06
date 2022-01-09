@@ -23,7 +23,6 @@ package:
   tags:
     - aarch64
     - bigbuilds
-    - fosshost
     - xlarge
   script:
     # build pkg via chrootbuild
