@@ -4,10 +4,10 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux-clockworkpi-a06
-_srcname=linux-5.15
+_srcname=linux-5.16
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
-pkgver=5.15.14
+pkgver=5.16.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,7 +15,7 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
         '0024-Bluetooth-btsdio-Do-not-bind-to-non-removable-BCM4345-and-BCM43455.patch' # Applied in linux-next
@@ -28,8 +28,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
-         '245d1b4218aab0cc5c15e31061e0ba6d'
+md5sums=('e6680ce7c989a3efe58b51e3f3f0bf93'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          'a897b51be2d05ddb5b7b1a7a7f5a5205'
@@ -38,7 +37,7 @@ md5sums=('071d49ff4e020d58c04f9f3f76d3b594'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
          '873658be357da087e5bc4f8d3a1e9c8c'
-         'f549df55e52677befc5b1303f91a6039'
+         'a6302e2ba0b8b80278495c56795d2234'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -47,10 +46,10 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
-  patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
+  #patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
   
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0023-drm-rockchip-support-gamma-control-on-RK3399.patch"                     #RK3399
