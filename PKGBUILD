@@ -8,7 +8,7 @@ _srcname=linux-5.16
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
 pkgver=5.16.2
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -38,7 +38,7 @@ md5sums=('e6680ce7c989a3efe58b51e3f3f0bf93'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
          '873658be357da087e5bc4f8d3a1e9c8c'
-         'e19dd658e4942e6831397b64501684bf'
+         'debc07879e11ea64ba405a126a50443b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -107,7 +107,7 @@ build() {
 
 _package() {
   pkgdesc="The Linux Kernel and modules - ${_desc}"
-  depends=('coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
+  depends=('coreutils' 'linux-firmware' 'kmod' 'initramfs')
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26' "linux=${pkgver}")
   conflicts=('kernel26' 'linux', 'linux-armv8' 'linux-aarch64')
