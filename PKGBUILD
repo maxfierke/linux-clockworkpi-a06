@@ -23,7 +23,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
         '0004-gpu-drm-panel-add-cwd686-driver.patch' # Potentially upstreamable, needs cleanup
         '0005-video-backlight-add-ocp8178-driver.patch' # Potentially upstreamable, needs cleanup
-        '0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch' # Applied in linux-next
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -37,7 +36,6 @@ md5sums=('e6680ce7c989a3efe58b51e3f3f0bf93'
          'fc826c917102f2f2d16690fe9322464f'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
-         '873658be357da087e5bc4f8d3a1e9c8c'
          'debc07879e11ea64ba405a126a50443b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -61,7 +59,6 @@ prepare() {
   patch -Np1 -i "${srcdir}/0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch"     # Battery/Charger
   patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
   patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
-  patch -Np1 -i "${srcdir}/0006-fix-rockchip-mipi-dsi-display-init-timeouts.patch"      # Fix display suspend/resume
 
   cat "${srcdir}/config" > ./.config
 
