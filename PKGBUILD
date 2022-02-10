@@ -8,7 +8,7 @@ _srcname=linux-5.16
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
 pkgver=5.16.8
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -36,7 +36,7 @@ md5sums=('e6680ce7c989a3efe58b51e3f3f0bf93'
          'fc826c917102f2f2d16690fe9322464f'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
-         'debc07879e11ea64ba405a126a50443b'
+         '3d83b262a6d0ff6231e433d947ada5a4'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
