@@ -4,10 +4,10 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux-clockworkpi-a06
-_srcname=linux-5.18
+_srcname=linux-5.19
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
-pkgver=5.18.15
+pkgver=5.19.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,7 +15,7 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
         '0001-arm64-dts-clockworkpi-a06-dts.patch' # Potentially upstreamable, needs cleanup
@@ -26,15 +26,14 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('58e80452e2d8e1993cd7ec95e697ab5a'
-         '0ad10d8f86e46763df4606dfb7d7c4c3'
+md5sums=('f91bfe133d2cb1692f705947282e123a'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          '8faf3d20b4c87cb05519e8ef56bfeaa6'
          'f4895fa5b399dec785102f3a4a091175'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
-         '36402b6776d12a2e31cff58814727eae'
+         '690536056a80f05020ca5cd69edb0c77'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -43,7 +42,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   #patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
