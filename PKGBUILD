@@ -3,37 +3,35 @@
 # Contributor: Max Fierke <max@maxfierke.com>
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
-pkgbase=linux-clockworkpi-a06
-_srcname=linux-5.19
+pkgbase=linux-clockworkpi-a06-drm-misc-next
+_srcname=kernel-drm-misc
 _kernelname=${pkgbase#linux}
-_desc="Kernel for ClockworkPI A06"
-pkgver=5.19.0
+_desc="Kernel for ClockworkPI A06 (drm-misc-next)"
+pkgver=20$(date +%y%m%d)
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc')
 options=('!strip')
-source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        #"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+source=("$_srcname"::"git+file:///home/mfierke/src/kernel-drm-misc#branch=mf-cwd686_panel_v2"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
         '0001-arm64-dts-clockworkpi-a06-dts.patch' # Potentially upstreamable, needs cleanup
         '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
-        '0004-gpu-drm-panel-add-cwd686-driver.patch' # Potentially upstreamable, needs cleanup
+        #'0004-gpu-drm-panel-add-cwd686-driver.patch' # Potentially upstreamable, needs cleanup
         '0005-video-backlight-add-ocp8178-driver.patch' # Potentially upstreamable, needs cleanup
         'config'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('f91bfe133d2cb1692f705947282e123a'
+md5sums=('SKIP'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
-         '8faf3d20b4c87cb05519e8ef56bfeaa6'
+         '733c2db8050c413a6512fc6186234fc5'
          '3ce64f0b521cde07eeb82683a55663a0'
-         'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
-         '690536056a80f05020ca5cd69edb0c77'
+         '29ac8d9d680f0ac6fb6091726d6ba90b'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -53,7 +51,7 @@ prepare() {
   # ClockworkPI DevTerm A06 patches
   patch -Np1 -i "${srcdir}/0001-arm64-dts-clockworkpi-a06-dts.patch"                    # DTS
   patch -Np1 -i "${srcdir}/0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch"     # Battery/Charger
-  patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
+  #patch -Np1 -i "${srcdir}/0004-gpu-drm-panel-add-cwd686-driver.patch"                  # LCD
   patch -Np1 -i "${srcdir}/0005-video-backlight-add-ocp8178-driver.patch"               # Backlight
 
   cat "${srcdir}/config" > ./.config
@@ -104,7 +102,7 @@ _package() {
   optdepends=('crda: to set the correct wireless channels of your country'
               'linux-firmware: selection of common firmware files')
   provides=('kernel26' "linux=${pkgver}")
-  conflicts=('kernel26' 'linux', 'linux-armv8' 'linux-aarch64')
+  conflicts=('kernel26' 'linux', 'linux-armv8' 'linux-aarch64', 'linux-clockworkpi-a06')
   replaces=()
   backup=("etc/mkinitcpio.d/${pkgbase}.preset")
   install=${pkgname}.install
@@ -159,7 +157,7 @@ _package() {
 _package-headers() {
   pkgdesc="Header files and scripts for building modules for linux kernel - ${_desc}"
   provides=("linux-headers=${pkgver}")
-  conflicts=('linux-headers', 'linux-aarch64-headers')
+  conflicts=('linux-headers', 'linux-aarch64-headers', 'linux-clockworkpi-a06-headers')
   replaces=()
 
   cd ${_srcname}

@@ -346,7 +346,7 @@ index 000000000..1c8fb451a
 +	};
 +
 +	dsi_panel: panel {
-+		compatible = "cw,cwd686";
++		compatible = "clockworkpi,cwd686", "cw,cwd686";
 +		reg = <0>;
 +		backlight = <&ocp8178_backlight>;
 +		reset-gpios = <&gpio2 RK_PD4 GPIO_ACTIVE_HIGH>;
@@ -354,6 +354,8 @@ index 000000000..1c8fb451a
 +		dsi,lanes = <4>;
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&panel_reset>;
++		iovcc-supply = <&vcc_1v8>;
++		vci-supply = <&reg_aldo2>;
 +		status = "okay";
 +
 +		port {
@@ -858,7 +860,7 @@ index 000000000..1c8fb451a
 +	max-frequency = <150000000>;
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc0_det_l>;
-+//	sd-uhs-sdr104;
++	sd-uhs-sdr104;
 +	vmmc-supply = <&vcc3v0_sd>;
 +	vqmmc-supply = <&vcc_sdio>;
 +	status = "okay";
