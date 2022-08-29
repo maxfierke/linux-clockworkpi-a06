@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..1c8fb451a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-clockworkpi-a06.dts	2021-12-05 20:46:08.851233995 -0600
-@@ -0,0 +1,1014 @@
+@@ -0,0 +1,1012 @@
 +/*
 + * SPDX-License-Identifier: (GPL-2.0+ or MIT)
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -384,11 +384,9 @@ index 000000000..1c8fb451a
 +
 +};
 +
-+/*
 +&uart2 {
 +	status = "okay";
 +};
-+*/
 +
 +&i2c0 {
 +	clock-frequency = <400000>;
