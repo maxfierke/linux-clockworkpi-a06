@@ -4,18 +4,18 @@
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 
 pkgbase=linux-clockworkpi-a06
-_srcname=linux-5.19
+_srcname=linux-6.0
 _kernelname=${pkgbase#linux}
 _desc="Kernel for ClockworkPI A06"
-pkgver=5.19.12
+pkgver=6.0.0
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc')
 options=('!strip')
-source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
+        #"http://www.kernel.org/pub/linux/kernel/v6.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
         '3026-phy-rockchip-inno-usb2-Return-zero-after-otg-sync.patch' # From list: https://patchwork.kernel.org/project/linux-rockchip/patch/20220824122543.174730-1-pgwipeout@gmail.com/
@@ -27,8 +27,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('f91bfe133d2cb1692f705947282e123a'
-         '2f9945a50613017d430f7091be9939f8'
+md5sums=('d681bd1d62d48049a4874646f6774d92'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
          '905f6a0443d8af923bdc506b1fe2396e'
@@ -36,7 +35,7 @@ md5sums=('f91bfe133d2cb1692f705947282e123a'
          '3ce64f0b521cde07eeb82683a55663a0'
          'f2577b39b1eda4a18b9111775843f83b'
          '3203d018422505068fc22b909df871aa'
-         '584ef9b491f7950efcff35a119231138'
+         '25dd5b31faae6b8fb6b1bad4924030ed'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -45,7 +44,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   # ALARM patches
   #patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
