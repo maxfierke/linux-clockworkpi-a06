@@ -50,7 +50,6 @@ prepare() {
   
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0023-drm-rockchip-support-gamma-control-on-RK3399.patch"                     #RK3399
-  patch -Np1 -i "${srcdir}/3026-phy-rockchip-inno-usb2-Return-zero-after-otg-sync.patch"                # USB
   
   # ClockworkPI DevTerm A06 patches
   patch -Np1 -i "${srcdir}/0001-arm64-dts-clockworkpi-a06-dts.patch"                    # DTS
