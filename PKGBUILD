@@ -18,7 +18,6 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v6.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0023-drm-rockchip-support-gamma-control-on-RK3399.patch' # From list: https://patchwork.kernel.org/project/linux-arm-kernel/cover/20211019215843.42718-1-sigmaris@gmail.com/
-        '3026-phy-rockchip-inno-usb2-Return-zero-after-otg-sync.patch' # From list: https://patchwork.kernel.org/project/linux-rockchip/patch/20220824122543.174730-1-pgwipeout@gmail.com/
         '0001-arm64-dts-clockworkpi-a06-dts.patch' # Potentially upstreamable, needs cleanup
         '0002-mfd-axp20x-add-clockworkpi-a06-power-support.patch' # Looks potentially incorrect. Probably not upstreamable
         '0004-gpu-drm-panel-add-cwd686-driver.patch' # Potentially upstreamable, needs cleanup
@@ -31,7 +30,6 @@ md5sums=('d681bd1d62d48049a4874646f6774d92'
          'ad711c00bda19988c7d063851ab80c34'
          '9e6b7f44db105fef525d715213dce7cf'
          'e2f08e3bc6d1b36e7000233abab1bfc7'
-         '905f6a0443d8af923bdc506b1fe2396e'
          'dc6cb17e3c05f38fda8e52abadd2ec34'
          '3ce64f0b521cde07eeb82683a55663a0'
          'f2577b39b1eda4a18b9111775843f83b'
